@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--선발-->
+    <TextView
+        android:id="@+id/tvSenbatsu"
+        style="@style/DangerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:paddingBottom="1dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="1dp"
+        android:text="@string/selected"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <!--미디어선발-->
+    <TextView
+        android:id="@+id/tvMediaSenbatsu"
+        style="@style/DangerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:paddingBottom="1dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="1dp"
+        android:text="@string/media_selected"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <!--언더걸즈-->
+    <TextView
+        android:id="@+id/tvUnderGirls"
+        style="@style/SuccessLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:paddingBottom="1dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="1dp"
+        android:text="@string/under_girls"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <!--넥스트걸즈-->
+    <TextView
+        android:id="@+id/tvNextGirls"
+        style="@style/InfoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:paddingBottom="1dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="1dp"
+        android:text="@string/next_girls"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <!--퓨쳐걸즈-->
+    <TextView
+        android:id="@+id/tvFutureGirls"
+        style="@style/WarningLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:paddingBottom="1dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="1dp"
+        android:text="@string/future_girls"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <!--업커밍걸즈-->
+    <TextView
+        android:id="@+id/tvUpcomingGirls"
+        style="@style/PurpleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:paddingBottom="1dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="1dp"
+        android:text="@string/upcoming_girls"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+</LinearLayout>

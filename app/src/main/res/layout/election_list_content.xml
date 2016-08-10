@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/card_background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.summertaker.akb48guide.election.ElectionListActivity"
+    tools:showIn="@layout/election_list_activity">
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:divider="@color/listview_divider"
+        android:dividerHeight="5dp"
+        android:drawSelectorOnTop="true"
+        android:listSelector="@drawable/selector_card"
+        android:padding="@dimen/activity_padding"
+        android:scrollbarStyle="outsideOverlay" />
+
+</RelativeLayout>
