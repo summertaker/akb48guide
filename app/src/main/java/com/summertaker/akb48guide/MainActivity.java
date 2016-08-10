@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             MenuData menuData = mMenuDatas.get(position);
                             String menuId = menuData.getId();
-                            Intent intent = null;
+                            Intent intent;
                             switch (menuId) {
                                 case Config.MAIN_ACTION_BLOG:
                                     intent = new Intent(mContext, BlogSelectActivity.class);
@@ -223,22 +223,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             super.onBackPressed();
         }
     }
-
-    /*
-    @Override
-    public void onYoutubeSelected(String action, SiteData websiteData) {
-        //Log.e(mTag, websiteData.getUrl());
-        Intent intent = new Intent(mContext, YoutubeListActivity.class);
-        intent.putExtra("websiteData", websiteData);
-        runActivity(intent, true);
-    }
-
-    @Override
-    public void onRawPhotoSiteSelected(String action, SiteData websiteData) {
-        Intent intent = new Intent(mContext, RawPhotoOfficialListActivity.class);
-        intent.putExtra("websiteData", websiteData);
-        runActivity(intent, true);
-    }*/
 
     private void goSettings() {
         Intent intent = new Intent(mContext, SettingActivity.class);
