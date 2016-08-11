@@ -25,8 +25,6 @@ import java.util.ArrayList;
 
 public class MemberDetailBlogAdapter extends BaseDataAdapter {
 
-    private String mTag = "### MemberViewBlogAdapter";
-
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private ArrayList<WebData> mDataList = null;
@@ -74,7 +72,7 @@ public class MemberDetailBlogAdapter extends BaseDataAdapter {
 
         String imageUrl = webData.getImageUrl();
         if (imageUrl == null || imageUrl.isEmpty()) {
-
+            holder.loLoading.setVisibility(View.GONE);
         } else {
             final String cacheId = Util.urlToId(imageUrl);
             final String cacheUri = ImageUtil.getValidCacheUri(cacheId);

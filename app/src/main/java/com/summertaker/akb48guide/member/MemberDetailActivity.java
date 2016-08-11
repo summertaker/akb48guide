@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
@@ -33,6 +34,8 @@ import com.summertaker.akb48guide.data.TeamData;
 import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.parser.BaseParser;
 import com.summertaker.akb48guide.parser.NamuwikiParser;
+import com.summertaker.akb48guide.parser.Pedia48Parser;
+import com.summertaker.akb48guide.parser.Pedia48ProfileParser;
 import com.summertaker.akb48guide.util.Translator;
 import com.summertaker.akb48guide.util.Util;
 
@@ -60,6 +63,7 @@ public class MemberDetailActivity extends BaseActivity {
     private ProgressBar mPbPictureLoading;
 
     private ArrayList<WebData> mBlogList = new ArrayList<>();
+    private ArrayList<WebData> mPhotoList = new ArrayList<>();
 
     //private CacheManager mCacheManager;
     private OshimenManager mOshimenManager;
@@ -129,6 +133,7 @@ public class MemberDetailActivity extends BaseActivity {
 
         loadProfile();
         loadNamuwiki();
+        loadPedia48();
     }
 
     private void loadProfile() {
@@ -211,6 +216,8 @@ public class MemberDetailActivity extends BaseActivity {
 
         if (url.contains("namu.wiki")) {
             parseNamuwiki(url, response);
+        } else if (url.contains("48pedia.org")) {
+            parsePedia48(url, response);
         } else {
             parseProfile(url, response);
         }
@@ -637,8 +644,6 @@ public class MemberDetailActivity extends BaseActivity {
                 }
             }
         }
-
-        //renderBlog();
     }
 
     public void onMenuItemClick(MenuData menuData) {
@@ -686,6 +691,40 @@ public class MemberDetailActivity extends BaseActivity {
         //showToolbarProgressBar();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }*/
+
+    private void loadPedia48() {
+        String url = "http://48pedia.org/" + Util.removeSpace(mMemberData.getName());
+        requestData(url, Config.USER_AGENT_WEB);
+    }
+
+    private void parsePedia48(String url, String response) {
+        Pedia48ProfileParser pedia48ProfileParser = new Pedia48ProfileParser();
+        pedia48ProfileParser.parseProfileImage(response, mPhotoList);
+
+        renderPedia48();
+    }
+
+    private void renderPedia48() {
+        if (mPhotoList.size() == 0) {
+            return;
+        }
+        LinearLayout lo = (LinearLayout) findViewById(R.id.loPedia48);
+        lo.setVisibility(View.VISIBLE);
+
+        MemberDetailPedia48Adapter adapter = new MemberDetailPedia48Adapter(mContext, mPhotoList);
+        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gvPedia48);
+        if (gridView != null) {
+            gridView.setExpanded(true);
+            gridView.setAdapter(adapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //MenuData menuData = (MenuData) parent.getItemAtPosition(position);
+                    //onMenuItemClick(menuData);
+                }
+            });
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

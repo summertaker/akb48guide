@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/loYahooImageSearch"
+    android:id="@+id/loPedia48"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
@@ -13,7 +13,7 @@
         android:background="@color/menu_divider" />
 
     <LinearLayout
-        android:id="@+id/loYahooImageSearchHeader"
+        android:id="@+id/loPedia48Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_menu_bar"
@@ -69,17 +69,18 @@
     -->
 
     <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
-        android:id="@+id/gvYahooImageSearch"
+        android:id="@+id/gvPedia48"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/card_background"
         android:drawSelectorOnTop="true"
         android:gravity="center"
-        android:horizontalSpacing="1dp"
-        android:listSelector="@drawable/selector_transparent"
-        android:numColumns="4"
-        android:padding="5dp"
+        android:horizontalSpacing="5dp"
+        android:listSelector="@drawable/selector_card"
+        android:numColumns="2"
+        android:padding="7dp"
         android:scrollbars="none"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="1dp" />
+        android:verticalSpacing="5dp" />
 
 </LinearLayout>

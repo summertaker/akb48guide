@@ -1,9 +1,12 @@
 package com.summertaker.akb48guide.parser;
 
+import android.util.Log;
+
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.util.Util;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -80,10 +83,6 @@ public class Pedia48ProfileParser extends BaseParser {
                             memberData.setNanagogoUrl(href);
                         } else if (href.contains("ameblo.jp")) {
                             memberData.setBlogUrl(href);
-                        } else {
-                            //if (text.contains("ブログ")) {
-                            //    memberData.setBlogUrl(href);
-                            //}
                         }
                     }
                 }
@@ -91,7 +90,11 @@ public class Pedia48ProfileParser extends BaseParser {
         }
     }
 
-    public void parseProfileImage(Document doc, ArrayList<WebData> dataList) {
+    public void parseProfileImage(String response, ArrayList<WebData> dataList) {
+        response = clean(response);
+        //Log.e(mTag, response);
+
+        Document doc = Jsoup.parse(response);
         Element ul = doc.select("ul.gallery").first();
 
         if (ul != null) {
@@ -133,6 +136,8 @@ public class Pedia48ProfileParser extends BaseParser {
                         caption = matcher.group(1).trim();
                     }
                 }
+
+                //Log.e(mTag, caption + " " + src);
 
                 WebData webData = new WebData();
                 webData.setTitle(caption);
