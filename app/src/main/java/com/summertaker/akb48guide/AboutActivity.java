@@ -1,10 +1,6 @@
 package com.summertaker.akb48guide;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.Config;
