@@ -33,8 +33,6 @@ public class Config {
     public final static String GROUP_ID_SNH48 = "SNH48";
     public final static String GROUP_ID_BEJ48 = "BEJ48";
     public final static String GROUP_ID_GNZ48 = "GNZ48";
-    public final static String GROUP_ID_NOGIZAKA46 = "NOGIZAKA46";
-    public final static String GROUP_ID_KEYAKIZAKA46 = "KEYAKIZAKA46";
 
     public final static String BLOG_ID_AKB48_OFFICIAL = "AKB48_OFFICIAL";
     public final static String BLOG_ID_AKB48_TEAM8    = "AKB48_TEAM8";
@@ -45,8 +43,6 @@ public class Config {
     public final static String BLOG_ID_HKT48_OFFICIAL = "HKT48_OFFICIAL";
     public final static String BLOG_ID_NGT48_MANAGER  = "NGT48_MANAGER";
     public final static String BLOG_ID_NGT48_PHOTOLOG = "NGT48_PHOTOLOG";
-    public final static String BLOG_ID_NOGIZAKA46_OFFICIAL = "NOGIZAKA16";
-    public final static String BLOG_ID_KEYAKIZAKA46_OFFICIAL = "KEYAKIZAKA46";
 
     public final static String MAIN_ACTION_MEMBER = "MEMBER";
     public final static String MAIN_ACTION_BLOG = "BLOG";
@@ -56,6 +52,7 @@ public class Config {
     public final static String MAIN_ACTION_MEMORY = "MEMORY";
     public final static String MAIN_ACTION_QUIZ = "QUIZ";
     public final static String MAIN_ACTION_RAW_PHOTO = "RAW_PHOTO";
+    public final static String MAIN_ACTION_PUZZLE = "PUZZLE";
     public final static String MAIN_ACTION_OSHIMEN = "OSHIMEN";
 
     public final static String TOOLBAR_ICON_LOGO = "logo";
@@ -78,15 +75,6 @@ public class Config {
     public final static String SITE_ID_YAHOO_IMAGE_SEARCH = "yahooImageSearch";
 
     public final static String AKB48_GROUP_SHOP_DOMAIN = "shopping.akb48-group.com";
-
-    /*public final static int IMAGE_FULL_WIDTH = 480;
-    public final static int IMAGE_FULL_HEIGHT = 480;
-    public final static int IMAGE_GRID2_WIDTH = 180;
-    public final static int IMAGE_GRID2_HEIGHT = 220;
-    public final static int IMAGE_GRID3_WIDTH = 120;
-    public final static int IMAGE_GRID3_HEIGHT = 147;
-    public final static int IMAGE_GRID4_WIDTH = 100;
-    public final static int IMAGE_GRID4_HEIGHT = 100;*/
 
     public final static int PROGRESS_BAR_COLOR_WHITE = 0xffffffff;
     public final static int PROGRESS_BAR_COLOR_NORMAL = 0x77e91e63;

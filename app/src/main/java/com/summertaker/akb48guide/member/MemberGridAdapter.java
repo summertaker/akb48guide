@@ -142,14 +142,6 @@ public class MemberGridAdapter extends BaseDataAdapter {
                     holder.tvName.setBackgroundColor(ContextCompat.getColor(mContext, R.color.gnz48background));
                     holder.tvName.setTextColor(ContextCompat.getColor(mContext, R.color.gnz48text));
                     break;
-                case Config.GROUP_ID_NOGIZAKA46:
-                    holder.tvName.setBackgroundColor(ContextCompat.getColor(mContext, R.color.nogizaka48background));
-                    holder.tvName.setTextColor(ContextCompat.getColor(mContext, R.color.nogizaka48text));
-                    break;
-                case Config.GROUP_ID_KEYAKIZAKA46:
-                    holder.tvName.setBackgroundColor(ContextCompat.getColor(mContext, R.color.keyakizaka48background));
-                    holder.tvName.setTextColor(ContextCompat.getColor(mContext, R.color.keyakizaka48text));
-                    break;
             }
             convertView.setTag(holder);
         } else {

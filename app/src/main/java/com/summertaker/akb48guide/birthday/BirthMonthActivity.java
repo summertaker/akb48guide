@@ -88,19 +88,7 @@ public class BirthMonthActivity extends BaseActivity {
 
         mCacheManager = new CacheManager(mSharedPreferences);
 
-        String url = "";
-        switch (mGroupData.getId()) {
-            case Config.GROUP_ID_NOGIZAKA46:
-                url = "http://48pedia.org/%E4%B9%83%E6%9C%A8%E5%9D%8246%E3%83%A1%E3%83%B3%E3%83%90%E3%83%BC%E4%B8%80%E8%A6%A7";
-                break;
-            case Config.GROUP_ID_KEYAKIZAKA46:
-                url = "http://48pedia.org/%E6%AC%85%E5%9D%8246%E3%83%A1%E3%83%B3%E3%83%90%E3%83%BC%E4%B8%80%E8%A6%A7";
-                break;
-            default:
-                url = "http://48pedia.org/" + mGroupData.getId() + "%E3%83%A1%E3%83%B3%E3%83%90%E3%83%BC%E4%B8%80%E8%A6%A7";
-                break;
-        }
-
+        String url =  "http://48pedia.org/" + mGroupData.getId() + "%E3%83%A1%E3%83%B3%E3%83%90%E3%83%BC%E4%B8%80%E8%A6%A7";
         requestData(url, Config.USER_AGENT_WEB);
     }
 

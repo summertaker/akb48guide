@@ -166,4 +166,7 @@
     <color name="progress_color_red">#ED1E79</color>
     <color name="progress_color_orange">#FFA500</color>
 
+    <color name="puzzle_background">#607d8b</color>
+    <color name="puzzle_card_loading_background">#eceff1</color>
+
 </resources>

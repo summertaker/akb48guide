@@ -90,14 +90,6 @@ public class MemoryActivity extends BaseActivity implements MemoryFragment.Callb
         String url = mGroupData.getUrl();
         String userAgent = Config.USER_AGENT_WEB;
 
-        switch (mGroupData.getId()) {
-            //case Config.GROUP_ID_NGT48:
-            case Config.GROUP_ID_NOGIZAKA46:
-                userAgent = Config.USER_AGENT_MOBILE;
-                url = mGroupData.getMobileUrl(); // desktop html은 thumbnail 이미지를 css의 sprite 사용함.
-                break;
-        }
-
         requestData(url, userAgent);
         requestWiki();
     }
@@ -158,16 +150,7 @@ public class MemoryActivity extends BaseActivity implements MemoryFragment.Callb
         if (url.contains("wiki")) {
             //Log.e(mTag, response);
             mWikiMemberList = new ArrayList<>();
-
-            switch (mGroupData.getId()) {
-                case Config.GROUP_ID_NOGIZAKA46:
-                case Config.GROUP_ID_KEYAKIZAKA46:
-                    mWikiParser.parse46List(response, mGroupData, mWikiMemberList);
-                    break;
-                default:
-                    mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
-                    break;
-            }
+            mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
             isWikiLoaded = true;
         } else {
             boolean isMobile = url.equals(mGroupData.getMobileUrl());

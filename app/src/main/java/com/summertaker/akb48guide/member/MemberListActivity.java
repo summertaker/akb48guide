@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -110,15 +109,6 @@ public class MemberListActivity extends BaseActivity {
             mMemberList = new ArrayList<>();
             String url = mGroupData.getUrl();
             String userAgent = Config.USER_AGENT_WEB;
-
-            switch (mGroupData.getId()) {
-                case Config.GROUP_ID_NOGIZAKA46:
-                    // pc 사이트 html은 멤버 목록에서 thumbnail 이미지를 css의 sprite 사용함.
-                    // PC 사이트 상세화면은 네트웍 타임아웃 에러 발생하니 모바일 사이트 사용한다.
-                    url = mGroupData.getMobileUrl();
-                    userAgent = Config.USER_AGENT_MOBILE;
-                    break;
-            }
             requestData(url, userAgent);
         } else {
             //-----------------------------------------
@@ -139,32 +129,32 @@ public class MemberListActivity extends BaseActivity {
         //String cacheData = mCacheManager.load(cacheId);
 
         //if (cacheData == null) {
-            StringRequest strReq = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    //Log.d(mTag, response.toString());
-                    //mCacheManager.save(cacheId, response);
-                    parseData(url, response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    mErrorMessage = Util.getErrorMessage(error);
-                    parseData(url, "");
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<>();
-                    //headers.put("Content-Type", "application/json; charset=utf-8");
-                    headers.put("User-agent", userAgent);
-                    return headers;
-                }
-            };
+        StringRequest strReq = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //Log.d(mTag, response.toString());
+                //mCacheManager.save(cacheId, response);
+                parseData(url, response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                mErrorMessage = Util.getErrorMessage(error);
+                parseData(url, "");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                //headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("User-agent", userAgent);
+                return headers;
+            }
+        };
 
-            // Adding request to request queue
-            String tag_string_req = "string_req";
-            BaseApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+        // Adding request to request queue
+        String tag_string_req = "string_req";
+        BaseApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
         //} else {
         //    parseData(url, cacheData);
         //}
@@ -186,15 +176,7 @@ public class MemberListActivity extends BaseActivity {
         if (url.contains("wiki")) {
             //Log.e(mTag, response);
             mWikiMemberList = new ArrayList<>();
-            switch (mGroupData.getId()) {
-                case Config.GROUP_ID_NOGIZAKA46:
-                case Config.GROUP_ID_KEYAKIZAKA46:
-                    mWikiParser.parse46List(response, mGroupData, mWikiMemberList);
-                    break;
-                default:
-                    mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
-                    break;
-            }
+            mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
             isWikiLoaded = true;
         } else {
             BaseParser baseParser = new BaseParser();

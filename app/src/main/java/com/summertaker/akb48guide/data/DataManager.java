@@ -229,20 +229,6 @@ public class DataManager {
         return dataList;
     }
 
-    public ArrayList<SiteData> getRawPhotoSiteList() {
-        ArrayList<SiteData> dataList = new ArrayList<>();
-
-        dataList.add(new SiteData(null, Config.GROUP_ID_NOGIZAKA46,
-                mRes.getString(R.string.raw_photo),
-                R.drawable.logo_nogizaka46,
-                "http://suzukazedayori.com/",
-                null,
-                null
-        ));
-
-        return dataList;
-    }
-
     public ArrayList<SiteData> getYoutubeList() {
         ArrayList<SiteData> dataList = new ArrayList<>();
 

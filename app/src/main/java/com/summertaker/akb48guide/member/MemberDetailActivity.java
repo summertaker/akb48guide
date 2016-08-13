@@ -141,15 +141,6 @@ public class MemberDetailActivity extends BaseActivity {
 
         String url = mMemberData.getProfileUrl();
         String userAgent = Config.USER_AGENT_WEB;
-
-        switch (mMemberData.getGroupId()) {
-            case Config.GROUP_ID_HKT48:
-            //case Config.GROUP_ID_NGT48:
-            case Config.GROUP_ID_NOGIZAKA46:
-                mIsMobile = true;
-                userAgent = Config.USER_AGENT_MOBILE;
-                break;
-        }
         requestData(url, userAgent);
     }
 

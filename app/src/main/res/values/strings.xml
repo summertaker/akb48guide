@@ -183,5 +183,8 @@
     <string name="read_more">Read more</string>
     <string name="akb48_group_shop">AKB48 Group Shop</string>
     <string name="chibakan">Chibakan</string>
+    <string name="puzzle">Puzzle</string>
+    <string name="title_activity_puzzle">PuzzleActivity</string>
+    <string name="title_activity_puzzle_level">PuzzleLevelActivity</string>
 
 </resources>

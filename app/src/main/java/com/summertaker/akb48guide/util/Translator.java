@@ -21,26 +21,22 @@ public class Translator {
         String result = name;
         //Log.e("###", name);
 
-        if (groupId.equals(Config.GROUP_ID_KEYAKIZAKA46)) {
+        result = Util.removeSpace(result.replace("チーム", "").replace("队", "").replace("Team", "").replace("TEAM", ""));
+        result = String.format(mResources.getString(R.string.team_s), result);
 
-        } else {
-            result = Util.removeSpace(result.replace("チーム", "").replace("队", "").replace("Team", "").replace("TEAM", ""));
-            result = String.format(mResources.getString(R.string.team_s), result);
-
-            if (name.contains("Understudy") || name.contains("研究生")) {
-                switch (groupId) {
-                    case Config.GROUP_ID_AKB48:
-                        result = result.replace("Understudy", "").replace("研究生", "");
-                        result = result + " " + mResources.getString(R.string.understudy);
-                        break;
-                    default:
-                        result = mResources.getString(R.string.understudy);
-                        break;
-                }
-            } else if (name.contains("Part-time AKB")) {
-                //result = result.replace("Part-timeAKB", "");
-                result = mResources.getString(R.string.part_time_akb);
+        if (name.contains("Understudy") || name.contains("研究生")) {
+            switch (groupId) {
+                case Config.GROUP_ID_AKB48:
+                    result = result.replace("Understudy", "").replace("研究生", "");
+                    result = result + " " + mResources.getString(R.string.understudy);
+                    break;
+                default:
+                    result = mResources.getString(R.string.understudy);
+                    break;
             }
+        } else if (name.contains("Part-time AKB")) {
+            //result = result.replace("Part-timeAKB", "");
+            result = mResources.getString(R.string.part_time_akb);
         }
 
         return result;

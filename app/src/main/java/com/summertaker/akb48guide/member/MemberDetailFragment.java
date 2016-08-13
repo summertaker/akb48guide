@@ -34,10 +34,8 @@ import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.parser.Akb48Parser;
 import com.summertaker.akb48guide.parser.Hkt48Parser;
 import com.summertaker.akb48guide.parser.Jkt48Parser;
-import com.summertaker.akb48guide.parser.Keyakizaka46Parser;
 import com.summertaker.akb48guide.parser.Ngt48Parser;
 import com.summertaker.akb48guide.parser.Nmb48Parser;
-import com.summertaker.akb48guide.parser.Nogizaka46Parser;
 import com.summertaker.akb48guide.parser.Ske48Parser;
 import com.summertaker.akb48guide.util.ImageUtil;
 import com.summertaker.akb48guide.util.Util;
@@ -123,9 +121,6 @@ public class MemberDetailFragment extends BaseFragment implements BaseFragmentIn
             String cacheData = mCacheManager.load(mMemberData.getId());
             if (cacheData == null) {
                 String userAgent = Config.USER_AGENT_WEB;
-                if (mMemberData.getGroupId().equals(Config.GROUP_ID_NOGIZAKA46)) {
-                    userAgent = Config.USER_AGENT_MOBILE;
-                }
                 requestData(mMemberData.getProfileUrl(), userAgent, mMemberData.getId());
             } else {
                 parseData(mMemberData.getProfileUrl(), cacheData);
@@ -212,18 +207,6 @@ public class MemberDetailFragment extends BaseFragment implements BaseFragmentIn
             case Config.GROUP_ID_JKT48:
                 Jkt48Parser jkt48Parser = new Jkt48Parser();
                 hashMap = jkt48Parser.parseProfile(response);
-                break;
-            case Config.GROUP_ID_NOGIZAKA46:
-                Nogizaka46Parser nogizaka46Parser = new Nogizaka46Parser();
-                //hashMap = nogizaka46Parser.parseProfile(response);
-                hashMap = nogizaka46Parser.parseMobileProfile(response);
-                //nogizaka46Parser.parseBlog(response, mBlogDataList);
-                //Log.e(mTag, "mBlogDataList.size(): " + mBlogDataList.size());
-                break;
-            case Config.GROUP_ID_KEYAKIZAKA46:
-                Keyakizaka46Parser keyakizaka46Parser = new Keyakizaka46Parser();
-                hashMap = keyakizaka46Parser.parseProfile(response);
-                keyakizaka46Parser.parseBlogList(response, mBlogList);
                 break;
         }
         //Log.e(mTag, hashMap.toString());

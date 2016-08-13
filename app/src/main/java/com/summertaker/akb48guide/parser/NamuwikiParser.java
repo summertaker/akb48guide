@@ -1,7 +1,5 @@
 package com.summertaker.akb48guide.parser;
 
-import android.util.Log;
-
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
@@ -18,19 +16,7 @@ import java.util.HashMap;
 public class NamuwikiParser extends BaseParser {
 
     public String getUrl(String groupId) {
-        String url = "";
-        switch (groupId) {
-            case Config.GROUP_ID_NOGIZAKA46:
-                url = "https://namu.wiki/w/%EB%85%B8%EA%B8%B0%EC%9E%90%EC%B9%B446/%EB%A9%A4%EB%B2%84";
-                break;
-            case Config.GROUP_ID_KEYAKIZAKA46:
-                url = "https://namu.wiki/w/%EC%BC%80%EC%95%BC%ED%82%A4%EC%9E%90%EC%B9%B446/%EB%A9%A4%EB%B2%84";
-                break;
-            default:
-                url = "https://namu.wiki/w/" + groupId + "/%EB%A9%A4%EB%B2%84%20%EC%9D%BC%EB%9E%8C";
-                break;
-        }
-        return url;
+        return "https://namu.wiki/w/" + groupId + "/%EB%A9%A4%EB%B2%84%20%EC%9D%BC%EB%9E%8C";
     }
 
     public void parse48List(String response, GroupData groupData, ArrayList<MemberData> memberList) {

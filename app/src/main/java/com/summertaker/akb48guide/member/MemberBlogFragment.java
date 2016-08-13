@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseApplication;
@@ -31,10 +29,8 @@ import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.parser.Akb48Parser;
 import com.summertaker.akb48guide.parser.Hkt48Parser;
 import com.summertaker.akb48guide.parser.Jkt48Parser;
-import com.summertaker.akb48guide.parser.Keyakizaka46Parser;
 import com.summertaker.akb48guide.parser.Ngt48Parser;
 import com.summertaker.akb48guide.parser.Nmb48Parser;
-import com.summertaker.akb48guide.parser.Nogizaka46Parser;
 import com.summertaker.akb48guide.parser.Ske48Parser;
 import com.summertaker.akb48guide.util.Util;
 
@@ -105,9 +101,6 @@ public class MemberBlogFragment extends BaseFragment implements BaseFragmentInte
 
             if (cacheData == null) {
                 String userAgent = Config.USER_AGENT_WEB;
-                if (mMemberData.getGroupId().equals(Config.GROUP_ID_NOGIZAKA46)) {
-                    userAgent = Config.USER_AGENT_MOBILE;
-                }
                 requestData(mMemberData.getProfileUrl(), userAgent, mCacheId);
             } else {
                 //Log.e(mTag, cacheData);
@@ -167,13 +160,6 @@ public class MemberBlogFragment extends BaseFragment implements BaseFragmentInte
                 break;
             case Config.GROUP_ID_JKT48:
                 Jkt48Parser jkt48Parser = new Jkt48Parser();
-                break;
-            case Config.GROUP_ID_NOGIZAKA46:
-                Nogizaka46Parser nogizaka46Parser = new Nogizaka46Parser();
-                break;
-            case Config.GROUP_ID_KEYAKIZAKA46:
-                Keyakizaka46Parser keyakizaka46Parser = new Keyakizaka46Parser();
-                keyakizaka46Parser.parseBlogList(response, mWebDataList);
                 break;
         }
 

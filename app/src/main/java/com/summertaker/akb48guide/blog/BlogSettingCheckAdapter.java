@@ -70,16 +70,6 @@ public class BlogSettingCheckAdapter extends BaseDataAdapter {
             holder.cbMember = (CheckBox) convertView.findViewById(R.id.cbMember);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
 
-            switch (siteData.getGroupId()) {
-                case Config.GROUP_ID_NOGIZAKA46:
-                    holder.tvName.setBackgroundColor(ContextCompat.getColor(mContext, R.color.nogizaka48background));
-                    holder.tvName.setTextColor(ContextCompat.getColor(mContext, R.color.nogizaka48text));
-                    break;
-                case Config.GROUP_ID_KEYAKIZAKA46:
-                    holder.tvName.setBackgroundColor(ContextCompat.getColor(mContext, R.color.keyakizaka48background));
-                    holder.tvName.setTextColor(ContextCompat.getColor(mContext, R.color.keyakizaka48text));
-                    break;
-            }
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

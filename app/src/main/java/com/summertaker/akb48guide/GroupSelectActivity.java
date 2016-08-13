@@ -17,6 +17,7 @@ import com.summertaker.akb48guide.data.DataManager;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.member.MemberListActivity;
 import com.summertaker.akb48guide.member.TeamListActivity;
+import com.summertaker.akb48guide.puzzle.PuzzleActivity;
 import com.summertaker.akb48guide.rawphoto.RawPhotoSelectActivity;
 import com.summertaker.akb48guide.quiz.MemoryActivity;
 import com.summertaker.akb48guide.quiz.QuizActivity;
@@ -119,14 +120,7 @@ public class GroupSelectActivity extends BaseActivity {
 
         switch (mAction) {
             case Config.MAIN_ACTION_MEMBER:
-                switch (groupData.getId()) {
-                    case Config.GROUP_ID_NOGIZAKA46:
-                        intent = new Intent(this, MemberListActivity.class);
-                        break;
-                    default:
-                        intent = new Intent(this, TeamListActivity.class);
-                        break;
-                }
+                intent = new Intent(this, TeamListActivity.class);
                 break;
             case Config.MAIN_ACTION_SLIDE:
                 if (displayProfilePhoto.equals(Config.SETTING_DISPLAY_OFFICIAL_PHOTO_YES)) {
@@ -146,6 +140,9 @@ public class GroupSelectActivity extends BaseActivity {
                 break;
             case Config.MAIN_ACTION_RAW_PHOTO:
                 intent = new Intent(this, RawPhotoSelectActivity.class);
+                break;
+            case Config.MAIN_ACTION_PUZZLE:
+                intent = new Intent(this, PuzzleActivity.class);
                 break;
         }
         //intent = new Intent(this, QuizResultActivity.class);

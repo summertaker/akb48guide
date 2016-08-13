@@ -30,9 +30,7 @@ import com.summertaker.akb48guide.data.SiteData;
 import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.parser.Akb48Parser;
 import com.summertaker.akb48guide.parser.BaseParser;
-import com.summertaker.akb48guide.parser.Keyakizaka46Parser;
 import com.summertaker.akb48guide.parser.Ngt48Parser;
-import com.summertaker.akb48guide.parser.Nogizaka46Parser;
 import com.summertaker.akb48guide.util.EndlessScrollListener;
 import com.summertaker.akb48guide.util.Util;
 

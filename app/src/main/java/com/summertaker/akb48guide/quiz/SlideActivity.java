@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -27,7 +26,6 @@ import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
-import com.summertaker.akb48guide.common.CacheManager;
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.GroupData;
@@ -127,14 +125,6 @@ public class SlideActivity extends BaseActivity {
         String url = mGroupData.getUrl();
         String userAgent = Config.USER_AGENT_WEB;
 
-        switch (mGroupData.getId()) {
-            //case Config.GROUP_ID_NGT48:
-            case Config.GROUP_ID_NOGIZAKA46:
-                userAgent = Config.USER_AGENT_MOBILE;
-                url = mGroupData.getMobileUrl(); // desktop html은 thumbnail 이미지를 css의 sprite 사용함.
-                break;
-        }
-
         requestData(url, userAgent);
         requestWiki();
 
@@ -201,15 +191,7 @@ public class SlideActivity extends BaseActivity {
             //Log.e(mTag, response);
             if (!response.isEmpty()) {
                 mWikiMemberList = new ArrayList<>();
-                switch (mGroupData.getId()) {
-                    case Config.GROUP_ID_NOGIZAKA46:
-                    case Config.GROUP_ID_KEYAKIZAKA46:
-                        mWikiParser.parse46List(response, mGroupData, mWikiMemberList);
-                        break;
-                    default:
-                        mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
-                        break;
-                }
+                mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
             }
             isWikiLoaded = true;
         } else {

@@ -5,7 +5,6 @@ import android.util.Log;
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
-import com.summertaker.akb48guide.data.SiteData;
 import com.summertaker.akb48guide.data.TeamData;
 import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.util.Util;
@@ -16,18 +15,11 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class BaseParser {
 
@@ -99,15 +91,6 @@ public class BaseParser {
                 Gnz48Parser gnz48Parser = new Gnz48Parser();
                 gnz48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
                 break;
-            case Config.GROUP_ID_NOGIZAKA46:
-                Nogizaka46Parser nogizaka46Parser = new Nogizaka46Parser();
-                //nogizaka46Parser.parseList(response, groupData, groupMemberList, teamDataList);
-                nogizaka46Parser.parseMobileMemberList(response, groupData, groupMemberList, teamDataList);
-                break;
-            case Config.GROUP_ID_KEYAKIZAKA46:
-                Keyakizaka46Parser keyakizaka46Parser = new Keyakizaka46Parser();
-                keyakizaka46Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
-                break;
         }
     }
 
@@ -158,21 +141,6 @@ public class BaseParser {
             case Config.GROUP_ID_GNZ48:
                 Gnz48Parser gnz48Parser = new Gnz48Parser();
                 hashMap = gnz48Parser.parseProfile(response);
-                break;
-            case Config.GROUP_ID_NOGIZAKA46:
-                Nogizaka46Parser nogizaka46Parser = new Nogizaka46Parser();
-                if (isMobile) {
-                    hashMap = nogizaka46Parser.parseMobileProfile(response);
-                } else {
-                    hashMap = nogizaka46Parser.parseProfile(response);
-                }
-                //nogizaka46Parser.parseBlog(response, mBlogDataList);
-                //Log.e(mTag, "mBlogDataList.size(): " + mBlogDataList.size());
-                break;
-            case Config.GROUP_ID_KEYAKIZAKA46:
-                Keyakizaka46Parser keyakizaka46Parser = new Keyakizaka46Parser();
-                hashMap = keyakizaka46Parser.parseProfile(response);
-                //keyakizaka46Parser.parseBlogList(response, mBlogList, false);
                 break;
         }
 

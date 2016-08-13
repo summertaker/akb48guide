@@ -1,16 +1,13 @@
 package com.summertaker.akb48guide.member;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -124,10 +121,6 @@ public class TeamGridAdapter extends BaseDataAdapter {
                 case Config.GROUP_ID_GNZ48:
                     holder.tvName.setBackgroundColor(ContextCompat.getColor(mContext, R.color.gnz48background));
                     holder.tvName.setTextColor(ContextCompat.getColor(mContext, R.color.gnz48text));
-                    break;
-                case Config.GROUP_ID_KEYAKIZAKA46:
-                    holder.tvName.setBackgroundColor(ContextCompat.getColor(mContext, R.color.keyakizaka48background));
-                    holder.tvName.setTextColor(ContextCompat.getColor(mContext, R.color.keyakizaka48text));
                     break;
             }
             convertView.setTag(holder);

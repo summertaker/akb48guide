@@ -3,7 +3,6 @@ package com.summertaker.akb48guide.parser;
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
-import com.summertaker.akb48guide.util.Util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,10 +17,6 @@ public class WikipediaEnParser extends BaseParser {
         switch (groupId) {
             case Config.GROUP_ID_AKB48:
                 url = "https://en.wikipedia.org/wiki/List_of_" + groupId + "_members";
-                break;
-            case Config.GROUP_ID_NOGIZAKA46:
-            case Config.GROUP_ID_KEYAKIZAKA46:
-                url = "https://en.wikipedia.org/wiki/" + Util.ucfirst(groupId.toLowerCase());
                 break;
             default:
                 url = "https://en.wikipedia.org/wiki/" + groupId;

@@ -1,29 +1,20 @@
 package com.summertaker.akb48guide.quiz;
 
 import android.content.Intent;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
@@ -101,7 +92,6 @@ public class SlideTextActivity extends BaseActivity implements SlideTextFragment
 
         switch (mGroupData.getId()) {
             case Config.GROUP_ID_NGT48:
-            case Config.GROUP_ID_NOGIZAKA46:
                 userAgent = Config.USER_AGENT_MOBILE;
                 url = mGroupData.getMobileUrl(); // desktop html은 thumbnail 이미지를 css의 sprite 사용함.
                 break;
@@ -173,15 +163,7 @@ public class SlideTextActivity extends BaseActivity implements SlideTextFragment
             //Log.e(mTag, response);
             if (!response.isEmpty()) {
                 mWikiMemberList = new ArrayList<>();
-                switch (mGroupData.getId()) {
-                    case Config.GROUP_ID_NOGIZAKA46:
-                    case Config.GROUP_ID_KEYAKIZAKA46:
-                        mWikiParser.parse46List(response, mGroupData, mWikiMemberList);
-                        break;
-                    default:
-                        mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
-                        break;
-                }
+                mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
             }
             isWikiLoaded = true;
         } else {

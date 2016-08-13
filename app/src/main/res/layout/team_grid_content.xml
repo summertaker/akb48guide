@@ -14,7 +14,6 @@
         android:id="@+id/pbLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_marginTop="80dp"
         android:background="@drawable/progress_bar_circle" />
 
@@ -25,13 +24,13 @@
         android:clipToPadding="false"
         android:drawSelectorOnTop="true"
         android:gravity="center"
-        android:horizontalSpacing="@dimen/grid3_spacing"
+        android:horizontalSpacing="10dp"
         android:listSelector="@drawable/selector_card"
         android:numColumns="3"
-        android:padding="@dimen/grid3_padding"
+        android:padding="10dp"
         android:scrollbarStyle="outsideOverlay"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="@dimen/grid3_spacing"
+        android:verticalSpacing="10dp"
         android:visibility="gone" />
 
 </RelativeLayout>
