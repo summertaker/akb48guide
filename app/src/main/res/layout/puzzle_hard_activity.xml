@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.summertaker.akb48guide.puzzle.PuzzleLevelActivity">
+    tools:context="com.summertaker.akb48guide.puzzle.PuzzleActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,6 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/puzzle_level_content" />
+    <include layout="@layout/puzzle_hard_content" />
 
 </android.support.design.widget.CoordinatorLayout>

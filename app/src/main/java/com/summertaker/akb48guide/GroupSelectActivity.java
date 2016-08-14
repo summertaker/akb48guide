@@ -15,14 +15,13 @@ import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.DataManager;
 import com.summertaker.akb48guide.data.GroupData;
-import com.summertaker.akb48guide.member.MemberListActivity;
 import com.summertaker.akb48guide.member.TeamListActivity;
-import com.summertaker.akb48guide.puzzle.PuzzleActivity;
-import com.summertaker.akb48guide.rawphoto.RawPhotoSelectActivity;
+import com.summertaker.akb48guide.puzzle.PuzzleLevelActivity;
 import com.summertaker.akb48guide.quiz.MemoryActivity;
 import com.summertaker.akb48guide.quiz.QuizActivity;
 import com.summertaker.akb48guide.quiz.SlideActivity;
 import com.summertaker.akb48guide.quiz.SlideTextActivity;
+import com.summertaker.akb48guide.rawphoto.RawPhotoSelectActivity;
 
 import java.util.ArrayList;
 
@@ -84,7 +83,7 @@ public class GroupSelectActivity extends BaseActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         GroupData groupData = (GroupData) parent.getItemAtPosition(position);
-                        runActivity(groupData);
+                        goActivity(groupData);
                     }
                 });
             }
@@ -104,14 +103,14 @@ public class GroupSelectActivity extends BaseActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         GroupData groupData = (GroupData) parent.getItemAtPosition(position);
-                        runActivity(groupData);
+                        goActivity(groupData);
                     }
                 });
             }
         }
     }
 
-    public void runActivity(GroupData groupData) {
+    public void goActivity(GroupData groupData) {
 
         Intent intent = null;
 
@@ -142,7 +141,7 @@ public class GroupSelectActivity extends BaseActivity {
                 intent = new Intent(this, RawPhotoSelectActivity.class);
                 break;
             case Config.MAIN_ACTION_PUZZLE:
-                intent = new Intent(this, PuzzleActivity.class);
+                intent = new Intent(this, PuzzleLevelActivity.class);
                 break;
         }
         //intent = new Intent(this, QuizResultActivity.class);

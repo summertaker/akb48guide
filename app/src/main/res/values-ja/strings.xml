@@ -184,6 +184,11 @@
     <string name="akb48_group_shop">AKB48グループショップ</string>
     <string name="chibakan">チバカン</string>
     <string name="puzzle">パズル</string>
+    <string name="level_easy">イージー</string>
+    <string name="level_hard">ハード</string>
+    <string name="level_normal">ノーマル</string>
+    <string name="select_the_level">レベルを選択してください。</string>
+    <string name="result">結果</string>
 
 </resources>
 

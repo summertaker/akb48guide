@@ -110,7 +110,7 @@
 
     <dimen name="puzzle_card_radius">5dp</dimen>
     <dimen name="puzzle_card_elevation">0dp</dimen>
-    <dimen name="puzzle_45_spacing">6dp</dimen>
+    <dimen name="puzzle_45_spacing">3dp</dimen>
 
     <!-- 사진 -->
     <!--<dimen name="picture_profile">42dp</dimen>-->

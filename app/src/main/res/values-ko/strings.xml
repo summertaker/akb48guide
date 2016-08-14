@@ -184,6 +184,11 @@
     <string name="akb48_group_shop">AKB48 그룹 샵</string>
     <string name="chibakan">치바칸</string>
     <string name="puzzle">퍼즐</string>
+    <string name="level_easy">쉬움</string>
+    <string name="level_hard">어려움</string>
+    <string name="level_normal">보통</string>
+    <string name="select_the_level">레벨을 선택하세요.</string>
+    <string name="result">결과</string>
 
 </resources>
 

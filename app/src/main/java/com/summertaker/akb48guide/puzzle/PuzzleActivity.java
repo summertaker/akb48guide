@@ -4,15 +4,19 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -24,7 +28,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
@@ -47,24 +53,33 @@ public class PuzzleActivity extends BaseActivity {
     ProgressBar mPbLoading;
 
     String mTitle;
+
     String mAction;
+    String mLevel;
     GroupData mGroupData;
     ArrayList<MemberData> mGroupMemberList = new ArrayList<>();
     ArrayList<MemberData> mMemberList = new ArrayList<>();
     ArrayList<TeamData> mTeamDataList = new ArrayList<>();
 
-    int mCounter = 0;
-    int mTotal = 20;
+    CountDownTimer mResultTimer;
+    TextView mTvResultTimer;
+
+    int mCount = 0;
+    int mTotal = 30;
+    int mTimeCount = 0;
 
     ImageView[] mImageViews = new ImageView[mTotal];
-    TransitionDrawable[] mTransition = new TransitionDrawable[mTotal];
+    TransitionDrawable[] mTransitions = new TransitionDrawable[mTotal];
 
     int[] mIvIndexes = {R.id.iv1, R.id.iv2, R.id.iv3, R.id.iv4, R.id.iv5, R.id.iv6, R.id.iv7, R.id.iv8, R.id.iv9, R.id.iv10,
-            R.id.iv11, R.id.iv12, R.id.iv13, R.id.iv14, R.id.iv15, R.id.iv16, R.id.iv17, R.id.iv18, R.id.iv19, R.id.iv20};
+            R.id.iv11, R.id.iv12, R.id.iv13, R.id.iv14, R.id.iv15, R.id.iv16, R.id.iv17, R.id.iv18, R.id.iv19, R.id.iv20,
+            R.id.iv21, R.id.iv22, R.id.iv23, R.id.iv24, R.id.iv25, R.id.iv26, R.id.iv27, R.id.iv28, R.id.iv29, R.id.iv30};
     int[] mPlIndexes = {R.id.pl1, R.id.pl2, R.id.pl3, R.id.pl4, R.id.pl5, R.id.pl6, R.id.pl7, R.id.pl8, R.id.pl9, R.id.pl10,
-            R.id.pl11, R.id.pl12, R.id.pl13, R.id.pl14, R.id.pl15, R.id.pl16, R.id.pl17, R.id.pl18, R.id.pl19, R.id.pl20};
+            R.id.pl11, R.id.pl12, R.id.pl13, R.id.pl14, R.id.pl15, R.id.pl16, R.id.pl17, R.id.pl18, R.id.pl19, R.id.pl20,
+            R.id.pl21, R.id.pl22, R.id.pl23, R.id.pl24, R.id.pl25, R.id.pl26, R.id.pl27, R.id.pl28, R.id.pl29, R.id.pl30};
     int[] mPbIndexes = {R.id.pb1, R.id.pb2, R.id.pb3, R.id.pb4, R.id.pb5, R.id.pb6, R.id.pb7, R.id.pb8, R.id.pb9, R.id.pb10,
-            R.id.pb11, R.id.pb12, R.id.pb13, R.id.pb14, R.id.pb15, R.id.pb16, R.id.pb17, R.id.pb18, R.id.pb19, R.id.pb20};
+            R.id.pb11, R.id.pb12, R.id.pb13, R.id.pb14, R.id.pb15, R.id.pb16, R.id.pb17, R.id.pb18, R.id.pb19, R.id.pb20,
+            R.id.pb21, R.id.pb22, R.id.pb23, R.id.pb24, R.id.pb25, R.id.pb26, R.id.pb27, R.id.pb28, R.id.pb29, R.id.pb30};
 
     Handler mHandler;
     Runnable mRunnable;
@@ -77,12 +92,9 @@ public class PuzzleActivity extends BaseActivity {
 
     ArrayList<Integer> mFounds = new ArrayList<>();
 
-    //CacheManager mCacheManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.puzzle_activity);
 
         mContext = PuzzleActivity.this;
         mResources = mContext.getResources();
@@ -93,7 +105,23 @@ public class PuzzleActivity extends BaseActivity {
 
         Intent intent = getIntent();
         mAction = intent.getStringExtra("action");
+        mLevel = intent.getStringExtra("level");
         mGroupData = (GroupData) intent.getSerializableExtra("groupData");
+
+        switch (mLevel) {
+            case Config.PUZZLE_LEVEL_EASY:
+                setContentView(R.layout.puzzle_easy_activity);
+                mTotal = 12;
+                break;
+            case Config.PUZZLE_LEVEL_HARD:
+                setContentView(R.layout.puzzle_hard_activity);
+                mTotal = 30;
+                break;
+            default:
+                setContentView(R.layout.puzzle_normal_activity);
+                mTotal = 20;
+                break;
+        }
 
         mTitle = getString(R.string.puzzle) + " / " + mGroupData.getName();
         initBaseToolbar(Config.TOOLBAR_ICON_BACK, mTitle);
@@ -111,7 +139,8 @@ public class PuzzleActivity extends BaseActivity {
             tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         }
 
-        //mCacheManager = new CacheManager(mSharedPreferences);
+        mTvResultTimer = (TextView) findViewById(R.id.tvResultTimer);
+
         String url = mGroupData.getUrl();
         String userAgent = Config.USER_AGENT_WEB;
 
@@ -204,6 +233,7 @@ public class PuzzleActivity extends BaseActivity {
 
             Collections.shuffle(mMemberList);
             Collections.shuffle(mMemberList);
+            Collections.shuffle(mMemberList);
 
             for (int i = 0; i < mTotal; i++) {
 
@@ -219,7 +249,34 @@ public class PuzzleActivity extends BaseActivity {
                 mImageViews[index].setTag(memberData);
 
                 String imageUrl = memberData.getThumbnailUrl();
-                Picasso.with(mContext).load(imageUrl).into(mImageViews[index], new com.squareup.picasso.Callback() {
+                Glide.with(mContext).load(imageUrl).asBitmap().dontAnimate() //.diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        //.override(Config.IMAGE_GRID3_WIDTH, Config.IMAGE_GRID3_HEIGHT)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                                //holder.loLoading.setVisibility(View.GONE);
+                                //holder.ivPicture.setImageBitmap(bitmap);
+
+                                pl.setVisibility(View.GONE);
+                                pb.setVisibility(View.GONE);
+
+                                mTransitions[index] = new TransitionDrawable(new Drawable[]{
+                                        ContextCompat.getDrawable(mContext, R.drawable.pattern_blossom),
+                                        new BitmapDrawable(getResources(), bitmap)
+                                });
+                                mImageViews[index].setImageDrawable(mTransitions[index]);
+                                mImageViews[index].setVisibility(View.VISIBLE);
+
+                                mCount++;
+                                onImageLoaded();
+
+                                //if (cacheUri == null) {
+                                //    ImageUtil.saveBitmapToPng(bitmap, cacheId); // 캐쉬 저장
+                                //}
+                            }
+                        });
+
+                /*Picasso.with(mContext).load(imageUrl).into(mImageViews[index], new com.squareup.picasso.Callback() {
                     @Override
                     public void onSuccess() {
                         pl.setVisibility(View.GONE);
@@ -233,13 +290,13 @@ public class PuzzleActivity extends BaseActivity {
                     public void onError() {
                         pb.setVisibility(View.GONE);
                     }
-                });
+                });*/
             }
         }
     }
 
     private void onImageLoaded() {
-        if (mCounter == mTotal) {
+        if (mCount == mTotal) {
 
             mHandler = new Handler();
             mRunnable = new Runnable() {
@@ -253,26 +310,56 @@ public class PuzzleActivity extends BaseActivity {
     }
 
     private void renderPuzzle() {
-        for (ImageView imageView : mImageViews) {
+        for (int i = 0; i < mTotal; i++) {
 
+            ImageView imageView = mImageViews[i];
+
+            /*
             MemberData memberData = (MemberData) imageView.getTag();
             int index = Integer.parseInt(memberData.getId());
 
-            mTransition[index] = new TransitionDrawable(new Drawable[]{
-                    ContextCompat.getDrawable(mContext, R.drawable.pattern_pink),
+            mTransitions[index] = new TransitionDrawable(new Drawable[]{
+                    ContextCompat.getDrawable(mContext, R.drawable.pattern_blossom),
                     imageView.getDrawable()
             });
-            imageView.setImageDrawable(mTransition[index]);
-            //td[i].startTransition(0);
-            //td[i].reverseTransition(3000);
+            imageView.setImageDrawable(mTransitions[index]);
+            //mTransitions[index].startTransition(0);
+            //mTransitions[index].reverseTransition(3000);
+            */
 
-            AnimatorSet ani = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.flip);
+            /*AnimatorSet ani = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.flip);
             ani.setTarget(imageView);
             ani.setDuration(500);
-            ani.start();
+            ani.start();*/
 
             setEvent(imageView);
         }
+
+        mResultTimer = new CountDownTimer(1000000000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //Calendar c = Calendar.getInstance();
+                //String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+
+                if (mTvResultTimer != null) {
+                    int min = mTimeCount / 60;
+                    int sec = mTimeCount % 60;
+                    String text = sec + "초";
+                    if (min > 0) {
+                        text = min + "분 " + text;
+                    }
+                    mTvResultTimer.setText(text);
+                }
+                mTimeCount++;
+            }
+
+            public void onFinish() {
+
+            }
+        };
+        mResultTimer.start();
+
+        mIsProcessing = false;
     }
 
     private void setEvent(ImageView imageView) {
@@ -302,8 +389,8 @@ public class PuzzleActivity extends BaseActivity {
                             mFirstText = memberData.getName();
                         } else if (mSecondIndex == -1) {
                             if (mFirstIndex == index) {
-                                //flip(index);
-                                //mFirstIndex = -1;
+                                flip(index);
+                                mFirstIndex = -1;
                             } else {
                                 mSecondIndex = index;
                                 mSecondText = memberData.getName();
@@ -335,8 +422,6 @@ public class PuzzleActivity extends BaseActivity {
                 }
             }
         });
-
-        mIsProcessing = false;
     }
 
     private void flip(int i) {
@@ -344,14 +429,14 @@ public class PuzzleActivity extends BaseActivity {
         ani.setTarget(mImageViews[i]);
         ani.setDuration(300);
         ani.start();
-        mTransition[i].reverseTransition(300);
+        mTransitions[i].reverseTransition(300);
     }
 
     private void setCorrect() {
         mFounds.add(mFirstIndex);
         mFounds.add(mSecondIndex);
 
-        float dest = 720;
+        float dest = 360;
         //if (aniView.getRotation() == 360) {
         //    System.out.println(aniView.getAlpha());
         //    dest = 0;
@@ -363,6 +448,22 @@ public class PuzzleActivity extends BaseActivity {
         ObjectAnimator animation2 = ObjectAnimator.ofFloat(mImageViews[mSecondIndex], "rotation", dest);
         animation2.setDuration(400);
         animation2.start();
+
+        //Log.e(mTag, "mFounds.size(): " + mFounds.size());
+        if (mFounds.size() == mTotal) {
+            mResultTimer.cancel();
+
+            RelativeLayout rl = (RelativeLayout) findViewById(R.id.result);
+            rl.setVisibility(View.VISIBLE);
+
+            Button btnResultOk = (Button) findViewById(R.id.btnResultOk);
+            btnResultOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    doFinish();
+                }
+            });
+        }
     }
 
     private void setWrong() {
@@ -370,19 +471,23 @@ public class PuzzleActivity extends BaseActivity {
         ani1.setTarget(mImageViews[mFirstIndex]);
         ani1.setDuration(400);
         ani1.start();
-        mTransition[mFirstIndex].reverseTransition(0);
+        mTransitions[mFirstIndex].reverseTransition(0);
 
         AnimatorSet ani2 = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.flip);
         ani2.setTarget(mImageViews[mSecondIndex]);
         ani2.setDuration(400);
         ani2.start();
-        mTransition[mSecondIndex].reverseTransition(0);
+        mTransitions[mSecondIndex].reverseTransition(0);
     }
 
     @Override
     public void onDestroy() {
         //Log.e(mTag, "onDestroy()...");
         super.onDestroy();
+
+        if (mResultTimer != null) {
+            mResultTimer.cancel();
+        }
         removeCallback();
     }
 

@@ -186,5 +186,10 @@
     <string name="puzzle">Puzzle</string>
     <string name="title_activity_puzzle">PuzzleActivity</string>
     <string name="title_activity_puzzle_level">PuzzleLevelActivity</string>
+    <string name="level_easy">Easy</string>
+    <string name="level_normal">Normal</string>
+    <string name="level_hard">Hard</string>
+    <string name="select_the_level">Select the level.</string>
+    <string name="result">Result</string>
 
 </resources>
