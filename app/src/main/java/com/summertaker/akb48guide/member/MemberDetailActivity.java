@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -25,7 +26,6 @@ import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
 import com.summertaker.akb48guide.common.Config;
-import com.summertaker.akb48guide.common.OshimenManager;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
@@ -34,7 +34,6 @@ import com.summertaker.akb48guide.data.TeamData;
 import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.parser.BaseParser;
 import com.summertaker.akb48guide.parser.NamuwikiParser;
-import com.summertaker.akb48guide.parser.Pedia48Parser;
 import com.summertaker.akb48guide.parser.Pedia48ProfileParser;
 import com.summertaker.akb48guide.util.Translator;
 import com.summertaker.akb48guide.util.Util;
@@ -66,7 +65,7 @@ public class MemberDetailActivity extends BaseActivity {
     private ArrayList<WebData> mPhotoList = new ArrayList<>();
 
     //private CacheManager mCacheManager;
-    private OshimenManager mOshimenManager;
+    //private OshimenManager mOshimenManager;
 
     boolean isDataLoaded = false;
     boolean isWikiLoaded = false;
@@ -126,14 +125,28 @@ public class MemberDetailActivity extends BaseActivity {
         Util.setProgressBarColor(pbLoading, Config.PROGRESS_BAR_COLOR_NORMAL, null);
 
         mPbPictureLoading = (ProgressBar) findViewById(R.id.pbPictureLoading);
-        Util.setProgressBarColor(mPbPictureLoading, Config.PROGRESS_BAR_COLOR_NORMAL, null);
+        Util.setProgressBarColor(mPbPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
 
         //mCacheManager = new CacheManager(mSharedPreferences);
-        mOshimenManager = new OshimenManager(mSharedPreferences);
+        //mOshimenManager = new OshimenManager(mSharedPreferences);
 
-        loadProfile();
-        loadNamuwiki();
-        loadPedia48();
+        switch (mGroupData.getId()) {
+            case Config.GROUP_ID_AKB48:
+            case Config.GROUP_ID_SKE48:
+            case Config.GROUP_ID_NMB48:
+            case Config.GROUP_ID_HKT48:
+            case Config.GROUP_ID_NGT48:
+                ProgressBar pbPedia48Loading = (ProgressBar) findViewById(R.id.pbPedia48Loading);
+                Util.setProgressBarColor(pbPedia48Loading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
+                loadPedia48();
+                break;
+            default:
+                LinearLayout loPedia48 = (LinearLayout) findViewById(R.id.loPedia48);
+                loPedia48.setVisibility(View.GONE);
+                loadProfile();
+                loadNamuwiki();
+                break;
+        }
     }
 
     private void loadProfile() {
@@ -141,6 +154,12 @@ public class MemberDetailActivity extends BaseActivity {
 
         String url = mMemberData.getProfileUrl();
         String userAgent = Config.USER_AGENT_WEB;
+        switch (mGroupData.getId()) {
+            case Config.GROUP_ID_HKT48:
+                userAgent = Config.USER_AGENT_MOBILE;
+                mIsMobile = true;
+                break;
+        }
         requestData(url, userAgent);
     }
 
@@ -246,7 +265,7 @@ public class MemberDetailActivity extends BaseActivity {
             //----------------------------------------------------------------------------------
             Log.e(mTag, "ERROR: " + url);
             mLoLoading.setVisibility(View.GONE);
-            mOshimenManager.save(mMemberData); // 오시멘 지우기
+            //mOshimenManager.save(mMemberData); // 오시멘 지우기
             alertNetworkErrorAndFinish(mErrorMessage);
         } else {
             isDataLoaded = true;
@@ -692,15 +711,28 @@ public class MemberDetailActivity extends BaseActivity {
         Pedia48ProfileParser pedia48ProfileParser = new Pedia48ProfileParser();
         pedia48ProfileParser.parseProfileImage(response, mPhotoList);
 
-        renderPedia48();
+        renderPedia48(url);
     }
 
-    private void renderPedia48() {
+    private void renderPedia48(final String url) {
         if (mPhotoList.size() == 0) {
+            LinearLayout loPedia48 = (LinearLayout) findViewById(R.id.loPedia48);
+            loPedia48.setVisibility(View.GONE);
             return;
         }
-        LinearLayout lo = (LinearLayout) findViewById(R.id.loPedia48);
-        lo.setVisibility(View.VISIBLE);
+
+        RelativeLayout loPedia48Loading = (RelativeLayout) findViewById(R.id.loPedia48Loading);
+        loPedia48Loading.setVisibility(View.GONE);
+
+        LinearLayout loPedia48Header = (LinearLayout) findViewById(R.id.loPedia48Header);
+        loPedia48Header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivityForResult(intent, 100);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
 
         MemberDetailPedia48Adapter adapter = new MemberDetailPedia48Adapter(mContext, mPhotoList);
         ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gvPedia48);
@@ -715,6 +747,9 @@ public class MemberDetailActivity extends BaseActivity {
                 }
             });
         }
+
+        loadProfile();
+        loadNamuwiki();
     }
 
     @Override

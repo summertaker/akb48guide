@@ -37,6 +37,19 @@
 
     </LinearLayout>
 
+    <!--겸임-->
+    <TextView
+        android:id="@+id/tvConcurrentPosition"
+        style="@style/InfoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="3dp"
+        android:text="@string/concurrent_position"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/loLoading"
         android:layout_width="match_parent"

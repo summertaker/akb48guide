@@ -117,10 +117,15 @@ public class Pedia48ProfileParser extends BaseParser {
                 }
                 //Log.e(mTag, "img.src: " + img.attr("data-cfsrc"));
                 String src = img.attr("src");
+                //Log.e(mTag, src);
 
                 // /images/thumb/2/26/2014年AKB48プロフィール_小嶋陽菜.jpg/99px-2014年AKB48プロフィール_小嶋陽菜.jpg
                 // /images/2/26/2014年AKB48プロフィール_小嶋陽菜.jpg
-                src = src.split(".jpg/")[0].replace("/thumb/", "/") + ".jpg";
+                String devider = ".jpg/";
+                if (src.contains(".jpeg/")) {
+                    devider = ".jpeg/";
+                }
+                src = src.split(devider)[0].replace("/thumb/", "/") + devider.replace("/", "");
                 src = mBaseUrl + src;
 
                 String caption = "";

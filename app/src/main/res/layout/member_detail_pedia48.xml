@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:orientation="vertical"
-    android:visibility="gone">
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
@@ -29,13 +28,13 @@
             android:layout_height="@dimen/menu_item_icon_height"
             android:layout_marginEnd="@dimen/menu_item_icon_spacing"
             android:contentDescription="@string/blank"
-            android:src="@drawable/ic_yahoo_japan_64" />
+            android:src="@drawable/ic_wikipedia_48" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/yahoo_image_search"
+            android:text="@string/akpedia"
             android:textColor="@color/menu_text" />
 
         <ImageView
@@ -54,19 +53,19 @@
         android:paddingRight="10dp"
         android:src="@drawable/dot" />
 
-    <!--
     <RelativeLayout
-        android:id="@+id/loYahooImageSearchLoading"
+        android:id="@+id/loPedia48Loading"
         android:layout_width="match_parent"
-        android:layout_height="426dp"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:background="@color/card_background"
+        android:gravity="center"
+        android:padding="50dp">
 
         <ProgressBar
-            android:id="@+id/pbYahooImageSearchLoading"
+            android:id="@+id/pbPedia48Loading"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </RelativeLayout>
-    -->
 
     <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
         android:id="@+id/gvPedia48"

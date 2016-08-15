@@ -61,11 +61,13 @@ public class MemberDetailPedia48Adapter extends BaseDataAdapter {
 
             convertView = mLayoutInflater.inflate(R.layout.member_detail_pedia48_item, null);
 
-            holder.loLoading = (LinearLayout) convertView.findViewById(R.id.loLoading);
+            holder.loLoading = (RelativeLayout) convertView.findViewById(R.id.loLoading);
             holder.pbLoading = (ProgressBar) convertView.findViewById(R.id.pbLoading);
             Util.setProgressBarColor(holder.pbLoading, 0, null);
 
+            holder.loData = (RelativeLayout) convertView.findViewById(R.id.loData);
             holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivPicture);
+            holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
             convertView.setTag(holder);
         } else {
@@ -88,7 +90,7 @@ public class MemberDetailPedia48Adapter extends BaseDataAdapter {
                 @Override
                 public void onSuccess() {
                     holder.loLoading.setVisibility(View.GONE);
-                    holder.ivPicture.setVisibility(View.VISIBLE);
+                    holder.loData.setVisibility(View.VISIBLE);
                 }
 
                 @Override
@@ -114,15 +116,17 @@ public class MemberDetailPedia48Adapter extends BaseDataAdapter {
                     });*/
         }
 
+        holder.tvTitle.setText(webData.getTitle());
+
         return convertView;
     }
 
     static class ViewHolder {
-        LinearLayout loLoading;
+        RelativeLayout loLoading;
         ProgressBar pbLoading;
+
+        RelativeLayout loData;
         ImageView ivPicture;
         TextView tvTitle;
-        TextView tvDate;
-        TextView tvContent;
     }
 }
