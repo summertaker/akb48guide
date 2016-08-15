@@ -39,6 +39,7 @@ import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
 import com.summertaker.akb48guide.member.MemberListActivity;
+import com.summertaker.akb48guide.parser.Akb48Parser;
 import com.summertaker.akb48guide.parser.BaseParser;
 import com.summertaker.akb48guide.util.Util;
 
@@ -57,6 +58,7 @@ public class PuzzleActivity extends BaseActivity {
     String mAction;
     String mLevel;
     GroupData mGroupData;
+    boolean mIsMobile = false;
     ArrayList<MemberData> mGroupMemberList = new ArrayList<>();
     ArrayList<MemberData> mMemberList = new ArrayList<>();
     ArrayList<TeamData> mTeamDataList = new ArrayList<>();
@@ -70,6 +72,7 @@ public class PuzzleActivity extends BaseActivity {
     int mTotal = 30;
     int mTimeCount = 0;
 
+    int mCardBackground = 0;
     ImageView[] mImageViews = new ImageView[mTotal];
     TransitionDrawable[] mTransitions = new TransitionDrawable[mTotal];
 
@@ -153,6 +156,36 @@ public class PuzzleActivity extends BaseActivity {
 
         String url = mGroupData.getUrl();
         String userAgent = Config.USER_AGENT_WEB;
+        mCardBackground = R.drawable.card_background;
+
+        switch (mGroupData.getId()) {
+            case Config.GROUP_ID_AKB48:
+                url = mGroupData.getMobileUrl();
+                userAgent = Config.USER_AGENT_MOBILE;
+                mIsMobile = true;
+                mCardBackground = R.drawable.card_akb48;
+                break;
+            case Config.GROUP_ID_SKE48:
+                mCardBackground = R.drawable.card_ske48;
+                break;
+            case Config.GROUP_ID_NMB48:
+                mCardBackground = R.drawable.card_nmb48;
+                break;
+            case Config.GROUP_ID_HKT48:
+                mCardBackground = R.drawable.card_hkt48;
+                break;
+            case Config.GROUP_ID_NGT48:
+                mCardBackground = R.drawable.card_ngt48;
+                break;
+            case Config.GROUP_ID_JKT48:
+                mCardBackground = R.drawable.card_jkt48;
+                break;
+            case Config.GROUP_ID_SNH48:
+            case Config.GROUP_ID_BEJ48:
+            case Config.GROUP_ID_GNZ48:
+                mCardBackground = R.drawable.card_snh48;
+                break;
+        }
 
         requestData(url, userAgent);
     }
@@ -199,10 +232,16 @@ public class PuzzleActivity extends BaseActivity {
     }
 
     private void parseData(String url, String response) {
-        boolean isMobile = url.equals(mGroupData.getMobileUrl());
-
-        BaseParser baseParser = new BaseParser();
-        baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, isMobile);
+        switch (mGroupData.getId()) {
+            case Config.GROUP_ID_AKB48:
+                Akb48Parser akb48Parser = new Akb48Parser();
+                akb48Parser.parseMobileMemberAll(response, mGroupData, mGroupMemberList);
+                break;
+            default:
+                BaseParser baseParser = new BaseParser();
+                baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
+                break;
+        }
 
         renderData();
     }
@@ -271,9 +310,14 @@ public class PuzzleActivity extends BaseActivity {
                                 pb.setVisibility(View.GONE);
 
                                 mTransitions[index] = new TransitionDrawable(new Drawable[]{
-                                        ContextCompat.getDrawable(mContext, R.drawable.pattern_blossom),
+                                        ContextCompat.getDrawable(mContext, mCardBackground),
                                         new BitmapDrawable(getResources(), bitmap)
                                 });
+                                //switch (mGroupData.getId()) {
+                                //    case Config.GROUP_ID_AKB48:
+                                //        mImageViews[index].setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                //        break;
+                                //}
                                 mImageViews[index].setImageDrawable(mTransitions[index]);
                                 mImageViews[index].setVisibility(View.VISIBLE);
 

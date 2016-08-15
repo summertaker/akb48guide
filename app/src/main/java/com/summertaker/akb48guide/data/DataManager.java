@@ -64,7 +64,7 @@ public class DataManager {
                 "AKB48",
                 R.drawable.logo_akb48,
                 "http://www.akb48.co.jp/about/members/",
-                null,
+                "http://sp.akb48.co.jp/profile/member/index.php?g_code=all",
                 "http://shopping.akb48-group.com/products/list.php?akb48&category_id=3"
         ));
         dataList.add(new GroupData(Config.GROUP_ID_SKE48,

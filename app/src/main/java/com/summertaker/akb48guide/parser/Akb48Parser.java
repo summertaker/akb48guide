@@ -1,5 +1,7 @@
 package com.summertaker.akb48guide.parser;
 
+import android.util.Log;
+
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
@@ -115,6 +117,81 @@ public class Akb48Parser extends BaseParser {
 
         if (teamDataList != null) {
             super.findTeamMemberOne(groupMemberList, teamDataList);
+        }
+    }
+
+    public void parseMobileMemberAll(String response, GroupData groupData, ArrayList<MemberData> memberList) {
+        /*
+        <ul class="infoList">
+        <li>
+        <a href="./detail/index.php?artist_code=83100536&g_code=all" data-ajax="false">
+          <div class="textCenterBox">
+            <div class="photo"><img class="lazy borderPink" data-original="http://image.excite.co.jp/jp/akb48/image/smartphone/20160509/profile/thumb/83100536.jpg" alt="入山杏奈"></div>
+            <div class="text02">
+              <p class="textbBld pnk fL">入山杏奈</p>
+              <p class="lineRight colorPink02 r fR f12">Anna Iriyama</p>
+            </div>
+          </div>
+        </a>
+        </li>
+        */
+        if (response == null || response.isEmpty()) {
+            return;
+        }
+        response = clean(response);
+
+        Document doc = Jsoup.parse(response);
+        Element root = doc.select(".infoList").first();
+
+        if (root != null) {
+            for (Element row : root.select("li")) {
+                String id;
+                String name;
+                String nameEn;
+                String noSpaceName;
+                String thumbnailUrl;
+                String profileUrl;
+
+                Element el;
+
+                Element a = row.select("a").first();
+                profileUrl = a.attr("href");
+                profileUrl = profileUrl.replace("./", "/");
+                profileUrl = "http://sp.akb48.co.jp/profile/member" + profileUrl;
+
+                Element img = a.select("img").first();
+                if (img == null) {
+                    continue;
+                }
+                thumbnailUrl = img.attr("data-original");
+                //Log.e(mTag, thumbnailUrl);
+
+                el = a.select(".textbBld").first();
+                if (el == null) {
+                    continue;
+                }
+                name = el.text().trim();
+                noSpaceName = Util.removeSpace(name);
+
+                el = a.select(".lineRight").first();
+                if (el == null) {
+                    continue;
+                }
+                nameEn = el.text().trim();
+
+                //Log.e(mTag, name + " / " + nameEn + " / " + thumbnailUrl + " / " + profileUrl);
+
+                MemberData memberData = new MemberData();
+                memberData.setGroupId(groupData.getId());
+                memberData.setGroupName(groupData.getName());
+                memberData.setName(name);
+                memberData.setNameEn(nameEn);
+                memberData.setNoSpaceName(noSpaceName);
+                memberData.setThumbnailUrl(thumbnailUrl);
+                memberData.setImageUrl(thumbnailUrl);
+                memberData.setProfileUrl(profileUrl);
+                memberList.add(memberData);
+            }
         }
     }
 

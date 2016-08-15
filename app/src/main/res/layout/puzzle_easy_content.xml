@@ -46,7 +46,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -92,7 +92,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -138,7 +138,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -167,7 +167,6 @@
                             android:id="@+id/iv3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -202,7 +201,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -231,7 +230,6 @@
                             android:id="@+id/iv4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -249,7 +247,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -278,7 +276,6 @@
                             android:id="@+id/iv5"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -296,7 +293,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -325,7 +322,6 @@
                             android:id="@+id/iv6"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -360,7 +356,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -406,7 +402,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -435,7 +431,6 @@
                             android:id="@+id/iv8"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -453,7 +448,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -482,7 +477,6 @@
                             android:id="@+id/iv9"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -517,7 +511,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -546,7 +540,6 @@
                             android:id="@+id/iv10"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -564,7 +557,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -593,7 +586,6 @@
                             android:id="@+id/iv11"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -611,7 +603,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    card_view:cardBackgroundColor="@color/transparent"
+                    card_view:cardBackgroundColor="@color/puzzle_card_background"
                     card_view:cardCornerRadius="@dimen/puzzle_card_radius"
                     card_view:cardElevation="@dimen/puzzle_card_elevation">
 
@@ -640,7 +632,6 @@
                             android:id="@+id/iv12"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />

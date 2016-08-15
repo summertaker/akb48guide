@@ -183,7 +183,6 @@
                             android:id="@+id/iv3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -230,7 +229,6 @@
                             android:id="@+id/iv4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -277,7 +275,6 @@
                             android:id="@+id/iv5"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -341,7 +338,6 @@
                             android:id="@+id/iv6"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -388,7 +384,6 @@
                             android:id="@+id/iv7"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -435,7 +430,6 @@
                             android:id="@+id/iv8"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -482,7 +476,6 @@
                             android:id="@+id/iv9"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -529,7 +522,6 @@
                             android:id="@+id/iv10"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -639,7 +631,6 @@
                             android:id="@+id/iv12"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -686,7 +677,6 @@
                             android:id="@+id/iv13"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -733,7 +723,6 @@
                             android:id="@+id/iv14"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -780,7 +769,6 @@
                             android:id="@+id/iv15"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -844,7 +832,6 @@
                             android:id="@+id/iv16"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -891,7 +878,6 @@
                             android:id="@+id/iv17"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -938,7 +924,6 @@
                             android:id="@+id/iv18"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -985,7 +970,6 @@
                             android:id="@+id/iv19"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1032,7 +1016,6 @@
                             android:id="@+id/iv20"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1096,7 +1079,6 @@
                             android:id="@+id/iv21"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1143,7 +1125,6 @@
                             android:id="@+id/iv22"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1190,7 +1171,6 @@
                             android:id="@+id/iv23"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1237,7 +1217,6 @@
                             android:id="@+id/iv24"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1284,7 +1263,6 @@
                             android:id="@+id/iv25"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1348,7 +1326,6 @@
                             android:id="@+id/iv26"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1395,7 +1372,6 @@
                             android:id="@+id/iv27"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1442,7 +1418,6 @@
                             android:id="@+id/iv28"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1489,7 +1464,6 @@
                             android:id="@+id/iv29"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
@@ -1536,7 +1510,6 @@
                             android:id="@+id/iv30"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/border"
                             android:contentDescription="@string/blank"
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
