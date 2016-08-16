@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.util.ImageUtil;
-import com.summertaker.akb48guide.util.ProportionalImageView;
 import com.summertaker.akb48guide.util.Util;
 
 import java.io.UnsupportedEncodingException;

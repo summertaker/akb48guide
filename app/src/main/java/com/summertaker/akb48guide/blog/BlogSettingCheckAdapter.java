@@ -1,7 +1,6 @@
 package com.summertaker.akb48guide.blog;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
-import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.SiteData;
 import com.summertaker.akb48guide.util.Util;
 

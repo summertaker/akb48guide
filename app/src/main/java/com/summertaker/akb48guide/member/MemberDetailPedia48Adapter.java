@@ -1,26 +1,19 @@
 package com.summertaker.akb48guide.member;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
 import com.summertaker.akb48guide.data.WebData;
-import com.summertaker.akb48guide.util.ImageUtil;
 import com.summertaker.akb48guide.util.Util;
 
 import java.util.ArrayList;

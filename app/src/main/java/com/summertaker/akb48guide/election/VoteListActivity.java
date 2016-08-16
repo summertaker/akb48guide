@@ -1,7 +1,6 @@
 package com.summertaker.akb48guide.election;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +26,6 @@ import com.summertaker.akb48guide.data.ElectionData;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.VoteData;
-import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.parser.NamuwikiParser;
 import com.summertaker.akb48guide.parser.OriconParser;
 import com.summertaker.akb48guide.util.Util;

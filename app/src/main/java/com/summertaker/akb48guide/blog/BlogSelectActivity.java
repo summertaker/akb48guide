@@ -78,13 +78,13 @@ public class BlogSelectActivity extends BaseActivity {
     }
 
     private void itemClick(SiteData siteData) {
-        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(siteData.getMobileUrl()));
+        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parseImage(siteData.getMobileUrl()));
         //startActivity(intent);
 
         Intent intent;
         switch (siteData.getId()) {
             //case Config.BLOG_ID_NGT48_PHOTOLOG:
-            //    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(siteData.getMobileUrl()));
+            //    intent = new Intent(Intent.ACTION_VIEW, Uri.parseImage(siteData.getMobileUrl()));
             //    startActivity(intent);
             //    break;
             case Config.BLOG_ID_SKE48_SELECTED:

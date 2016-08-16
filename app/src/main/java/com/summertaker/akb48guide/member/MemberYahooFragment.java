@@ -15,7 +15,6 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseApplication;
@@ -27,7 +26,7 @@ import com.summertaker.akb48guide.common.ImageViewActivity;
 import com.summertaker.akb48guide.common.WebDataAdapter;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.WebData;
-import com.summertaker.akb48guide.parser.YahooImageParser;
+import com.summertaker.akb48guide.parser.YahooParser;
 import com.summertaker.akb48guide.util.Util;
 
 import java.io.UnsupportedEncodingException;
@@ -139,8 +138,8 @@ public class MemberYahooFragment extends BaseFragment implements BaseFragmentInt
         //Log.e(mTag, ">>>>> parseList()");
         //Log.e(mTag, "url: " + url);
 
-        YahooImageParser yahooImageParser = new YahooImageParser();
-        yahooImageParser.parse(response, mWebDataList);
+        YahooParser yahooParser = new YahooParser();
+        yahooParser.parseImage(response, mWebDataList);
 
         renderData();
     }
@@ -150,7 +149,7 @@ public class MemberYahooFragment extends BaseFragment implements BaseFragmentInt
 
         mPbLoading.setVisibility(View.GONE);
 
-        WebDataAdapter listAdapter = new WebDataAdapter(mContext, R.layout.member_yahoo_item, 100, mWebDataList);
+        WebDataAdapter listAdapter = new WebDataAdapter(mContext, R.layout.member_detail_yahoo_item, 100, mWebDataList);
         mGridView.setVisibility(View.VISIBLE);
         //mGridView.setExpanded(true);
         mGridView.setAdapter(listAdapter);

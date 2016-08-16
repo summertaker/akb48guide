@@ -488,7 +488,7 @@ public class BlogArticleListActivity extends BaseActivity implements SwipeRefres
 
         /*WebData webData = mWebDataList.get(position);
         String imageUrl = webData.getImageUrl();
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(imageUrl));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parseImage(imageUrl));
         startActivityForResult(intent, 100);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
     }

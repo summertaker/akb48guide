@@ -2,14 +2,8 @@ package com.summertaker.akb48guide.blog;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -17,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.CacheManager;
@@ -187,7 +180,7 @@ public class BlogSettingCheckActivity extends BaseActivity implements BlogAdapte
 
     private void doSave() {
         //String oldstring = "2011-01-18 00:00:00.0";
-        //Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldstring);
+        //Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parseImage(oldstring);
 
         //String newstring = new SimpleDateFormat("yyyy-MM-dd").format(date);
         //System.out.println(newstring); // 2011-01-18

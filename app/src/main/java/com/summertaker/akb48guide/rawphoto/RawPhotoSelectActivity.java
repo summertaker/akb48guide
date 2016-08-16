@@ -23,7 +23,6 @@ import com.summertaker.akb48guide.common.CacheManager;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
 import com.summertaker.akb48guide.common.Config;
-import com.summertaker.akb48guide.common.RetroApi;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.WebData;
@@ -40,7 +39,6 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Retrofit;
 
 public class RawPhotoSelectActivity extends BaseActivity {
 

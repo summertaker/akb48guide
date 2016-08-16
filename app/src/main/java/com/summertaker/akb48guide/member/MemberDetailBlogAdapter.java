@@ -16,7 +16,6 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
-import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.util.ImageUtil;
 import com.summertaker.akb48guide.util.Util;

@@ -2,29 +2,19 @@ package com.summertaker.akb48guide.quiz;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseFragment;
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.MemberData;
-import com.summertaker.akb48guide.util.ImageUtil;
 import com.summertaker.akb48guide.util.Util;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class QuizFragment extends BaseFragment {
 

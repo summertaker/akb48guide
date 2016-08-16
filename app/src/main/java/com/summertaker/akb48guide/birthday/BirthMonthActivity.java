@@ -7,7 +7,6 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import com.android.volley.AuthFailureError;
@@ -16,7 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -39,7 +37,6 @@ import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.BirthMonthData;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
-import com.summertaker.akb48guide.data.VoteData;
 import com.summertaker.akb48guide.parser.Pedia48Parser;
 import com.summertaker.akb48guide.util.Util;
 

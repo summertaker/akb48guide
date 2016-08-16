@@ -2,29 +2,19 @@ package com.summertaker.akb48guide.birthday;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
-import com.summertaker.akb48guide.common.BaseApplication;
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.BirthDayData;
 import com.summertaker.akb48guide.data.BirthMonthData;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
-import com.summertaker.akb48guide.election.VoteListActivity;
-import com.summertaker.akb48guide.parser.Pedia48Parser;
 import com.summertaker.akb48guide.util.Util;
 
 import java.text.DateFormat;
@@ -33,8 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BirthDayActivity extends BaseActivity {
 

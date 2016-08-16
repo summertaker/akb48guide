@@ -21,7 +21,6 @@ import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
 import com.summertaker.akb48guide.common.Config;
-import com.summertaker.akb48guide.common.RetroApi;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.parser.Akb48ShopParser;
@@ -35,7 +34,6 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Retrofit;
 
 public class RawPhotoOfficialListActivity extends BaseActivity {
 

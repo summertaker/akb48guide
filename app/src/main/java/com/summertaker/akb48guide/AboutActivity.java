@@ -20,7 +20,7 @@ public class AboutActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(Config.URL_GOOGLE_PLAY));
+                    intent.setData(Uri.parseImage(Config.URL_GOOGLE_PLAY));
                     startActivity(intent);
                 }
             });

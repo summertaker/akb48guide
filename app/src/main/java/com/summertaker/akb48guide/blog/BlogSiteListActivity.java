@@ -381,7 +381,7 @@ public class BlogSiteListActivity extends BaseActivity {
     private void updateData() {
         /*String oldstring = "2011-01-18 00:00:00.0";
         try {
-            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldstring);
+            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parseImage(oldstring);
         } catch (ParseException e) {
             e.printStackTrace();
         }*/
