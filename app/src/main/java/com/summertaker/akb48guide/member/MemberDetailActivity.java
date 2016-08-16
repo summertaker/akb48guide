@@ -742,28 +742,26 @@ public class MemberDetailActivity extends BaseActivity {
     private void renderYahoo(final String url) {
         mLoYahooLoading.setVisibility(View.GONE);
 
-        //if (mYahooList.size() == 0) {
-        //    findViewById(R.id.loYahoo).setVisibility(View.GONE);
-        //    return;
-        //}
+        if (mYahooList.size() == 0) {
+            findViewById(R.id.loYahoo).setVisibility(View.GONE);
+        } else {
+            LinearLayout loYahooHeader = (LinearLayout) findViewById(R.id.loYahooHeader);
+            loYahooHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivityForResult(intent, 100);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
 
-        LinearLayout loYahooHeader = (LinearLayout) findViewById(R.id.loYahooHeader);
-        loYahooHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivityForResult(intent, 100);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
-
-        WebDataAdapter adapter = new WebDataAdapter(mContext, R.layout.member_detail_yahoo_item, 100, mYahooList);
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gvYahoo);
-        gridView.setExpanded(true);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            WebDataAdapter adapter = new WebDataAdapter(mContext, R.layout.member_detail_yahoo_item, 100, mYahooList);
+            ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gvYahoo);
+            gridView.setExpanded(true);
+            gridView.setAdapter(adapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /*WebData webData = (WebData) parent.getItemAtPosition(position);
                 Intent intent = new Intent(mContext, ImageViewActivity.class);
                 intent.putExtra("title", webData.getTitle());
@@ -774,9 +772,9 @@ public class MemberDetailActivity extends BaseActivity {
 
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 //goWebView(webData.getUrl(), mMemberData.getName());*/
-            }
-        });
-
+                }
+            });
+        }
         mIsYahooLoaded = true;
         if (mIsPedia48Loaded) {
             loadProfile();
@@ -799,35 +797,33 @@ public class MemberDetailActivity extends BaseActivity {
     private void renderPedia48(final String url) {
         mLoPedia48Loading.setVisibility(View.GONE);
 
-        //if (mPedia48List.size() == 0) {
-        //    findViewById(R.id.loPedia48).setVisibility(View.GONE);
-        //    return;
-        //}
-
-        LinearLayout loPedia48Header = (LinearLayout) findViewById(R.id.loPedia48Header);
-        loPedia48Header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivityForResult(intent, 100);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
-
-        MemberDetailPedia48Adapter adapter = new MemberDetailPedia48Adapter(mContext, mPedia48List);
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gvPedia48);
-        if (gridView != null) {
-            gridView.setExpanded(true);
-            gridView.setAdapter(adapter);
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        if (mPedia48List.size() == 0) {
+            findViewById(R.id.loPedia48).setVisibility(View.GONE);
+        } else {
+            LinearLayout loPedia48Header = (LinearLayout) findViewById(R.id.loPedia48Header);
+            loPedia48Header.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //MenuData menuData = (MenuData) parent.getItemAtPosition(position);
-                    //onMenuItemClick(menuData);
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivityForResult(intent, 100);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             });
-        }
 
+            MemberDetailPedia48Adapter adapter = new MemberDetailPedia48Adapter(mContext, mPedia48List);
+            ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gvPedia48);
+            if (gridView != null) {
+                gridView.setExpanded(true);
+                gridView.setAdapter(adapter);
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //MenuData menuData = (MenuData) parent.getItemAtPosition(position);
+                        //onMenuItemClick(menuData);
+                    }
+                });
+            }
+        }
         mIsPedia48Loaded = true;
         if (mIsYahooLoaded) {
             loadProfile();
