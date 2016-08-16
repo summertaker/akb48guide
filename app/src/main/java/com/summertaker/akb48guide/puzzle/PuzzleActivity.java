@@ -338,6 +338,8 @@ public class PuzzleActivity extends BaseActivity {
             }
 
             Collections.shuffle(mMemberList);
+            Collections.shuffle(mMemberList);
+            Collections.shuffle(mMemberList);
 
             for (int i = 0; i < mCardTotal; i++) {
 
@@ -453,6 +455,7 @@ public class PuzzleActivity extends BaseActivity {
                         } else if (mSecondIndex == -1) {
                             if (mFirstIndex == index) {
                                 flip(index);
+                                mTextViews[index].setVisibility(View.GONE);
                                 mFirstIndex = -1;
                             } else {
                                 mSecondIndex = index;
