@@ -152,8 +152,8 @@ public class MemberDetailActivity extends BaseActivity {
                 ProgressBar pbPedia48Loading = (ProgressBar) findViewById(R.id.pbPedia48Loading);
                 Util.setProgressBarColor(pbPedia48Loading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
 
-                loadYahoo();
-                loadPedia48();
+                loadProfile();
+                loadNamuwiki();
                 break;
             default:
                 LinearLayout loPedia48 = (LinearLayout) findViewById(R.id.loPedia48);
@@ -671,6 +671,9 @@ public class MemberDetailActivity extends BaseActivity {
                 }
             }
         }
+
+        loadYahoo();
+        loadPedia48();
     }
 
     public void onMenuItemClick(MenuData menuData) {
@@ -758,6 +761,7 @@ public class MemberDetailActivity extends BaseActivity {
             WebDataAdapter adapter = new WebDataAdapter(mContext, R.layout.member_detail_yahoo_item, 100, mYahooList);
             ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gvYahoo);
             gridView.setExpanded(true);
+            gridView.setFocusable(false);
             gridView.setAdapter(adapter);
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -775,11 +779,12 @@ public class MemberDetailActivity extends BaseActivity {
                 }
             });
         }
-        mIsYahooLoaded = true;
+
+        /*mIsYahooLoaded = true;
         if (mIsPedia48Loaded) {
             loadProfile();
             loadNamuwiki();
-        }
+        }*/
     }
 
     private void loadPedia48() {
@@ -814,6 +819,7 @@ public class MemberDetailActivity extends BaseActivity {
             ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gvPedia48);
             if (gridView != null) {
                 gridView.setExpanded(true);
+                gridView.setFocusable(false);
                 gridView.setAdapter(adapter);
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -824,11 +830,12 @@ public class MemberDetailActivity extends BaseActivity {
                 });
             }
         }
-        mIsPedia48Loaded = true;
+
+        /*mIsPedia48Loaded = true;
         if (mIsYahooLoaded) {
             loadProfile();
             loadNamuwiki();
-        }
+        }*/
     }
 
     @Override
