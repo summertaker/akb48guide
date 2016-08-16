@@ -130,7 +130,7 @@ public class MemberDetailActivity extends BaseActivity {
 
         mLoLoading = (LinearLayout) findViewById(R.id.loLoading);
         ProgressBar pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
-        Util.setProgressBarColor(pbLoading, Config.PROGRESS_BAR_COLOR_NORMAL, null);
+        Util.setProgressBarColor(pbLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
 
         mPbPictureLoading = (ProgressBar) findViewById(R.id.pbPictureLoading);
         Util.setProgressBarColor(mPbPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
@@ -151,17 +151,15 @@ public class MemberDetailActivity extends BaseActivity {
                 mLoPedia48Loading = (RelativeLayout) findViewById(R.id.loPedia48Loading);
                 ProgressBar pbPedia48Loading = (ProgressBar) findViewById(R.id.pbPedia48Loading);
                 Util.setProgressBarColor(pbPedia48Loading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
-
-                loadProfile();
-                loadNamuwiki();
                 break;
             default:
-                LinearLayout loPedia48 = (LinearLayout) findViewById(R.id.loPedia48);
-                loPedia48.setVisibility(View.GONE);
-                loadProfile();
-                loadNamuwiki();
+                findViewById(R.id.loYahoo).setVisibility(View.GONE);
+                findViewById(R.id.loPedia48).setVisibility(View.GONE);
                 break;
         }
+
+        loadProfile();
+        loadNamuwiki();
     }
 
     private void loadProfile() {
@@ -672,8 +670,16 @@ public class MemberDetailActivity extends BaseActivity {
             }
         }
 
-        loadYahoo();
-        loadPedia48();
+        switch (mGroupData.getId()) {
+            case Config.GROUP_ID_AKB48:
+            case Config.GROUP_ID_SKE48:
+            case Config.GROUP_ID_NMB48:
+            case Config.GROUP_ID_HKT48:
+            case Config.GROUP_ID_NGT48:
+                loadYahoo();
+                loadPedia48();
+                break;
+        }
     }
 
     public void onMenuItemClick(MenuData menuData) {
