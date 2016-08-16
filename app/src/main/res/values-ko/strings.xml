@@ -190,6 +190,7 @@
     <string name="select_the_level">레벨을 선택하세요.</string>
     <string name="result">결과</string>
     <string name="akpedia">에케페디아</string>
+    <string name="s_minute">%s분</string>
+    <string name="s_second">%s초</string>
 
 </resources>
-

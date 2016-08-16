@@ -1,5 +1,7 @@
 <resources>
     <string name="version_s">Version %1$s</string>
+    <string name="s_second">%s seconds</string>
+    <string name="s_minute">%s minutes</string>
     <string name="s_people">%s people</string>
     <string name="team_s">Team %s</string>
     <string name="app_name">AKB48 Guide</string>

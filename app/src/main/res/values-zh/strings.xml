@@ -190,6 +190,8 @@
     <string name="select_the_level">请选择级别。</string>
     <string name="result">结果</string>
     <string name="akpedia">エケペディア</string>
+    <string name="s_minute">%s分钟</string>
+    <string name="s_second">%s秒</string>
 
 </resources>
 
