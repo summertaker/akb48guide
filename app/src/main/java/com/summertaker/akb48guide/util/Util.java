@@ -147,12 +147,25 @@ public class Util {
     }
 
     public static String replaceNamuwikiKanjiWithOfficial(String source) {
+        return replaceNamuwikiKanjiWithOfficial(source, false);
+    }
+
+    public static String replaceNamuwikiKanjiWithOfficial(String source, boolean isMobile) {
         String result = source;
 
-        result = result.replace("岡部麒", "岡部麟");         // AKB48 Team 8
-        result = result.replace("高橋彩音", "髙橋彩音");     // AKB48 Team 8
-        result = result.replace("濱咲友菜", "濵咲友菜");     // AKB48 Team 8
-        result = result.replace("濱松里緒菜", "濵松里緒菜"); // AKB48 Team 8
+        // AKB48 Team 8
+        result = result.replace("岡部麒", "岡部麟");
+        result = result.replace("高橋彩音", "髙橋彩音");
+        result = result.replace("濱咲友菜", "濵咲友菜");
+        result = result.replace("濱松里緒菜", "濵松里緒菜");
+
+        // HKT48
+        //result = result.replace("運上弘菜", "運上弘菜"); // 運 일본식 한자가 시스템 폰트에 없음
+        result = result.replace("宮﨑想乃", "宮崎想乃");
+
+        //if (!source.equals(result)) {
+        //    Log.e("==", source + " > " + result);
+        //}
 
         return result;
     }

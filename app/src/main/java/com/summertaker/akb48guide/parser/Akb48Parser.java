@@ -171,6 +171,14 @@ public class Akb48Parser extends BaseParser {
                     continue;
                 }
                 name = el.text().trim();
+
+                // 모바일용 사이트 이름과 PC용 사이트 이름이 다르다. PC용으로 전환
+                switch (name) {
+                    case "浜咲友菜":
+                        name = "濵咲友菜";
+                        break;
+                }
+
                 noSpaceName = Util.removeSpace(name);
 
                 el = a.select(".lineRight").first();
