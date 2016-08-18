@@ -25,6 +25,7 @@ import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.MenuData;
 import com.summertaker.akb48guide.election.ElectionListActivity;
+import com.summertaker.akb48guide.janken.MyGLActivity;
 import com.summertaker.akb48guide.rawphoto.RawPhotoMainActivity;
 
 import java.util.ArrayList;
@@ -77,6 +78,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             if (navigationView != null) {
                 navigationView.setNavigationItemSelectedListener(this);
 
+                LinearLayout content = (LinearLayout) findViewById(R.id.content);
+                if (content != null) {
+                    mSnackbar = Snackbar.make(content, "", Snackbar.LENGTH_SHORT);
+                    View view = mSnackbar.getView();
+                    TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+                    tv.setTextColor(ContextCompat.getColor(mContext, R.color.yellow));
+                    //tv.setBackgroundColor(ContextCompat.getColor(mContext, R.color.red));
+                    tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                }
+
                 mMenuDatas = new ArrayList<>();
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_MEMBER, getString(R.string.member), R.drawable.main_girl));
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_BLOG, getString(R.string.blog), R.drawable.main_rss));
@@ -87,6 +98,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_BIRTHDAY, getString(R.string.birthday), R.drawable.main_heart));
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_RAW_PHOTO, getString(R.string.raw_photo), R.drawable.main_camera));
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_PUZZLE, getString(R.string.puzzle), R.drawable.main_pause));
+                mMenuDatas.add(new MenuData(Config.MAIN_ACTION_JANKEN, getString(R.string.rock_paper_scissors), R.drawable.main_pause));
 
                 MainMenuAdapter adapter = new MainMenuAdapter(mContext, mMenuDatas);
                 GridView gridView = (GridView) findViewById(R.id.gridView);
@@ -109,27 +121,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                                 case Config.MAIN_ACTION_RAW_PHOTO:
                                     intent = new Intent(mContext, RawPhotoMainActivity.class);
                                     break;
-                                case Config.MAIN_ACTION_BIRTHDAY:
-                                    //mSnackbar.setText(getString(R.string.working)).show();
+                                case Config.MAIN_ACTION_JANKEN:
+                                    intent = new Intent(mContext, MyGLActivity.class);
+                                    break;
                                 default:
                                     intent = new Intent(mContext, GroupSelectActivity.class);
                                     intent.putExtra("action", menuData.getId());
                                     intent.putExtra("title", menuData.getTitle());
                                     break;
                             }
-                            runActivity(intent, false);
+                            goActivity(intent, false);
                         }
                     });
-
-                    LinearLayout content = (LinearLayout) findViewById(R.id.content);
-                    if (content != null) {
-                        mSnackbar = Snackbar.make(content, "", Snackbar.LENGTH_SHORT);
-                        View view = mSnackbar.getView();
-                        TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
-                        tv.setTextColor(ContextCompat.getColor(mContext, R.color.yellow));
-                        //tv.setBackgroundColor(ContextCompat.getColor(mContext, R.color.red));
-                        tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    }
                 }
             }
         }
@@ -212,7 +215,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         mNavItemSelected = 0;
         hideToolbarProgressBar();
-        runActivity(intent, true);
+        goActivity(intent, true);
     }
 
     @Override
@@ -227,10 +230,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void goSettings() {
         Intent intent = new Intent(mContext, SettingActivity.class);
-        runActivity(intent, false);
+        goActivity(intent, false);
     }
 
-    public void runActivity(Intent intent, boolean showLoading) {
+    public void goActivity(Intent intent, boolean showLoading) {
         if (intent != null) {
             if (showLoading) {
                 showToolbarProgressBar();

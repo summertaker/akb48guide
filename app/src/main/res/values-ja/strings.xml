@@ -192,6 +192,7 @@
     <string name="akpedia">エケペディア</string>
     <string name="s_minute">%s分</string>
     <string name="s_second">%s秒</string>
+    <string name="rock_paper_scissors">じゃんけん</string>
 
 </resources>
 

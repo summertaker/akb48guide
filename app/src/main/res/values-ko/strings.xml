@@ -192,5 +192,6 @@
     <string name="akpedia">에케페디아</string>
     <string name="s_minute">%s분</string>
     <string name="s_second">%s초</string>
+    <string name="rock_paper_scissors">가위 바위 보</string>
 
 </resources>

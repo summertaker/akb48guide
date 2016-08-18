@@ -192,6 +192,7 @@
     <string name="akpedia">エケペディア</string>
     <string name="s_minute">%s分钟</string>
     <string name="s_second">%s秒</string>
+    <string name="rock_paper_scissors">石头 剪子 布</string>
 
 </resources>
 

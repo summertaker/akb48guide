@@ -192,5 +192,7 @@
     <string name="select_the_level">Select the level.</string>
     <string name="result">Result</string>
     <string name="akpedia">エケペディア</string>
+    <string name="rock_paper_scissors">Rock, paper, scissors</string>
+    <string name="title_activity_janken">JankenActivity</string>
 
 </resources>
