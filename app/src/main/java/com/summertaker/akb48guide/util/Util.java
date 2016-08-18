@@ -146,6 +146,17 @@ public class Util {
         return local.equals(wiki);
     }
 
+    public static String replaceNamuwikiKanjiWithOfficial(String source) {
+        String result = source;
+
+        result = result.replace("岡部麒", "岡部麟");         // AKB48 Team 8
+        result = result.replace("高橋彩音", "髙橋彩音");     // AKB48 Team 8
+        result = result.replace("濱咲友菜", "濵咲友菜");     // AKB48 Team 8
+        result = result.replace("濱松里緒菜", "濵松里緒菜"); // AKB48 Team 8
+
+        return result;
+    }
+
     public static boolean isEqualString(String localName, String wikiName) {
         //boolean result = false;
 

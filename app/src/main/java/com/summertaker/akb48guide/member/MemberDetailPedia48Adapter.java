@@ -67,7 +67,7 @@ public class MemberDetailPedia48Adapter extends BaseDataAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        String imageUrl = webData.getThumbnailUrl();
+        final String imageUrl = webData.getThumbnailUrl();
         //Log.e(mTag, imageUrl);
 
         if (imageUrl == null || imageUrl.isEmpty()) {
@@ -88,7 +88,7 @@ public class MemberDetailPedia48Adapter extends BaseDataAdapter {
 
                 @Override
                 public void onError() {
-                    Log.e(mTag, "Picasso.ERROR...");
+                    Log.e(mTag, "Picasso.ERROR..." + imageUrl);
                     holder.loLoading.setVisibility(View.GONE);
                 }
             });

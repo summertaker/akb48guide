@@ -26,6 +26,7 @@ import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
 import com.summertaker.akb48guide.common.Config;
+import com.summertaker.akb48guide.common.ImageViewActivity;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.common.WebDataAdapter;
 import com.summertaker.akb48guide.data.GroupData;
@@ -772,16 +773,18 @@ public class MemberDetailActivity extends BaseActivity {
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*WebData webData = (WebData) parent.getItemAtPosition(position);
-                Intent intent = new Intent(mContext, ImageViewActivity.class);
-                intent.putExtra("title", webData.getTitle());
-                intent.putExtra("url", webData.getUrl());
-                intent.putExtra("thumbnailUrl", webData.getThumbnailUrl());
-                intent.putExtra("imageUrl", webData.getImageUrl());
-                startActivityForResult(intent, 100);
+                    WebData webData = (WebData) parent.getItemAtPosition(position);
 
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                //goWebView(webData.getUrl(), mMemberData.getName());*/
+                    goWebSite(webData.getUrl());
+
+                    /*Intent intent = new Intent(mContext, ImageViewActivity.class);
+                    intent.putExtra("title", webData.getTitle());
+                    intent.putExtra("url", webData.getUrl());
+                    intent.putExtra("thumbnailUrl", webData.getThumbnailUrl());
+                    intent.putExtra("imageUrl", webData.getImageUrl());
+                    startActivityForResult(intent, 100);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+                    //goWebView(webData.getUrl(), mMemberData.getName());
                 }
             });
         }
@@ -830,8 +833,17 @@ public class MemberDetailActivity extends BaseActivity {
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //MenuData menuData = (MenuData) parent.getItemAtPosition(position);
-                        //onMenuItemClick(menuData);
+                        WebData webData = (WebData) parent.getItemAtPosition(position);
+
+                        goWebSite(webData.getUrl());
+
+                        /*Intent intent = new Intent(mContext, ImageViewActivity.class);
+                        intent.putExtra("title", webData.getTitle());
+                        intent.putExtra("url", webData.getUrl());
+                        intent.putExtra("thumbnailUrl", webData.getThumbnailUrl());
+                        intent.putExtra("imageUrl", webData.getThumbnailUrl());
+                        startActivityForResult(intent, 100);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
                     }
                 });
             }
@@ -842,6 +854,12 @@ public class MemberDetailActivity extends BaseActivity {
             loadProfile();
             loadNamuwiki();
         }*/
+    }
+
+    public void goWebSite(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivityForResult(intent, 100);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

@@ -124,6 +124,8 @@ public class Pedia48ProfileParser extends BaseParser {
                 String devider = ".jpg/";
                 if (src.contains(".jpeg/")) {
                     devider = ".jpeg/";
+                } else if (src.contains(".png/")) {
+                    devider = ".png/";
                 }
                 src = src.split(devider)[0].replace("/thumb/", "/") + devider.replace("/", "");
                 src = mBaseUrl + src;

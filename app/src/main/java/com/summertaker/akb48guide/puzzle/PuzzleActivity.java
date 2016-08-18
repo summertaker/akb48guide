@@ -42,6 +42,8 @@ import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
 import com.summertaker.akb48guide.parser.Akb48Parser;
 import com.summertaker.akb48guide.parser.BaseParser;
+import com.summertaker.akb48guide.parser.NamuwikiParser;
+import com.summertaker.akb48guide.parser.WikipediaEnParser;
 import com.summertaker.akb48guide.util.Util;
 
 import java.util.ArrayList;
@@ -62,7 +64,15 @@ public class PuzzleActivity extends BaseActivity {
     boolean mIsMobile = false;
     ArrayList<MemberData> mGroupMemberList = new ArrayList<>();
     ArrayList<MemberData> mMemberList = new ArrayList<>();
+    ArrayList<MemberData> mWikiMemberList = new ArrayList<>();
     ArrayList<TeamData> mTeamDataList = new ArrayList<>();
+
+    String mLocale;
+    BaseParser mWikiParser;
+    //CacheManager mCacheManager;
+
+    boolean mIsDataLoaded = false;
+    boolean mIsWikiLoaded = false;
 
     RelativeLayout mResultLayout;
     CountDownTimer mResultTimer;
@@ -150,39 +160,6 @@ public class PuzzleActivity extends BaseActivity {
             }
         });
 
-        String url = mGroupData.getUrl();
-        String userAgent = Config.USER_AGENT_WEB;
-        mCardBackground = R.drawable.card_background;
-
-        switch (mGroupData.getId()) {
-            case Config.GROUP_ID_AKB48:
-                url = mGroupData.getMobileUrl();
-                userAgent = Config.USER_AGENT_MOBILE;
-                mIsMobile = true;
-                mCardBackground = R.drawable.card_akb48;
-                break;
-            case Config.GROUP_ID_SKE48:
-                mCardBackground = R.drawable.card_ske48;
-                break;
-            case Config.GROUP_ID_NMB48:
-                mCardBackground = R.drawable.card_nmb48;
-                break;
-            case Config.GROUP_ID_HKT48:
-                mCardBackground = R.drawable.card_hkt48;
-                break;
-            case Config.GROUP_ID_NGT48:
-                mCardBackground = R.drawable.card_ngt48;
-                break;
-            case Config.GROUP_ID_JKT48:
-                mCardBackground = R.drawable.card_jkt48;
-                break;
-            case Config.GROUP_ID_SNH48:
-            case Config.GROUP_ID_BEJ48:
-            case Config.GROUP_ID_GNZ48:
-                mCardBackground = R.drawable.card_snh48;
-                break;
-        }
-
         //mPbLoading.setVisibility(View.GONE);
         //LinearLayout grid = (LinearLayout) findViewById(R.id.grid);
         //grid.setVisibility(View.VISIBLE);
@@ -242,16 +219,57 @@ public class PuzzleActivity extends BaseActivity {
             cv.addView(rl);
         }
 
+        String url = mGroupData.getUrl();
+        String userAgent = Config.USER_AGENT_WEB;
+        mCardBackground = R.drawable.card_background;
+
+        switch (mGroupData.getId()) {
+            case Config.GROUP_ID_AKB48:
+                url = mGroupData.getMobileUrl();
+                userAgent = Config.USER_AGENT_MOBILE;
+                mIsMobile = true;
+                mCardBackground = R.drawable.card_akb48;
+                break;
+            case Config.GROUP_ID_SKE48:
+                mCardBackground = R.drawable.card_ske48;
+                break;
+            case Config.GROUP_ID_NMB48:
+                mCardBackground = R.drawable.card_nmb48;
+                break;
+            case Config.GROUP_ID_HKT48:
+                mCardBackground = R.drawable.card_hkt48;
+                break;
+            case Config.GROUP_ID_NGT48:
+                mCardBackground = R.drawable.card_ngt48;
+                break;
+            case Config.GROUP_ID_JKT48:
+                mCardBackground = R.drawable.card_jkt48;
+                break;
+            case Config.GROUP_ID_SNH48:
+            case Config.GROUP_ID_BEJ48:
+            case Config.GROUP_ID_GNZ48:
+                mCardBackground = R.drawable.card_snh48;
+                break;
+        }
         requestData(url, userAgent);
+
+        mLocale = Util.getLocaleStrng(mContext);
+        switch (mLocale) {
+            case "KR":
+                mWikiParser = new NamuwikiParser();
+                break;
+            default:
+                mWikiParser = new WikipediaEnParser();
+                break;
+        }
+        String mWikiUrl = mWikiParser.getUrl(mGroupData.getId());
+        if (mWikiUrl == null || mWikiUrl.isEmpty()) {
+            mIsWikiLoaded = true;
+        } else {
+            requestData(mWikiUrl, Config.USER_AGENT_WEB);
+        }
     }
 
-    private void createLayout() {
-
-    }
-
-    /**
-     * 네트워크 데이터 - 가져오기
-     */
     private void requestData(final String url, final String userAgent) {
         //Log.e(mTag, "url: " + url);
         //Log.e(mTag, "userAgent: " + userAgent);
@@ -288,33 +306,65 @@ public class PuzzleActivity extends BaseActivity {
     }
 
     private void parseData(String url, String response) {
-        switch (mGroupData.getId()) {
-            case Config.GROUP_ID_AKB48:
-                Akb48Parser akb48Parser = new Akb48Parser();
-                akb48Parser.parseMobileMemberAll(response, mGroupData, mGroupMemberList);
-                break;
-            default:
-                BaseParser baseParser = new BaseParser();
-                baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
-                break;
+        if (url.contains("wiki")) {
+            mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
+            mIsWikiLoaded = true;
+        } else {
+            switch (mGroupData.getId()) {
+                case Config.GROUP_ID_AKB48:
+                    Akb48Parser akb48Parser = new Akb48Parser();
+                    akb48Parser.parseMobileMemberAll(response, mGroupData, mGroupMemberList);
+                    break;
+                default:
+                    BaseParser baseParser = new BaseParser();
+                    baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
+                    break;
+            }
+            mIsDataLoaded = true;
         }
 
         renderData();
     }
 
-    private void renderData() {
-        //mPbLoading.setVisibility(View.GONE);
+    private void updateData() {
+        for (MemberData memberData : mMemberList) {
+            if (mWikiMemberList.size() == 0) {
+                memberData.setLocaleName(memberData.getName()); //memberData.getNameEn();
+            } else {
+                for (MemberData wikiData : mWikiMemberList) {
+                    //Log.e(mTag, memberData.getNoSpaceName() + " = " + wikiData.getNoSpaceName());
+                    if (Util.isEqualString(memberData.getNoSpaceName(), wikiData.getNoSpaceName())) {
+                        String localeName;
+                        switch (mLocale) {
+                            case "KR":
+                                localeName = wikiData.getNameKo();
+                                break;
+                            default:
+                                localeName = wikiData.getNameEn();
+                                break;
+                        }
+                        if (localeName == null || localeName.isEmpty()) {
+                            localeName = memberData.getName();
+                        }
+                        //Log.e(mTag, "localeName: " + localeName);
+                        memberData.setLocaleName(localeName);
+                        break;
+                    } else {
+                        memberData.setLocaleName(memberData.getName()); //memberData.getNameEn();
+                    }
+                }
+            }
+        }
+    }
 
-        //String team = getString(R.string.team);
-        //String trainee = getString(R.string.trainee);
+    private void renderData() {
+        if (!mIsWikiLoaded || !mIsDataLoaded) {
+            return;
+        }
 
         if (mGroupMemberList.size() == 0) {
             alertNetworkErrorAndFinish(mErrorMessage);
         } else {
-            //mPbLoading.setVisibility(View.GONE);
-            //LinearLayout grid = (LinearLayout) findViewById(R.id.grid);
-            //grid.setVisibility(View.VISIBLE);
-
             Collections.shuffle(mGroupMemberList);
 
             int count = 0;
@@ -324,12 +374,14 @@ public class PuzzleActivity extends BaseActivity {
 
                 MemberData data1 = new MemberData();
                 data1.setName(oldData.getName());
+                data1.setNoSpaceName(oldData.getNoSpaceName());
                 data1.setThumbnailUrl(oldData.getThumbnailUrl());
                 mMemberList.add(data1);
                 count++;
 
                 MemberData data2 = new MemberData();
                 data2.setName(oldData.getName());
+                data2.setNoSpaceName(oldData.getNoSpaceName());
                 data2.setThumbnailUrl(oldData.getThumbnailUrl());
                 mMemberList.add(data2);
                 count++;
@@ -338,6 +390,8 @@ public class PuzzleActivity extends BaseActivity {
             Collections.shuffle(mMemberList);
             Collections.shuffle(mMemberList);
             Collections.shuffle(mMemberList);
+
+            updateData();
 
             for (int i = 0; i < mCardTotal; i++) {
 
@@ -349,7 +403,7 @@ public class PuzzleActivity extends BaseActivity {
                 mImageViews[index].setTag(memberData);
 
                 if (!mLevel.equals(Config.PUZZLE_LEVEL_HARD)) {
-                    mTextViews[index].setText(memberData.getName());
+                    mTextViews[index].setText(memberData.getLocaleName());
                 }
 
                 String imageUrl = memberData.getThumbnailUrl();

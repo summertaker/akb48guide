@@ -103,6 +103,7 @@ public class NamuwikiParser extends BaseParser {
                 if (localName.isEmpty()) {
                     continue;
                 }
+                localName = Util.replaceNamuwikiKanjiWithOfficial(localName);
                 noSpaceName = Util.removeSpace(localName);
 
                 el = el.nextElementSibling();
@@ -129,19 +130,21 @@ public class NamuwikiParser extends BaseParser {
                         el = el.nextElementSibling();
                         if (el != null) {
                             namuwikiInfo = el.text().trim();
+                            Element del = el.select("del").first();
+                            if (del != null) {
+                                namuwikiInfo = namuwikiInfo.replace(del.text(), "").trim();
+                            }
                             namuwikiInfo = namuwikiInfo.replaceAll("\\[[\\d+]\\]", "").trim();
                             //Log.e(mTag, "namuwikiInfo: " + namuwikiInfo);
 
                             String[] array = namuwikiInfo.split("\\,");
                             for (String info : array) {
                                 //Log.e(mTag, "info: " + info);
-                                //for (String groupName : groupNames) {
                                 if (info.contains("겸임")) {
                                     concurrentInfo = info.replace("겸임", "").replace("에서", "").trim();
                                     isConcurrent = true;
                                     break;
                                 }
-                                //}
                             }
                         }
                     }
@@ -169,19 +172,14 @@ public class NamuwikiParser extends BaseParser {
                     for (String str : array) {
                         String text = str.trim();
                         //Log.e(mTag, nameKo + " / " + text);
-                        switch (text) {
-                            case "캡틴":
-                                memberData.setCaptain(true); // 팀 캡틴
-                                break;
-                            case "부캡틴":
-                                memberData.setViceCaptain(true);
-                                break;
-                            case "부리더":
-                                memberData.setViceCaptain(true);
-                                break;
-                            case "리더":
-                                memberData.setCaptain(true);
-                                break;
+                        if (text.contains("부캡틴")) {
+                            memberData.setViceCaptain(true);
+                        } else if (text.contains("캡틴")) {
+                            memberData.setCaptain(true);
+                        } else if (text.contains("부리더")) {
+                            memberData.setViceCaptain(true);
+                        } else if (text.contains("리더")) {
+                            memberData.setCaptain(true);
                         }
                     }
 

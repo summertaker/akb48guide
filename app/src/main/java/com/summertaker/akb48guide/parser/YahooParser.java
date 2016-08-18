@@ -41,11 +41,14 @@ public class YahooParser extends BaseParser {
 
             String siteId = "yahooimage";
             String title;
+            String url;
             String imageUrl;
             String thumbnailUrl;
 
             Element el = row.select("a").first();
-            imageUrl = el.attr("href");
+            url = el.attr("href");
+
+            imageUrl = url;
             //Log.e(mTag, "imageUrl: " + imageUrl);
             if (imageUrl.contains("**")) {
                 int idx = imageUrl.indexOf("**");
@@ -70,6 +73,7 @@ public class YahooParser extends BaseParser {
             WebData webData = new WebData();
             webData.setSiteId(siteId);
             webData.setTitle(title);
+            webData.setUrl(url);
             webData.setImageUrl(imageUrl);
             webData.setThumbnailUrl(thumbnailUrl);
 
