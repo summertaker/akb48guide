@@ -23,7 +23,7 @@
             android:text="@string/blank" />
 
         <TextView
-            android:id="@+id/tvCount"
+            android:id="@+id/tvCountIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/blank"

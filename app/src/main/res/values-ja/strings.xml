@@ -193,6 +193,9 @@
     <string name="s_minute">%s分</string>
     <string name="s_second">%s秒</string>
     <string name="rock_paper_scissors">じゃんけん</string>
+    <string name="action_scissors">はさみ</string>
+    <string name="action_paper">紙</string>
+    <string name="action_rock">岩</string>
 
 </resources>
 

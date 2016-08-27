@@ -40,8 +40,8 @@
     <!-- Bootstrap Button -->
     <color name="button_default">#e6e6e6</color>
     <color name="button_default_border">#d6d6d6</color>
-    <color name="button_default_pressed">#d6d6d6</color>
-    <color name="button_default_pressed_border">#c6c6c6</color>
+    <color name="button_default_pressed">#c6c6c6</color>
+    <color name="button_default_pressed_border">#b6b6b6</color>
 
     <color name="button_primary">#337AB7</color>
     <color name="button_primary_border">#2E6DA4</color>

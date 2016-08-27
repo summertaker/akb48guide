@@ -58,7 +58,7 @@ public class ElectionListAdapter extends BaseDataAdapter {
 
             holder = new ViewHolder();
             holder.ivPicture = (ImageView) view.findViewById(R.id.ivPicture);
-            holder.tvCount = (TextView) view.findViewById(R.id.tvCount);
+            holder.tvCount = (TextView) view.findViewById(R.id.tvCountIcon);
             holder.tvCountSuffix = (TextView) view.findViewById(R.id.tvCountSuffix);
             holder.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
             holder.tvCatchPhrase = (TextView) view.findViewById(R.id.tvCatchPhrase);

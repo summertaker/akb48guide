@@ -193,5 +193,8 @@
     <string name="s_minute">%s분</string>
     <string name="s_second">%s초</string>
     <string name="rock_paper_scissors">가위 바위 보</string>
+    <string name="action_paper">보</string>
+    <string name="action_scissors">가위</string>
+    <string name="action_rock">바위</string>
 
 </resources>

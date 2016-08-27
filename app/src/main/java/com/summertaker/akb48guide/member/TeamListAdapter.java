@@ -73,7 +73,7 @@ public class TeamListAdapter extends BaseDataAdapter {
 
             //holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivPicture);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
-            holder.tvCount = (TextView) convertView.findViewById(R.id.tvCount);
+            holder.tvCount = (TextView) convertView.findViewById(R.id.tvCountIcon);
 
             /*switch (memberData.getGroupId()) {
                 case Config.GROUP_ID_AKB48:

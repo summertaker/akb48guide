@@ -75,7 +75,7 @@ public class BirthMonthAdapter extends BaseDataAdapter {
             holder.tvMonth = (TextView) view.findViewById(R.id.tvMonth);
             holder.tvMonthSuffix = (TextView) view.findViewById(R.id.tvMonthSuffix);
             holder.tvName = (TextView) view.findViewById(R.id.tvName);
-            holder.tvCount = (TextView) view.findViewById(R.id.tvCount);
+            holder.tvCount = (TextView) view.findViewById(R.id.tvCountIcon);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();

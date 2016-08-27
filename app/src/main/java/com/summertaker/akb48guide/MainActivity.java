@@ -25,6 +25,7 @@ import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.MenuData;
 import com.summertaker.akb48guide.election.ElectionListActivity;
+import com.summertaker.akb48guide.janken.JankenMainActivity;
 import com.summertaker.akb48guide.janken.MyGLActivity;
 import com.summertaker.akb48guide.rawphoto.RawPhotoMainActivity;
 
@@ -122,7 +123,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                                     intent = new Intent(mContext, RawPhotoMainActivity.class);
                                     break;
                                 case Config.MAIN_ACTION_JANKEN:
-                                    intent = new Intent(mContext, MyGLActivity.class);
+                                    //intent = new Intent(mContext, MyGLActivity.class);
+                                    intent = new Intent(mContext, JankenMainActivity.class);
                                     break;
                                 default:
                                     intent = new Intent(mContext, GroupSelectActivity.class);
