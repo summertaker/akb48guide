@@ -122,10 +122,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                                 case Config.MAIN_ACTION_RAW_PHOTO:
                                     intent = new Intent(mContext, RawPhotoMainActivity.class);
                                     break;
-                                case Config.MAIN_ACTION_JANKEN:
-                                    //intent = new Intent(mContext, MyGLActivity.class);
-                                    intent = new Intent(mContext, JankenMainActivity.class);
-                                    break;
                                 default:
                                     intent = new Intent(mContext, GroupSelectActivity.class);
                                     intent.putExtra("action", menuData.getId());
