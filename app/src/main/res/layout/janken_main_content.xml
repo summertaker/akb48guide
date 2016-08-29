@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.summertaker.akb48guide.janken.JankenMainActivity"
-    tools:showIn="@layout/janken_main_activity">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:context="com.summertaker.akb48guide.janken.JankenMainActivity"
+                tools:showIn="@layout/janken_main_activity">
 
     <RelativeLayout
         android:id="@+id/loLoading"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
-            android:background="@drawable/progress_bar_circle" />
+            android:background="@drawable/progress_bar_circle"/>
 
     </RelativeLayout>
 
@@ -35,7 +35,79 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="47dp"
+                    android:layout_height="60dp"
+                    card_view:cardCornerRadius="3dp"
+                    card_view:cardElevation="5dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#ddd">
+
+                        <ProgressBar
+                            android:id="@+id/pbRemainPictureLoading"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"/>
+
+                        <ImageView
+                            android:id="@+id/ivRemainPicture"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:contentDescription="@string/blank"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/transparent"
+                            android:visibility="gone"/>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/tvRemainCounterIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/fa_circle"
+                        android:textColor="#0288d1"
+                        android:textSize="40sp"/>
+
+                    <TextView
+                        android:id="@+id/tvRemainCounterText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/blank"
+                        android:textColor="#fff"
+                        android:textSize="13sp"
+                        android:textStyle="italic"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cvPicture"
                 android:layout_width="200dp"
                 android:layout_height="250dp"
@@ -57,7 +129,7 @@
                         android:contentDescription="@string/blank"
                         android:scaleType="centerCrop"
                         android:src="@drawable/transparent"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tvPictureCaption"
@@ -69,7 +141,7 @@
                         android:paddingBottom="7dp"
                         android:paddingTop="7dp"
                         android:singleLine="true"
-                        android:textColor="#fff" />
+                        android:textColor="#fff"/>
 
                     <RelativeLayout
                         android:id="@+id/loPictureLoading"
@@ -82,7 +154,7 @@
                             android:id="@+id/pbPictureLoading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bar_circle" />
+                            android:background="@drawable/progress_bar_circle"/>
 
                     </RelativeLayout>
 
@@ -91,7 +163,7 @@
             </android.support.v7.widget.CardView>
 
             <LinearLayout
-                android:id="@+id/loUserAction"
+                android:id="@+id/loAction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -115,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fa_hand_scissors_o"
                         android:textColor="#fff"
-                        android:textSize="30sp" />
+                        android:textSize="30sp"/>
 
                     <TextView
                         android:id="@+id/tvScissorsText"
@@ -123,13 +195,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
                         android:text="@string/action_scissors"
-                        android:textColor="#fff" />
+                        android:textColor="#fff"/>
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="10dp"
-                    android:layout_height="1dp" />
+                    android:layout_height="1dp"/>
 
                 <LinearLayout
                     android:id="@+id/loRock"
@@ -148,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fa_hand_rock_o"
                         android:textColor="#fff"
-                        android:textSize="30sp" />
+                        android:textSize="30sp"/>
 
                     <TextView
                         android:id="@+id/tvRockText"
@@ -156,13 +228,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
                         android:text="@string/action_rock"
-                        android:textColor="#fff" />
+                        android:textColor="#fff"/>
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="10dp"
-                    android:layout_height="1dp" />
+                    android:layout_height="1dp"/>
 
                 <LinearLayout
                     android:id="@+id/loPaper"
@@ -181,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fa_hand_paper_o"
                         android:textColor="#fff"
-                        android:textSize="30sp" />
+                        android:textSize="30sp"/>
 
                     <TextView
                         android:id="@+id/tvPaperText"
@@ -189,26 +261,58 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
                         android:text="@string/action_paper"
-                        android:textColor="#fff" />
+                        android:textColor="#fff"/>
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <HorizontalScrollView
+                android:id="@+id/hsMyMember"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/loUserAction"
+                android:layout_above="@id/loAction"
                 android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp">
 
                 <LinearLayout
-                    android:id="@+id/loMyMember"
+                    android:id="@+id/loMyMemberList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" />
+                    android:orientation="horizontal"/>
 
             </HorizontalScrollView>
+
+            <RelativeLayout
+                android:id="@+id/loMyMemberCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/hsMyMember"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvMyMemberCounterIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/fa_heart"
+                    android:textColor="#f44336"
+                    android:textSize="30sp"/>
+
+                <TextView
+                    android:id="@+id/tvMyMemberCounterText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:paddingBottom="3dp"
+                    android:text="@string/blank"
+                    android:textColor="#fff"
+                    android:textStyle="italic|bold"/>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
@@ -226,7 +330,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/fa_circle"
                 android:textColor="#333"
-                android:textSize="150sp" />
+                android:textSize="150sp"/>
 
             <TextView
                 android:id="@+id/tvCounterOuter"
@@ -235,7 +339,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/fa_circle"
                 android:textColor="#b71c1c"
-                android:textSize="135sp" />
+                android:textSize="135sp"/>
 
             <TextView
                 android:id="@+id/tvCounterInner"
@@ -244,7 +348,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/fa_circle"
                 android:textColor="#f44336"
-                android:textSize="100sp" />
+                android:textSize="100sp"/>
 
             <TextView
                 android:id="@+id/tvCounterText"
@@ -254,7 +358,7 @@
                 android:text="@string/blank"
                 android:textColor="#fff"
                 android:textSize="40sp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold|italic"/>
 
         </RelativeLayout>
 

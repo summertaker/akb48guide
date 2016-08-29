@@ -45,6 +45,10 @@ public class JankenMainActivity extends BaseActivity {
 
     ProgressBar mPbLoading;
 
+    ProgressBar mPbRemainPictureLoading;
+    ImageView mIvRemainPicture;
+    TextView mTvRemainCounterText;
+
     RelativeLayout mLoPictureLoading;
     ImageView mIvPicture;
     TextView mTvPictureCaption;
@@ -67,10 +71,12 @@ public class JankenMainActivity extends BaseActivity {
     int mMemberCount = 0;
     String mPictureUrl;
     ArrayList<ImageView> mMyMemberImageViews = new ArrayList<>();
+    RelativeLayout mLoMyMemberCounter;
+    TextView mTvMyMemberCounterText;
 
     LinearLayout.LayoutParams mParams;
     LinearLayout.LayoutParams mParamsNoMargin;
-    LinearLayout mLoMyMember;
+    LinearLayout mLoMyMemberList;
     CardView mCvPicture;
     float aniViewX;
     float aniViewY;
@@ -96,14 +102,20 @@ public class JankenMainActivity extends BaseActivity {
         mPbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         Util.setProgressBarColor(mPbLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
 
-        mLoPictureLoading = (RelativeLayout) findViewById(R.id.loPictureLoading);
-        ProgressBar pbPictureLoading = (ProgressBar) findViewById(R.id.pbPictureLoading);
-        Util.setProgressBarColor(pbPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
-
-        mIvPicture = (ImageView) findViewById(R.id.ivPicture);
-        mTvPictureCaption = (TextView) findViewById(R.id.tvPictureCaption);
-
         loadData();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.janken_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //Intent intent = new Intent(this, JankenHitActivity.class);
+        //startActivity(intent);
+        return true;
     }
 
     private void loadData() {
@@ -241,9 +253,21 @@ public class JankenMainActivity extends BaseActivity {
         FrameLayout loContainer = (FrameLayout) findViewById(R.id.loContainer);
         loContainer.setVisibility(View.VISIBLE);
 
-        mCvPicture = (CardView) findViewById(R.id.cvPicture);
+        mPbRemainPictureLoading = (ProgressBar) findViewById(R.id.pbRemainPictureLoading);
+        //Util.setProgressBarColor(mPbRemainPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
+        mIvRemainPicture = (ImageView) findViewById(R.id.ivRemainPicture);
+        mTvRemainCounterText = (TextView) findViewById(R.id.tvRemainCounterText);
 
-        mLoMyMember = (LinearLayout) findViewById(R.id.loMyMember);
+        mCvPicture = (CardView) findViewById(R.id.cvPicture);
+        mLoPictureLoading = (RelativeLayout) findViewById(R.id.loPictureLoading);
+        ProgressBar pbPictureLoading = (ProgressBar) findViewById(R.id.pbPictureLoading);
+        Util.setProgressBarColor(pbPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
+        mIvPicture = (ImageView) findViewById(R.id.ivPicture);
+        mTvPictureCaption = (TextView) findViewById(R.id.tvPictureCaption);
+
+        mLoMyMemberCounter = (RelativeLayout) findViewById(R.id.loMyMemberCounter);
+        mTvMyMemberCounterText = (TextView) findViewById(R.id.tvMyMemberCounterText);
+        mLoMyMemberList = (LinearLayout) findViewById(R.id.loMyMemberList);
 
         float density = mContext.getResources().getDisplayMetrics().density;
         int width = (int) (47 * density);
@@ -256,6 +280,9 @@ public class JankenMainActivity extends BaseActivity {
         // http://stackoverflow.com/questions/15210548/how-to-use-a-icons-and-symbols-from-font-awesome-on-native-android-application
         //Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf" );
         Typeface font = Typefaces.get(mContext, "fontawesome-webfont.ttf");
+
+        TextView tvRemainCounterIcon = (TextView) findViewById(R.id.tvRemainCounterIcon);
+        tvRemainCounterIcon.setTypeface(font);
 
         LinearLayout loScissors = (LinearLayout) findViewById(R.id.loScissors);
         loScissors.setOnClickListener(new View.OnClickListener() {
@@ -309,10 +336,40 @@ public class JankenMainActivity extends BaseActivity {
         TextView tvCounterInner = (TextView) findViewById(R.id.tvCounterInner);
         tvCounterInner.setTypeface(font);
 
+        TextView tvMyMemberCounterIcon = (TextView) findViewById(R.id.tvMyMemberCounterIcon);
+        tvMyMemberCounterIcon.setTypeface(font);
+
         loadMemberPicture();
     }
 
     private void loadMemberPicture() {
+        MemberData remainMemberData = mGroupMemberList.get(mMemberCount + 1);
+        String imageUrl = remainMemberData.getImageUrl();
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            imageUrl = remainMemberData.getThumbnailUrl();
+        }
+        mPbRemainPictureLoading.setVisibility(View.VISIBLE);
+        mIvRemainPicture.setVisibility(View.GONE);
+        Picasso.with(mContext).load(imageUrl).into(mIvRemainPicture, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                mPbRemainPictureLoading.setVisibility(View.GONE);
+                mIvRemainPicture.setVisibility(View.VISIBLE);
+
+                String text = (mGroupMemberList.size() - mMemberCount - 1) + "";
+                mTvRemainCounterText.setText(text);
+
+                loadNextMember();
+            }
+
+            @Override
+            public void onError() {
+                mPbRemainPictureLoading.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void loadNextMember() {
         MemberData memberData = mGroupMemberList.get(mMemberCount);
         mPictureUrl = memberData.getImageUrl();
         if (mPictureUrl == null || mPictureUrl.isEmpty()) {
@@ -329,6 +386,7 @@ public class JankenMainActivity extends BaseActivity {
                 mLoPictureLoading.setVisibility(View.GONE);
                 mIvPicture.setVisibility(View.VISIBLE);
                 mIsProcessing = false;
+                loadMember();
             }
 
             @Override
@@ -339,105 +397,42 @@ public class JankenMainActivity extends BaseActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.janken_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //Intent intent = new Intent(this, JankenHitActivity.class);
-        //startActivity(intent);
-        return true;
-    }
-
-    private void doWin() {
-        if (mIsFirst) {
-            aniViewX = mCvPicture.getX();
-            aniViewY = mCvPicture.getY();
-            mIsFirst = false;
-        }
-        // Log.e(mTag, "aniViewX: " + aniViewX + ", aniViewY: " + aniViewY);
-        mCvPicture.animate().setDuration(500).x(-300f).y(1250f).scaleXBy(-1f).scaleYBy(-1f).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                //Log.e(mTag, "End..........");
-                addMyMember();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
-    }
-
-    private void addMyMember() {
-        ImageView iv = new ImageView(mContext);
-        //if (mMyMemberImageViews.size() == 0) {
-        //    iv.setLayoutParams(mParamsNoMargin);
-        //} else {
-        iv.setLayoutParams(mParams);
-        //}
-        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        mLoMyMember.addView(iv, 0);
-        mMyMemberImageViews.add(iv);
-
-        Picasso.with(mContext).load(mPictureUrl).into(iv, new com.squareup.picasso.Callback() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onError() {
-
-            }
-        });
-
-        loadMember();
-    }
-
     private void loadMember() {
         mMemberCount++;
         if (mMemberCount == mGroupMemberList.size()) {
             return;
         }
 
-        mCvPicture.animate().x(aniViewX).y(-1200f).scaleX(1f).scaleY(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
+        if (mIsFirst) {
+            //mCvPicture.setVisibility(View.VISIBLE);
+            aniViewX = mCvPicture.getX();
+            aniViewY = mCvPicture.getY();
+            mIsFirst = false;
+        } else {
+            mCvPicture.animate().x(aniViewX).y(-1200f).scaleX(1f).scaleY(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
 
-            }
+                }
 
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                //Log.e(mTag, "End..........");
-                mCvPicture.animate().y(aniViewY).setDuration(500).setListener(null);
-                loadMemberPicture();
-            }
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    //Log.e(mTag, "End..........");
+                    mCvPicture.animate().y(aniViewY).setDuration(500).setListener(null);
+                    //loadMemberPicture();
+                }
 
-            @Override
-            public void onAnimationCancel(Animator animator) {
+                @Override
+                public void onAnimationCancel(Animator animator) {
 
-            }
+                }
 
-            @Override
-            public void onAnimationRepeat(Animator animator) {
+                @Override
+                public void onAnimationRepeat(Animator animator) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     private void runCounter() {
@@ -497,6 +492,63 @@ public class JankenMainActivity extends BaseActivity {
         });
     }
 
+    private void doWin() {
+
+        // Log.e(mTag, "aniViewX: " + aniViewX + ", aniViewY: " + aniViewY);
+
+        mCvPicture.animate().setDuration(500).x(-300f).y(1250f).scaleXBy(-1f).scaleYBy(-1f).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                //Log.e(mTag, "End..........");
+                addMyMember();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+    }
+
+    private void addMyMember() {
+        ImageView iv = new ImageView(mContext);
+        //if (mMyMemberImageViews.size() == 0) {
+        //    iv.setLayoutParams(mParamsNoMargin);
+        //} else {
+        iv.setLayoutParams(mParams);
+        //}
+        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mLoMyMemberList.addView(iv, 0);
+        mMyMemberImageViews.add(iv);
+
+        Picasso.with(mContext).load(mPictureUrl).into(iv, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                mLoMyMemberCounter.setVisibility(View.VISIBLE);
+                String text = mMyMemberImageViews.size() + "";
+                if (mMyMemberImageViews.size() > 0) {
+                    mTvMyMemberCounterText.setText(text);
+                }
+                loadMemberPicture();
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+    }
+
     private void doLose() {
         /*float dest = 360;
         if (mCvPicture.getRotation() == 360) {
@@ -535,7 +587,7 @@ public class JankenMainActivity extends BaseActivity {
         final int index = mMyMemberImageViews.size() - 1;
         if (index >= 0) {
             final ImageView iv = mMyMemberImageViews.get(index);
-            iv.animate().alpha(0f).setDuration(700).setListener(new Animator.AnimatorListener() {
+            iv.animate().scaleX(0.5f).scaleY(0.5f).alpha(0f).setDuration(700).setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animator) {
 
@@ -544,8 +596,15 @@ public class JankenMainActivity extends BaseActivity {
                 @Override
                 public void onAnimationEnd(Animator animator) {
                     //Log.e(mTag, "End..........");
-                    mLoMyMember.removeView(iv);
+                    mLoMyMemberList.removeView(iv);
                     mMyMemberImageViews.remove(index);
+
+                    String text = mMyMemberImageViews.size() + "";
+                    mTvMyMemberCounterText.setText(text);
+                    if (mMyMemberImageViews.size() == 0) {
+                        mLoMyMemberCounter.setVisibility(View.GONE);
+                    }
+
                     mIsProcessing = false;
                 }
 
