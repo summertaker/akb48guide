@@ -196,5 +196,11 @@
     <string name="action_paper">보</string>
     <string name="action_scissors">가위</string>
     <string name="action_rock">바위</string>
+    <string name="fa_hand_scissors_o">&#xf257;</string>
+    <string name="fa_hand_rock_o">&#xf255;</string>
+    <string name="fa_hand_paper_o">&#xf256;</string>
+    <string name="fa_circle">&#xf111;</string>
+    <string name="fa_heart">&#xf004;</string>
+    <string name="janken">장켄</string>
 
 </resources>

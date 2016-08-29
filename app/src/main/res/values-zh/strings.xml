@@ -192,10 +192,16 @@
     <string name="akpedia">エケペディア</string>
     <string name="s_minute">%s分钟</string>
     <string name="s_second">%s秒</string>
-    <string name="rock_paper_scissors">石头 剪子 布</string>
+    <string name="rock_paper_scissors">石头，剪子，布</string>
     <string name="action_rock">岩</string>
     <string name="action_scissors">剪刀</string>
     <string name="action_paper">纸</string>
+    <string name="fa_hand_scissors_o">&#xf257;</string>
+    <string name="fa_hand_rock_o">&#xf255;</string>
+    <string name="fa_hand_paper_o">&#xf256;</string>
+    <string name="fa_circle">&#xf111;</string>
+    <string name="fa_heart">&#xf004;</string>
+    <string name="janken">石头，剪子，布</string>
 
 </resources>
 

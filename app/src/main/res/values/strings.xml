@@ -192,7 +192,6 @@
     <string name="select_the_level">Select the level.</string>
     <string name="result">Result</string>
     <string name="akpedia">エケペディア</string>
-
     <string name="rock_paper_scissors">Rock, paper, scissors</string>
     <string name="action_scissors">Scissors</string>
     <string name="action_rock">Rock</string>
@@ -202,5 +201,6 @@
     <string name="fa_hand_paper_o">&#xf256;</string>
     <string name="fa_circle">&#xf111;</string>
     <string name="fa_heart">&#xf004;</string>
+    <string name="janken">Janken</string>
 
 </resources>
