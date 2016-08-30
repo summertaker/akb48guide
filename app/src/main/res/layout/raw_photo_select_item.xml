@@ -7,7 +7,7 @@
     card_view:cardElevation="@dimen/card_elevation">
 
     <ImageView
-        android:id="@+id/ivPicture"
+        android:id="@+id/ivMemberPicture"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_alignParentStart="true"

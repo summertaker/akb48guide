@@ -80,7 +80,7 @@ public class TeamGridAdapter extends BaseDataAdapter {
             holder.pbLoading = (ProgressBar) convertView.findViewById(R.id.pbLoading);
             Util.setProgressBarColor(holder.pbLoading, 0, null);
 
-            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivPicture);
+            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMemberPicture);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
             //holder.tvCount = (TextView) convertView.findViewById(R.id.tvCount);
 

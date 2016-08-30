@@ -2,12 +2,10 @@ package com.summertaker.akb48guide.election;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -89,10 +87,10 @@ public class VoteListAdapter extends BaseDataAdapter {
             if (mShowOfficialPhoto) {
                 convertView = mLayoutInflater.inflate(R.layout.vote_list_item, null);
 
-                holder.loPictureLoading = (RelativeLayout) convertView.findViewById(R.id.loPictureLoading);
-                holder.pbPictureLoading = (ProgressBar) convertView.findViewById(R.id.pbPictureLoading);
+                holder.loPictureLoading = (RelativeLayout) convertView.findViewById(R.id.loMemberPictureLoading);
+                holder.pbPictureLoading = (ProgressBar) convertView.findViewById(R.id.pbMemberPictureLoading);
                 Util.setProgressBarColor(holder.pbPictureLoading, 0, null);
-                holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivPicture);
+                holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMemberPicture);
             } else {
                 convertView = mLayoutInflater.inflate(R.layout.vote_list_item_text, null);
             }

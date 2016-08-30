@@ -149,7 +149,7 @@ public class BlogArticleDetailActivity extends BaseActivity {
         } else {
             String[] imageArray = imageUrl.split("\\*");
 
-            LinearLayout loPicture = (LinearLayout) findViewById(R.id.loPicture);
+            LinearLayout loPicture = (LinearLayout) findViewById(R.id.loMemberPicture);
             loPicture.setVisibility(View.VISIBLE);
 
             float density = mContext.getResources().getDisplayMetrics().density;

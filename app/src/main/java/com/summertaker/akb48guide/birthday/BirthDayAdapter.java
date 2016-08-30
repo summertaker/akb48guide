@@ -3,7 +3,6 @@ package com.summertaker.akb48guide.birthday;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,9 +75,9 @@ public class BirthDayAdapter extends BaseDataAdapter {
             if (mShowOfficialPhoto) {
                 view = mLayoutInflater.inflate(R.layout.birth_day_item, null);
 
-                holder.pbPictureLoading = (ProgressBar) view.findViewById(R.id.pbPictureLoading);
+                holder.pbPictureLoading = (ProgressBar) view.findViewById(R.id.pbMemberPictureLoading);
                 Util.setProgressBarColor(holder.pbPictureLoading, 0, null);
-                holder.ivPicture = (ImageView) view.findViewById(R.id.ivPicture);
+                holder.ivPicture = (ImageView) view.findViewById(R.id.ivMemberPicture);
             } else {
                 view = mLayoutInflater.inflate(R.layout.birth_day_item_text, null);
             }

@@ -58,7 +58,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/loPicture"
+            android:id="@+id/loMemberPicture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

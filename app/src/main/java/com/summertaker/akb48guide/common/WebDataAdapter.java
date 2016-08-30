@@ -59,7 +59,7 @@ public class WebDataAdapter extends BaseDataAdapter {
             holder.loLoading = (RelativeLayout) convertView.findViewById(R.id.loLoading);
             holder.pbLoading = (ProgressBar) convertView.findViewById(R.id.pbLoading);
             Util.setProgressBarColor(holder.pbLoading, 0, null);
-            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivPicture);
+            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMemberPicture);
             //holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
             convertView.setTag(holder);

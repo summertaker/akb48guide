@@ -5,12 +5,12 @@
     android:background="@android:color/white">
 
     <RelativeLayout
-        android:id="@+id/loPicture"
+        android:id="@+id/loMemberPicture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/ivPicture"
+            android:id="@+id/ivMemberPicture"
             android:layout_width="match_parent"
             android:layout_height="@dimen/grid3_item_height"
             android:layout_alignParentStart="true"
@@ -57,7 +57,7 @@
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loPicture"
+        android:layout_below="@id/loMemberPicture"
         android:background="#66000000"
         android:gravity="center_horizontal"
         android:paddingBottom="4dp"

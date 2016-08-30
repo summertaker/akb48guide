@@ -84,10 +84,10 @@ public class VoteDetailAdapter extends BaseDataAdapter {
             if (mShowOfficialPhoto) {
                 convertView = mLayoutInflater.inflate(R.layout.vote_detail_item, null);
 
-                holder.loPictureLoading = (RelativeLayout) convertView.findViewById(R.id.loPictureLoading);
-                holder.pbPictureLoading = (ProgressBar) convertView.findViewById(R.id.pbPictureLoading);
+                holder.loPictureLoading = (RelativeLayout) convertView.findViewById(R.id.loMemberPictureLoading);
+                holder.pbPictureLoading = (ProgressBar) convertView.findViewById(R.id.pbMemberPictureLoading);
                 Util.setProgressBarColor(holder.pbPictureLoading, 0, null);
-                holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivPicture);
+                holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMemberPicture);
             } else {
                 convertView = mLayoutInflater.inflate(R.layout.vote_detail_item_text, null);
             }

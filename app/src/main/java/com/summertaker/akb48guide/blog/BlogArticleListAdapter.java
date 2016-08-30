@@ -1,20 +1,15 @@
 package com.summertaker.akb48guide.blog;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
-import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.SiteData;
 import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.util.ProportionalImageView;
@@ -83,7 +78,7 @@ public class BlogArticleListAdapter extends BaseDataAdapter {
             holder = new ViewHolder();
             convertView = mLayoutInflater.inflate(R.layout.blog_article_list_item, null);
 
-            holder.loPicture = (LinearLayout) convertView.findViewById(R.id.loPicture);
+            holder.loPicture = (LinearLayout) convertView.findViewById(R.id.loMemberPicture);
             holder.loContent = (LinearLayout) convertView.findViewById(R.id.loContent);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             holder.tvToday = (TextView) convertView.findViewById(R.id.tvToday);

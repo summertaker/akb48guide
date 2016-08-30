@@ -65,12 +65,12 @@ public class BirthMonthAdapter extends BaseDataAdapter {
 
             holder = new ViewHolder();
 
-            holder.loPicture = (RelativeLayout) view.findViewById(R.id.loPicture);
+            holder.loPicture = (RelativeLayout) view.findViewById(R.id.loMemberPicture);
             holder.loPicture.setVisibility(View.VISIBLE);
 
-            holder.pbPictureLoading = (ProgressBar) view.findViewById(R.id.pbPictureLoading);
+            holder.pbPictureLoading = (ProgressBar) view.findViewById(R.id.pbMemberPictureLoading);
             Util.setProgressBarColor(holder.pbPictureLoading, 0, null);
-            holder.ivPicture = (ImageView) view.findViewById(R.id.ivPicture);
+            holder.ivPicture = (ImageView) view.findViewById(R.id.ivMemberPicture);
 
             holder.tvMonth = (TextView) view.findViewById(R.id.tvMonth);
             holder.tvMonthSuffix = (TextView) view.findViewById(R.id.tvMonthSuffix);

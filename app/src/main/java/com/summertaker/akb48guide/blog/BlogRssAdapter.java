@@ -5,9 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -81,7 +79,7 @@ public class BlogRssAdapter extends BaseDataAdapter {
             convertView = mLayoutInflater.inflate(R.layout.blog_rss_item, null);
 
             holder.loItem = (LinearLayout) convertView.findViewById(R.id.loItem);
-            holder.loPicture = (LinearLayout) convertView.findViewById(R.id.loPicture);
+            holder.loPicture = (LinearLayout) convertView.findViewById(R.id.loMemberPicture);
             holder.loContent = (LinearLayout) convertView.findViewById(R.id.loContent);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             holder.tvToday = (TextView) convertView.findViewById(R.id.tvToday);

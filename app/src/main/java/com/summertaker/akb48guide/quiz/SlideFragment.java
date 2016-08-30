@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseFragment;
 import com.summertaker.akb48guide.common.Config;
@@ -83,7 +82,7 @@ public class SlideFragment extends BaseFragment {
             //mCallback.onImageLoaded(memberData);
             //pbLoading.setVisibility(View.GONE);
 
-            mPbPictureLoading = (ProgressBar) rootView.findViewById(R.id.pbPictureLoading);
+            mPbPictureLoading = (ProgressBar) rootView.findViewById(R.id.pbMemberPictureLoading);
             Util.setProgressBarColor(mPbPictureLoading, Config.PROGRESS_BAR_COLOR_NORMAL, null);
 
             renderPicture(rootView);

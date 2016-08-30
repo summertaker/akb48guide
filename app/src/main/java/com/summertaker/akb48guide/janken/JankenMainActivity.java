@@ -4,11 +4,15 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,14 +49,6 @@ public class JankenMainActivity extends BaseActivity {
 
     ProgressBar mPbLoading;
 
-    ProgressBar mPbRemainPictureLoading;
-    ImageView mIvRemainPicture;
-    TextView mTvRemainCounterText;
-
-    RelativeLayout mLoPictureLoading;
-    ImageView mIvPicture;
-    TextView mTvPictureCaption;
-
     String mAction;
     GroupData mGroupData;
     boolean mIsMobile = false;
@@ -65,25 +61,42 @@ public class JankenMainActivity extends BaseActivity {
 
     boolean mIsDataLoaded = false;
     boolean mIsWikiLoaded = false;
-    boolean mIsProcessing = false;
+    boolean mIsProcessing = true;
+    boolean mIsRenderFinished = false;
 
     boolean mIsFirst = true;
     int mMemberCount = 0;
     String mPictureUrl;
-    ArrayList<ImageView> mMyMemberImageViews = new ArrayList<>();
-    RelativeLayout mLoMyMemberCounter;
-    TextView mTvMyMemberCounterText;
 
+    CardView mCvPicture;
+    float mCvPictureX;
+    float mCvPictureY;
+
+    CardView mCvRemainPicture;
+    ProgressBar mPbRemainPictureLoading;
+    ImageView mIvRemainPicture;
+    TextView mTvRemainCounterText;
+
+    RelativeLayout mLoMemberPictureLoading;
+    ProgressBar mPbMemberPictureLoading;
+    ImageView mIvMemberPicture;
+    TextView mTvMemberPictureCaption;
+    TextView mTvMemberActionIcon;
+
+    int mReadyCounterValue = 3;
+
+    ArrayList<ImageView> mMyMemberImageViews = new ArrayList<>();
     LinearLayout.LayoutParams mParams;
     LinearLayout.LayoutParams mParamsNoMargin;
-    LinearLayout mLoMyMemberList;
-    CardView mCvPicture;
-    float aniViewX;
-    float aniViewY;
 
+    LinearLayout mLoMyMemberList;
+    RelativeLayout mLoMyMemberCounter;
+    TextView mTvMyMemberCounterText;
     RelativeLayout mLoCounter;
     TextView mCounterText;
-    int mCounterValue = 3;
+
+    RelativeLayout mLoScreen;
+    Button mBtnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,7 +254,6 @@ public class JankenMainActivity extends BaseActivity {
                     }
                 }
             }
-
             initUi();
         }
     }
@@ -253,21 +265,56 @@ public class JankenMainActivity extends BaseActivity {
         FrameLayout loContainer = (FrameLayout) findViewById(R.id.loContainer);
         loContainer.setVisibility(View.VISIBLE);
 
+        // http://stackoverflow.com/questions/15210548/how-to-use-a-icons-and-symbols-from-font-awesome-on-native-android-application
+        //Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf" );
+        Typeface font = Typefaces.get(mContext, "fontawesome-webfont.ttf");
+
+        mCvRemainPicture = (CardView) findViewById(R.id.cvRemainPicture);
         mPbRemainPictureLoading = (ProgressBar) findViewById(R.id.pbRemainPictureLoading);
         //Util.setProgressBarColor(mPbRemainPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
         mIvRemainPicture = (ImageView) findViewById(R.id.ivRemainPicture);
         mTvRemainCounterText = (TextView) findViewById(R.id.tvRemainCounterText);
+        TextView tvRemainCounterIcon = (TextView) findViewById(R.id.tvRemainCounterIcon);
+        tvRemainCounterIcon.setTypeface(font);
 
-        mCvPicture = (CardView) findViewById(R.id.cvPicture);
-        mLoPictureLoading = (RelativeLayout) findViewById(R.id.loPictureLoading);
-        ProgressBar pbPictureLoading = (ProgressBar) findViewById(R.id.pbPictureLoading);
-        Util.setProgressBarColor(pbPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
-        mIvPicture = (ImageView) findViewById(R.id.ivPicture);
-        mTvPictureCaption = (TextView) findViewById(R.id.tvPictureCaption);
+        mCvPicture = (CardView) findViewById(R.id.cvMemberPicture);
+        mCvPicture.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        // Layout has happened here.
+                        mCvPictureX = mCvPicture.getX();
+                        mCvPictureY = mCvPicture.getY();
+                        //Log.e(mTag, mCvPictureX + ", " + mCvPictureY);
+                        mIsRenderFinished = true;
+                        // Don't forget to remove your listener when you are done with it.
+                        mCvPicture.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                });
+        mLoMemberPictureLoading = (RelativeLayout) findViewById(R.id.loMemberPictureLoading);
+        mPbMemberPictureLoading = (ProgressBar) findViewById(R.id.pbMemberPictureLoading);
+        Util.setProgressBarColor(mPbMemberPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
+        mIvMemberPicture = (ImageView) findViewById(R.id.ivMemberPicture);
+        mTvMemberPictureCaption = (TextView) findViewById(R.id.tvMemberPictureCaption);
+        mTvMemberActionIcon = (TextView) findViewById(R.id.tvMemberActionIcon);
+        mTvMemberActionIcon.setTypeface(font);
+
+        mLoCounter = (RelativeLayout) findViewById(R.id.loCounter);
+        mCounterText = (TextView) findViewById(R.id.tvCounterText);
+        mCounterText.setText(String.valueOf(mReadyCounterValue));
+
+        TextView tvCounterBorder = (TextView) findViewById(R.id.tvCounterBorder);
+        tvCounterBorder.setTypeface(font);
+        TextView tvCounterOuter = (TextView) findViewById(R.id.tvCounterOuter);
+        tvCounterOuter.setTypeface(font);
+        TextView tvCounterInner = (TextView) findViewById(R.id.tvCounterInner);
+        tvCounterInner.setTypeface(font);
 
         mLoMyMemberCounter = (RelativeLayout) findViewById(R.id.loMyMemberCounter);
         mTvMyMemberCounterText = (TextView) findViewById(R.id.tvMyMemberCounterText);
         mLoMyMemberList = (LinearLayout) findViewById(R.id.loMyMemberList);
+        TextView tvMyMemberCounterIcon = (TextView) findViewById(R.id.tvMyMemberCounterIcon);
+        tvMyMemberCounterIcon.setTypeface(font);
 
         float density = mContext.getResources().getDisplayMetrics().density;
         int width = (int) (47 * density);
@@ -277,18 +324,12 @@ public class JankenMainActivity extends BaseActivity {
         mParams.setMargins(0, 0, margin, 0);
         mParamsNoMargin = new LinearLayout.LayoutParams(width, height);
 
-        // http://stackoverflow.com/questions/15210548/how-to-use-a-icons-and-symbols-from-font-awesome-on-native-android-application
-        //Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf" );
-        Typeface font = Typefaces.get(mContext, "fontawesome-webfont.ttf");
-
-        TextView tvRemainCounterIcon = (TextView) findViewById(R.id.tvRemainCounterIcon);
-        tvRemainCounterIcon.setTypeface(font);
-
         LinearLayout loScissors = (LinearLayout) findViewById(R.id.loScissors);
         loScissors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mIsProcessing) {
+                //view.setBackgroundColor(ContextCompat.getColor(mContext, R.color.accent));
+                if (mIsRenderFinished && !mIsProcessing) {
                     mIsProcessing = true;
                     doWin();
                 }
@@ -301,7 +342,7 @@ public class JankenMainActivity extends BaseActivity {
         loRock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mIsProcessing) {
+                if (mIsRenderFinished && !mIsProcessing) {
                     mIsProcessing = true;
                     doLose();
                 }
@@ -314,102 +355,70 @@ public class JankenMainActivity extends BaseActivity {
         loPaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mIsProcessing) {
+                if (mIsRenderFinished && !mIsProcessing) {
                     mIsProcessing = true;
-                    runCounter();
                 }
             }
         });
         TextView tvPaperIcon = (TextView) findViewById(R.id.tvPaperIcon);
         tvPaperIcon.setTypeface(font);
 
-        mLoCounter = (RelativeLayout) findViewById(R.id.loCounter);
-        mCounterText = (TextView) findViewById(R.id.tvCounterText);
-        mCounterText.setText(String.valueOf(mCounterValue));
-
-        TextView tvCounterBorder = (TextView) findViewById(R.id.tvCounterBorder);
-        tvCounterBorder.setTypeface(font);
-
-        TextView tvCounterOuter = (TextView) findViewById(R.id.tvCounterOuter);
-        tvCounterOuter.setTypeface(font);
-
-        TextView tvCounterInner = (TextView) findViewById(R.id.tvCounterInner);
-        tvCounterInner.setTypeface(font);
-
-        TextView tvMyMemberCounterIcon = (TextView) findViewById(R.id.tvMyMemberCounterIcon);
-        tvMyMemberCounterIcon.setTypeface(font);
-
-        loadMemberPicture();
-    }
-
-    private void loadMemberPicture() {
-        MemberData remainMemberData = mGroupMemberList.get(mMemberCount + 1);
-        String imageUrl = remainMemberData.getImageUrl();
-        if (imageUrl == null || imageUrl.isEmpty()) {
-            imageUrl = remainMemberData.getThumbnailUrl();
-        }
-        mPbRemainPictureLoading.setVisibility(View.VISIBLE);
-        mIvRemainPicture.setVisibility(View.GONE);
-        Picasso.with(mContext).load(imageUrl).into(mIvRemainPicture, new com.squareup.picasso.Callback() {
+        mLoScreen = (RelativeLayout) findViewById(R.id.loScreen);
+        mBtnStart = (Button) findViewById(R.id.btnStart);
+        mBtnStart.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess() {
-                mPbRemainPictureLoading.setVisibility(View.GONE);
-                mIvRemainPicture.setVisibility(View.VISIBLE);
-
-                String text = (mGroupMemberList.size() - mMemberCount - 1) + "";
-                mTvRemainCounterText.setText(text);
-
-                loadNextMember();
-            }
-
-            @Override
-            public void onError() {
-                mPbRemainPictureLoading.setVisibility(View.GONE);
+            public void onClick(View view) {
+                if (mIsRenderFinished) {
+                    //mIsProcessing = true;
+                    startGame();
+                }
             }
         });
+
+        loadMatchMember();
     }
 
-    private void loadNextMember() {
+    private void loadMatchMember() {
         MemberData memberData = mGroupMemberList.get(mMemberCount);
         mPictureUrl = memberData.getImageUrl();
         if (mPictureUrl == null || mPictureUrl.isEmpty()) {
             mPictureUrl = memberData.getThumbnailUrl();
         }
 
-        mTvPictureCaption.setText(memberData.getLocaleName());
+        mTvMemberPictureCaption.setText(memberData.getLocaleName());
 
-        mLoPictureLoading.setVisibility(View.VISIBLE);
-        mIvPicture.setVisibility(View.GONE);
-        Picasso.with(mContext).load(mPictureUrl).into(mIvPicture, new com.squareup.picasso.Callback() {
+        mLoMemberPictureLoading.setVisibility(View.VISIBLE);
+        mIvMemberPicture.setVisibility(View.GONE);
+        Picasso.with(mContext).load(mPictureUrl).into(mIvMemberPicture, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
-                mLoPictureLoading.setVisibility(View.GONE);
-                mIvPicture.setVisibility(View.VISIBLE);
-                mIsProcessing = false;
-                loadMember();
+                //mLoMemberPictureLoading.setVisibility(View.GONE);
+                mPbMemberPictureLoading.setVisibility(View.GONE);
+                mIvMemberPicture.setVisibility(View.VISIBLE);
+                //loadNextMember();
+
+                animateMatchMember();
             }
 
             @Override
             public void onError() {
-                mLoPictureLoading.setVisibility(View.GONE);
+                mLoMemberPictureLoading.setVisibility(View.GONE);
             }
         });
 
     }
 
-    private void loadMember() {
+    private void animateMatchMember() {
         mMemberCount++;
         if (mMemberCount == mGroupMemberList.size()) {
             return;
         }
 
         if (mIsFirst) {
-            //mCvPicture.setVisibility(View.VISIBLE);
-            aniViewX = mCvPicture.getX();
-            aniViewY = mCvPicture.getY();
+
             mIsFirst = false;
         } else {
-            mCvPicture.animate().x(aniViewX).y(-1200f).scaleX(1f).scaleY(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
+            mCvPicture.animate().x(mCvPictureX).y(-1200f).scaleX(1f).scaleY(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animator) {
 
@@ -418,8 +427,8 @@ public class JankenMainActivity extends BaseActivity {
                 @Override
                 public void onAnimationEnd(Animator animator) {
                     //Log.e(mTag, "End..........");
-                    mCvPicture.animate().y(aniViewY).setDuration(500).setListener(null);
-                    //loadMemberPicture();
+                    mCvPicture.animate().setListener(null);
+                    mCvPicture.animate().y(mCvPictureY).setDuration(500);
                 }
 
                 @Override
@@ -433,6 +442,63 @@ public class JankenMainActivity extends BaseActivity {
                 }
             });
         }
+        loadNextMember();
+    }
+
+    private void loadNextMember() {
+        MemberData remainMemberData = mGroupMemberList.get(mMemberCount);
+        String imageUrl = remainMemberData.getImageUrl();
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            imageUrl = remainMemberData.getThumbnailUrl();
+        }
+
+        mPbRemainPictureLoading.setVisibility(View.VISIBLE);
+        mIvRemainPicture.setVisibility(View.GONE);
+        Picasso.with(mContext).load(imageUrl).into(mIvRemainPicture, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                mPbRemainPictureLoading.setVisibility(View.GONE);
+                mIvRemainPicture.setVisibility(View.VISIBLE);
+
+                String text = (mGroupMemberList.size() - mMemberCount) + "";
+                mTvRemainCounterText.setText(text);
+
+                mLoScreen.setVisibility(View.VISIBLE);
+                mBtnStart.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onError() {
+                mPbRemainPictureLoading.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void startGame() {
+        mBtnStart.animate().scaleX(0.5f).scaleY(0.5f).alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                mLoScreen.setVisibility(View.GONE);
+                mBtnStart.setVisibility(View.GONE);
+                mBtnStart.animate().scaleX(1f).scaleY(1f).alpha(100f).setDuration(0).setListener(null);
+                runCounter();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
     }
 
     private void runCounter() {
@@ -446,12 +512,15 @@ public class JankenMainActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animator) {
                 mLoCounter.animate().setListener(null);
-                if (mCounterValue == 1) {
-                    mCounterValue = 3;
-                    mCounterText.setText(String.valueOf(mCounterValue));
+                if (mReadyCounterValue == 1) {
+                    mReadyCounterValue = 3;
+                    mCounterText.setText(String.valueOf(mReadyCounterValue));
                     mLoCounter.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0);
                     mLoCounter.setVisibility(View.GONE);
+
                     mIsProcessing = false;
+
+                    doJudge();
                 } else {
                     mLoCounter.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
                         @Override
@@ -462,8 +531,8 @@ public class JankenMainActivity extends BaseActivity {
                         @Override
                         public void onAnimationEnd(Animator animator) {
                             mLoCounter.animate().setListener(null);
-                            mCounterValue--;
-                            mCounterText.setText(String.valueOf(mCounterValue));
+                            mReadyCounterValue--;
+                            mCounterText.setText(String.valueOf(mReadyCounterValue));
                             runCounter();
                         }
 
@@ -492,9 +561,23 @@ public class JankenMainActivity extends BaseActivity {
         });
     }
 
+    private void doJudge() {
+        mIvMemberPicture.setVisibility(View.GONE);
+        mTvMemberActionIcon.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mIvMemberPicture.setVisibility(View.VISIBLE);
+                mTvMemberActionIcon.setVisibility(View.GONE);
+                doWin();
+            }
+        }, 1500);
+    }
+
     private void doWin() {
 
-        // Log.e(mTag, "aniViewX: " + aniViewX + ", aniViewY: " + aniViewY);
+        // Log.e(mTag, "mCvPictureX: " + mCvPictureX + ", mCvPictureY: " + mCvPictureY);
 
         mCvPicture.animate().setDuration(500).x(-300f).y(1250f).scaleXBy(-1f).scaleYBy(-1f).setListener(new Animator.AnimatorListener() {
             @Override
@@ -539,7 +622,7 @@ public class JankenMainActivity extends BaseActivity {
                 if (mMyMemberImageViews.size() > 0) {
                     mTvMyMemberCounterText.setText(text);
                 }
-                loadMemberPicture();
+                loadMatchMember();
             }
 
             @Override
@@ -558,7 +641,7 @@ public class JankenMainActivity extends BaseActivity {
         animation1.setDuration(1000);
         animation1.start();*/
 
-        mCvPicture.animate().scaleXBy(0.2f).scaleYBy(0.2f).setDuration(500).setListener(new Animator.AnimatorListener() {
+        mCvPicture.animate().scaleXBy(0.1f).scaleYBy(0.1f).setDuration(300).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -567,7 +650,7 @@ public class JankenMainActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animator) {
                 mCvPicture.animate().setListener(null);
-                mCvPicture.animate().scaleX(1f).scaleY(1f).setDuration(500);
+                mCvPicture.animate().scaleX(1f).scaleY(1f).setDuration(700);
                 removeMyMember();
             }
 
@@ -605,7 +688,7 @@ public class JankenMainActivity extends BaseActivity {
                         mLoMyMemberCounter.setVisibility(View.GONE);
                     }
 
-                    mIsProcessing = false;
+                    //mIsProcessing = false;
                 }
 
                 @Override

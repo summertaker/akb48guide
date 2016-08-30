@@ -26,7 +26,6 @@ import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
 import com.summertaker.akb48guide.common.Config;
-import com.summertaker.akb48guide.common.ImageViewActivity;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.common.WebDataAdapter;
 import com.summertaker.akb48guide.data.GroupData;
@@ -133,7 +132,7 @@ public class MemberDetailActivity extends BaseActivity {
         ProgressBar pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         Util.setProgressBarColor(pbLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
 
-        mPbPictureLoading = (ProgressBar) findViewById(R.id.pbPictureLoading);
+        mPbPictureLoading = (ProgressBar) findViewById(R.id.pbMemberPictureLoading);
         Util.setProgressBarColor(mPbPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
 
         //mCacheManager = new CacheManager(mSharedPreferences);

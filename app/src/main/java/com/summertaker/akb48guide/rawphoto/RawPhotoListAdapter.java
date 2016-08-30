@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -51,7 +50,7 @@ public class RawPhotoListAdapter extends BaseDataAdapter {
 
             convertView = mLayoutInflater.inflate(R.layout.raw_photo_list_item, null);
 
-            holder.ivPicture = (ProportionalImageView) convertView.findViewById(R.id.ivPicture);
+            holder.ivPicture = (ProportionalImageView) convertView.findViewById(R.id.ivMemberPicture);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
             convertView.setTag(holder);
