@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -96,11 +98,12 @@ public class JankenMainActivity extends BaseActivity {
     TextView mCounterText;
 
     RelativeLayout mLoScreen;
-    Button mBtnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.janken_main_activity);
 
         mContext = JankenMainActivity.this;
@@ -109,8 +112,8 @@ public class JankenMainActivity extends BaseActivity {
         mAction = intent.getStringExtra("action");
         mGroupData = (GroupData) intent.getSerializableExtra("groupData");
 
-        String title = getString(R.string.rock_paper_scissors) + " / " + mGroupData.getName();
-        initBaseToolbar(Config.TOOLBAR_ICON_BACK, title);
+        //String title = getString(R.string.rock_paper_scissors) + " / " + mGroupData.getName();
+        //initBaseToolbar(Config.TOOLBAR_ICON_BACK, title);
 
         mPbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         Util.setProgressBarColor(mPbLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
@@ -274,6 +277,8 @@ public class JankenMainActivity extends BaseActivity {
         //Util.setProgressBarColor(mPbRemainPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
         mIvRemainPicture = (ImageView) findViewById(R.id.ivRemainPicture);
         mTvRemainCounterText = (TextView) findViewById(R.id.tvRemainCounterText);
+        String text = (mGroupMemberList.size() - mMemberCount) + "";
+        mTvRemainCounterText.setText(text);
         TextView tvRemainCounterIcon = (TextView) findViewById(R.id.tvRemainCounterIcon);
         tvRemainCounterIcon.setTypeface(font);
 
@@ -364,8 +369,7 @@ public class JankenMainActivity extends BaseActivity {
         tvPaperIcon.setTypeface(font);
 
         mLoScreen = (RelativeLayout) findViewById(R.id.loScreen);
-        mBtnStart = (Button) findViewById(R.id.btnStart);
-        mBtnStart.setOnClickListener(new View.OnClickListener() {
+        mLoScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mIsRenderFinished) {
@@ -415,10 +419,13 @@ public class JankenMainActivity extends BaseActivity {
         }
 
         if (mIsFirst) {
-
             mIsFirst = false;
+            loadNextMember();
         } else {
-            mCvPicture.animate().x(mCvPictureX).y(-1200f).scaleX(1f).scaleY(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
+            findViewById(R.id.tvHelpStart).setVisibility(View.VISIBLE);
+            findViewById(R.id.loHelpGuide).setVisibility(View.GONE);
+
+            mCvPicture.animate().x(mCvPictureX).y(-1200f).scaleX(1f).scaleY(1f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animator) {
 
@@ -429,6 +436,7 @@ public class JankenMainActivity extends BaseActivity {
                     //Log.e(mTag, "End..........");
                     mCvPicture.animate().setListener(null);
                     mCvPicture.animate().y(mCvPictureY).setDuration(500);
+                    loadNextMember();
                 }
 
                 @Override
@@ -442,7 +450,6 @@ public class JankenMainActivity extends BaseActivity {
                 }
             });
         }
-        loadNextMember();
     }
 
     private void loadNextMember() {
@@ -464,7 +471,6 @@ public class JankenMainActivity extends BaseActivity {
                 mTvRemainCounterText.setText(text);
 
                 mLoScreen.setVisibility(View.VISIBLE);
-                mBtnStart.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -475,30 +481,8 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void startGame() {
-        mBtnStart.animate().scaleX(0.5f).scaleY(0.5f).alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                mLoScreen.setVisibility(View.GONE);
-                mBtnStart.setVisibility(View.GONE);
-                mBtnStart.animate().scaleX(1f).scaleY(1f).alpha(100f).setDuration(0).setListener(null);
-                runCounter();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
+        mLoScreen.setVisibility(View.GONE);
+        runCounter();
     }
 
     private void runCounter() {
@@ -579,7 +563,7 @@ public class JankenMainActivity extends BaseActivity {
 
         // Log.e(mTag, "mCvPictureX: " + mCvPictureX + ", mCvPictureY: " + mCvPictureY);
 
-        mCvPicture.animate().setDuration(500).x(-300f).y(1250f).scaleXBy(-1f).scaleYBy(-1f).setListener(new Animator.AnimatorListener() {
+        mCvPicture.animate().x(-150f).y(1250f).scaleXBy(-0.7f).scaleYBy(-0.7f).alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 

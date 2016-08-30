@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.summertaker.akb48guide.janken.JankenMainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <!--<android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -29,7 +29,7 @@
 
         </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>-->
 
     <include layout="@layout/janken_main_content" />
 
