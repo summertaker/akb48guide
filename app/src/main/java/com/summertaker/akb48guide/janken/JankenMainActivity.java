@@ -1,11 +1,11 @@
 package com.summertaker.akb48guide.janken;
 
 import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
@@ -62,7 +62,8 @@ public class JankenMainActivity extends BaseActivity {
 
     boolean mIsDataLoaded = false;
     boolean mIsWikiLoaded = false;
-    boolean mIsProcessing = true;
+    boolean mIsWaitingUserAction = false;
+    boolean mIsGameStared = false;
 
     boolean mIsFirstLoading = true;
     int mMemberIndex = 0;
@@ -104,8 +105,9 @@ public class JankenMainActivity extends BaseActivity {
     RelativeLayout mLoReadyCounter;
     TextView mReadyCounterText;
 
-    RelativeLayout mLoGuide;
-    RelativeLayout mLoReadyMessage;
+    LinearLayout mLoGuide;
+    TextView mLoReadyMessage;
+    RelativeLayout mVwScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,6 +282,24 @@ public class JankenMainActivity extends BaseActivity {
         //Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf" );
         Typeface font = Typefaces.get(mContext, "fontawesome-webfont.ttf");
 
+        int bg = R.drawable.war_sashi;
+        switch (Util.getRandom(1, 4)) {
+            case 1:
+                bg = R.drawable.war_mayu;
+                break;
+            case 2:
+                bg = R.drawable.war_jurina;
+                break;
+            case 3:
+                bg = R.drawable.war_sayaka;
+                break;
+            case 4:
+                bg = R.drawable.war_sashi;
+                break;
+        }
+        LinearLayout loTop = (LinearLayout) findViewById(R.id.loTop);
+        loTop.setBackground(ContextCompat.getDrawable(mContext, bg));
+
         mCvNextMember = (CardView) findViewById(R.id.cvNextMember);
         mCvNextMember.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -299,7 +319,7 @@ public class JankenMainActivity extends BaseActivity {
         mTvRemainMemberCounterText = (TextView) findViewById(R.id.tvRemainMemberCounterText);
         TextView tvRemainMemberCounterIcon = (TextView) findViewById(R.id.tvRemainMemberCounterIcon);
         tvRemainMemberCounterIcon.setTypeface(font);
-        String text = (mGroupMemberList.size() - mMemberIndex) + "";
+        String text = (mGroupMemberList.size() - mMemberIndex) + "명";
         mTvRemainMemberCounterText.setText(text);
 
         mCvMatchMember = (CardView) findViewById(R.id.cvMatchMember);
@@ -363,8 +383,9 @@ public class JankenMainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //view.setBackgroundColor(ContextCompat.getColor(mContext, R.color.accent));
-                if (!mIsProcessing) {
-                    mIsProcessing = true;
+                if (mIsWaitingUserAction) {
+                    mIsWaitingUserAction = false;
+                    mVwScreen.setVisibility(View.VISIBLE);
                     doWin();
                 }
             }
@@ -376,8 +397,9 @@ public class JankenMainActivity extends BaseActivity {
         loUserActionRock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mIsProcessing) {
-                    mIsProcessing = true;
+                if (mIsWaitingUserAction) {
+                    mIsWaitingUserAction = false;
+                    mVwScreen.setVisibility(View.VISIBLE);
                     doLose();
                 }
             }
@@ -389,22 +411,22 @@ public class JankenMainActivity extends BaseActivity {
         loUserActionPaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mIsProcessing) {
-                    mIsProcessing = true;
+                if (mIsWaitingUserAction) {
+                    mIsWaitingUserAction = false;
+                    //mVwScreen.setVisibility(View.VISIBLE);
                 }
             }
         });
         TextView tvUserActionPaperIcon = (TextView) findViewById(R.id.tvUserActionPaperIcon);
         tvUserActionPaperIcon.setTypeface(font);
 
-        mLoGuide = (RelativeLayout) findViewById(R.id.loGuide);
-        mLoReadyMessage = (RelativeLayout) findViewById(R.id.loReadyMessage);
+        mLoGuide = (LinearLayout) findViewById(R.id.loGuide);
+        mLoReadyMessage = (TextView) findViewById(R.id.loReadyMessage);
+        mVwScreen = (RelativeLayout) findViewById(R.id.vwScreen);
     }
 
     private void onRenderFinished() {
         if (mNextMemberRendered && mMatchMemberRendered && mUserActionRendered) {
-            //mMatchMemberLoaded = false;
-            //loadNextMember();
             loadMatchMember();
         }
     }
@@ -467,14 +489,12 @@ public class JankenMainActivity extends BaseActivity {
                 mPbNextMemberPictureLoading.setVisibility(View.GONE);
                 mIvNextMemberPicture.setVisibility(View.VISIBLE);
 
-                String text = (mGroupMemberList.size() - mMemberIndex) + "";
+                String text = (mGroupMemberList.size() - mMemberIndex) + "명";
                 mTvRemainMemberCounterText.setText(text);
 
                 if (mIsFirstLoading) {
-                    Log.e(mTag, "a");
                     initUserActionBar();
                 } else {
-                    Log.e(mTag, "b");
                     setReady();
                 }
             }
@@ -487,11 +507,11 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void animateMatchMember() {
-        float x = mNextMemberX - 260;
-        float y = mNextMemberY - 290;
+        float x = mNextMemberX - 200;
+        float y = mNextMemberY + 120;
 
         mCvMatchMember.setVisibility(View.VISIBLE);
-        mCvMatchMember.animate().x(x).y(y).scaleX(0.3f).scaleY(0.3f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
+        mCvMatchMember.animate().x(x).y(y).scaleX(0.25f).scaleY(0.25f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -509,7 +529,6 @@ public class JankenMainActivity extends BaseActivity {
                     @Override
                     public void onAnimationEnd(Animator animator) {
                         mCvMatchMember.animate().setListener(null);
-                        Log.e(mTag, "c");
                         loadNextMember();
                     }
 
@@ -607,13 +626,7 @@ public class JankenMainActivity extends BaseActivity {
                     public void onAnimationEnd(Animator animation) {
                         mLoGuide.animate().setListener(null);
 
-                        mLoGuide.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startGame();
-                            }
-                        });
-                        mLoReadyMessage.setOnClickListener(new View.OnClickListener() {
+                        mVwScreen.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 startGame();
@@ -647,8 +660,14 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void startGame() {
+        if (mIsGameStared) {
+            return;
+        }
+        mIsGameStared = true;
+
         mLoGuide.setVisibility(View.GONE);
         mLoReadyMessage.setVisibility(View.GONE);
+        //mVwScreen.setBackgroundColor(Color.parseColor("#33000000"));
         runCounter();
     }
 
@@ -669,8 +688,7 @@ public class JankenMainActivity extends BaseActivity {
                     mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
                     mLoReadyCounter.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0);
                     mLoReadyCounter.setVisibility(View.GONE);
-                    mIsProcessing = false;
-                    //doJudge();
+                    mIsWaitingUserAction = true;
                 } else {
                     mLoReadyCounter.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
                         @Override
@@ -684,6 +702,10 @@ public class JankenMainActivity extends BaseActivity {
 
                             mReadyCounterValue--;
                             mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
+
+                            if (mReadyCounterValue == 1) {
+                                mVwScreen.setVisibility(View.GONE);
+                            }
                             runCounter();
                         }
 
@@ -727,7 +749,7 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void doWin() {
-        mCvMatchMember.animate().x(-150f).y(1250f).scaleXBy(-0.7f).scaleYBy(-0.7f).alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+        mCvMatchMember.animate().x(-150f).y(1350f).scaleXBy(-0.7f).scaleYBy(-0.7f).alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -792,7 +814,7 @@ public class JankenMainActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animator) {
                 mCvMatchMember.animate().setListener(null);
-                mCvMatchMember.animate().scaleX(1f).scaleY(1f).setDuration(700);
+                mCvMatchMember.animate().scaleX(1f).scaleY(1f).setDuration(500);
                 removeMyMember();
             }
 
@@ -907,6 +929,7 @@ public class JankenMainActivity extends BaseActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         mLoReadyMessage.animate().setListener(null);
+                        mIsGameStared = false;
                     }
 
                     @Override
