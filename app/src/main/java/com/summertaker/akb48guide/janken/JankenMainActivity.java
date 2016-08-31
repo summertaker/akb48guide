@@ -80,7 +80,6 @@ public class JankenMainActivity extends BaseActivity {
     float mMatchMemberX;
     float mMatchMemberY;
     boolean mMatchMemberRendered = false;
-    boolean mMatchMemberLoaded = false;
 
     RelativeLayout mLoMatchMemberPictureLoading;
     ProgressBar mPbMatchMemberPictureLoading;
@@ -404,13 +403,52 @@ public class JankenMainActivity extends BaseActivity {
 
     private void onRenderFinished() {
         if (mNextMemberRendered && mMatchMemberRendered && mUserActionRendered) {
-            mMatchMemberLoaded = false;
-            loadNextMember();
+            //mMatchMemberLoaded = false;
+            //loadNextMember();
+            loadMatchMember();
         }
+    }
+
+    private void loadMatchMember() {
+        if (mMemberIndex == mGroupMemberList.size() - 1) {
+            return;
+        }
+
+        MemberData memberData = mGroupMemberList.get(mMemberIndex);
+        mPictureUrl = memberData.getImageUrl();
+        if (mPictureUrl == null || mPictureUrl.isEmpty()) {
+            mPictureUrl = memberData.getThumbnailUrl();
+        }
+
+        mTvMatchMemberPictureCaption.setText(memberData.getLocaleName());
+        mLoMatchMemberPictureLoading.setVisibility(View.VISIBLE);
+        mIvMatchMemberPicture.setVisibility(View.GONE);
+        Picasso.with(mContext).load(mPictureUrl).into(mIvMatchMemberPicture, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                mPbMatchMemberPictureLoading.setVisibility(View.GONE);
+                mIvMatchMemberPicture.setVisibility(View.VISIBLE);
+                //animateMatchMember();
+                mMemberIndex++;
+
+                if (mIsFirstLoading) {
+                    loadNextMember();
+                } else {
+                    animateMatchMember();
+                }
+            }
+
+            @Override
+            public void onError() {
+                mLoMatchMemberPictureLoading.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void loadNextMember() {
         if (mMemberIndex == mGroupMemberList.size() - 1) {
+            mPbNextMemberPictureLoading.setVisibility(View.GONE);
+            mIvNextMemberPicture.setVisibility(View.GONE);
             return;
         }
 
@@ -432,45 +470,18 @@ public class JankenMainActivity extends BaseActivity {
                 String text = (mGroupMemberList.size() - mMemberIndex) + "";
                 mTvRemainMemberCounterText.setText(text);
 
-                if (mMatchMemberLoaded) {
-                    if (mIsFirstLoading) {
-                        animateUserActionBar();
-                    } else {
-                        setReady();
-                    }
+                if (mIsFirstLoading) {
+                    Log.e(mTag, "a");
+                    initUserActionBar();
                 } else {
-                    loadMatchMember();
+                    Log.e(mTag, "b");
+                    setReady();
                 }
             }
 
             @Override
             public void onError() {
                 mPbNextMemberPictureLoading.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    private void loadMatchMember() {
-        MemberData memberData = mGroupMemberList.get(mMemberIndex);
-        mPictureUrl = memberData.getImageUrl();
-        if (mPictureUrl == null || mPictureUrl.isEmpty()) {
-            mPictureUrl = memberData.getThumbnailUrl();
-        }
-
-        mTvMatchMemberPictureCaption.setText(memberData.getLocaleName());
-        mLoMatchMemberPictureLoading.setVisibility(View.VISIBLE);
-        mIvMatchMemberPicture.setVisibility(View.GONE);
-        Picasso.with(mContext).load(mPictureUrl).into(mIvMatchMemberPicture, new com.squareup.picasso.Callback() {
-            @Override
-            public void onSuccess() {
-                mPbMatchMemberPictureLoading.setVisibility(View.GONE);
-                mIvMatchMemberPicture.setVisibility(View.VISIBLE);
-                animateMatchMember();
-            }
-
-            @Override
-            public void onError() {
-                mLoMatchMemberPictureLoading.setVisibility(View.GONE);
             }
         });
     }
@@ -489,7 +500,6 @@ public class JankenMainActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(final Animator animation) {
                 mCvMatchMember.animate().setListener(null);
-
                 mCvMatchMember.animate().x(mMatchMemberX).y(mMatchMemberY).scaleX(1f).scaleY(1f).alpha(1f).setDuration(500).setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
@@ -499,8 +509,7 @@ public class JankenMainActivity extends BaseActivity {
                     @Override
                     public void onAnimationEnd(Animator animator) {
                         mCvMatchMember.animate().setListener(null);
-                        mMemberIndex++;
-                        mMatchMemberLoaded = true;
+                        Log.e(mTag, "c");
                         loadNextMember();
                     }
 
@@ -528,7 +537,7 @@ public class JankenMainActivity extends BaseActivity {
         });
     }
 
-    private void animateUserActionBar() {
+    private void initUserActionBar() {
         float y = mUserActionY + 500;
 
         mLoUserAction.setVisibility(View.VISIBLE);
@@ -637,55 +646,6 @@ public class JankenMainActivity extends BaseActivity {
         });
     }
 
-    private void setReady() {
-        mLoGuide.setVisibility(View.GONE);
-        mLoReadyMessage.setVisibility(View.GONE);
-        mLoReadyMessage.animate().alpha(0f).setDuration(0).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mLoReadyMessage.animate().setListener(null);
-                mLoReadyMessage.setVisibility(View.VISIBLE);
-                mLoReadyMessage.animate().alpha(1f).setDuration(300).setListener(new Animator.AnimatorListener() {
-
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mLoReadyMessage.animate().setListener(null);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-    }
-
     private void startGame() {
         mLoGuide.setVisibility(View.GONE);
         mLoReadyMessage.setVisibility(View.GONE);
@@ -694,7 +654,7 @@ public class JankenMainActivity extends BaseActivity {
 
     private void runCounter() {
         mLoReadyCounter.setVisibility(View.VISIBLE);
-        mLoReadyCounter.animate().scaleX(1.5f).scaleY(1.5f).alpha(0f).setDuration(1000).setListener(new Animator.AnimatorListener() {
+        mLoReadyCounter.animate().scaleX(1.5f).scaleY(1.5f).alpha(0f).setDuration(800).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -703,6 +663,7 @@ public class JankenMainActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animator) {
                 mLoReadyCounter.animate().setListener(null);
+
                 if (mReadyCounterValue == 1) {
                     mReadyCounterValue = 3;
                     mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
@@ -720,6 +681,7 @@ public class JankenMainActivity extends BaseActivity {
                         @Override
                         public void onAnimationEnd(Animator animator) {
                             mLoReadyCounter.animate().setListener(null);
+
                             mReadyCounterValue--;
                             mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
                             runCounter();
@@ -773,6 +735,7 @@ public class JankenMainActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
+                mCvMatchMember.animate().setListener(null);
                 addMyMember();
             }
 
@@ -790,15 +753,10 @@ public class JankenMainActivity extends BaseActivity {
 
     private void addMyMember() {
         ImageView iv = new ImageView(mContext);
-        //if (mMyMemberImageViews.size() == 0) {
-        //    iv.setLayoutParams(mParamsNoMargin);
-        //} else {
         iv.setLayoutParams(mParams);
-        //}
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         mLoMyMemberList.addView(iv, 0);
         mMyMemberImageViews.add(iv);
-        //Log.e(mTag, "mMyMemberImageViews.size(): " + mMyMemberImageViews.size());
 
         Picasso.with(mContext).load(mPictureUrl).into(iv, new com.squareup.picasso.Callback() {
             @Override
@@ -813,8 +771,7 @@ public class JankenMainActivity extends BaseActivity {
                     mTvMyMemberCounterText.setText(text);
                 }
 
-                mMatchMemberLoaded = false;
-                loadNextMember();
+                loadMatchMember();
             }
 
             @Override
@@ -825,15 +782,8 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void doLose() {
-        /*float dest = 360;
-        if (mCvMatchMember.getRotation() == 360) {
-            dest = 0;
-        }
-        ObjectAnimator animation1 = ObjectAnimator.ofFloat(mCvMatchMember, "rotation", dest);
-        animation1.setDuration(1000);
-        animation1.start();*/
-
         mCvMatchMember.animate().scaleXBy(0.1f).scaleYBy(0.1f).setDuration(300).setListener(new Animator.AnimatorListener() {
+
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -860,9 +810,11 @@ public class JankenMainActivity extends BaseActivity {
 
     private void removeMyMember() {
         final int index = mMyMemberImageViews.size() - 1;
+
         if (index >= 0) {
             final ImageView iv = mMyMemberImageViews.get(index);
             iv.animate().scaleX(0.5f).scaleY(0.5f).alpha(0f).setDuration(700).setListener(new Animator.AnimatorListener() {
+
                 @Override
                 public void onAnimationStart(Animator animator) {
 
@@ -870,21 +822,23 @@ public class JankenMainActivity extends BaseActivity {
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
+                    iv.animate().setListener(null);
+
                     mMyMemberImageViews.remove(index);
 
                     String text = mMyMemberImageViews.size() + "";
                     mTvMyMemberCounterText.setText(text);
 
                     if (mMyMemberImageViews.size() == 0) {
-                        //mLoMyMemberCounter.setVisibility(View.GONE);
-                        float dest = 360;
-                        if (mLoMyMemberCounter.getRotation() == 360) {
-                            dest = 0;
-                        }
+                        //float dest = 360;
+                        //if (mLoMyMemberCounter.getRotation() == 360) {
+                        //    dest = 0;
+                        //}
                         //ObjectAnimator ani = ObjectAnimator.ofFloat(mLoMyMemberCounter, "rotation", dest);
                         //ani.setDuration(1000);
                         //ani.start();
                         mLoMyMemberCounter.animate().alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+
                             @Override
                             public void onAnimationStart(Animator animation) {
 
@@ -893,6 +847,8 @@ public class JankenMainActivity extends BaseActivity {
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 //mLoMyMemberCounter.setVisibility(View.GONE);
+                                mLoMyMemberCounter.animate().setListener(null);
+
                                 mLoMyMemberList.removeView(iv);
                                 setReady();
                             }
@@ -924,5 +880,56 @@ public class JankenMainActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    private void setReady() {
+        mLoGuide.setVisibility(View.GONE);
+
+        mLoReadyMessage.animate().alpha(0f).setDuration(0).setListener(new Animator.AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoReadyMessage.animate().setListener(null);
+
+                mLoReadyMessage.setVisibility(View.VISIBLE);
+                mLoReadyMessage.animate().alpha(1f).setDuration(300).setListener(new Animator.AnimatorListener() {
+
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mLoReadyMessage.animate().setListener(null);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
     }
 }
