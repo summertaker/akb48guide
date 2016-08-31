@@ -64,7 +64,7 @@ public class BlogSettingCheckAdapter extends BaseDataAdapter {
             holder.pbLoading = (ProgressBar) convertView.findViewById(R.id.pbLoading);
             Util.setProgressBarColor(holder.pbLoading, 0, null);
 
-            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMemberPicture);
+            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMatchMemberPicture);
             holder.cbMember = (CheckBox) convertView.findViewById(R.id.cbMember);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
 

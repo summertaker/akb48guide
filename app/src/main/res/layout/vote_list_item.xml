@@ -54,7 +54,7 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/loMemberPictureLoading"
+            android:id="@+id/loMatchMemberPictureLoading"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginBottom="5dp"
@@ -64,13 +64,13 @@
             android:padding="5dp">
 
             <ProgressBar
-                android:id="@+id/pbMemberPictureLoading"
+                android:id="@+id/pbMatchMemberPictureLoading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/toolbar_progressbar" />
 
             <ImageView
-                android:id="@+id/ivMemberPicture"
+                android:id="@+id/ivMatchMemberPicture"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:adjustViewBounds="true"

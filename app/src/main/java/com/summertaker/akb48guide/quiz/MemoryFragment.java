@@ -141,7 +141,7 @@ public class MemoryFragment extends BaseFragment {
             });
 
             if (mShowOfficialPhoto) {
-                final ProgressBar pbPictureLoading = (ProgressBar) rootView.findViewById(R.id.pbMemberPictureLoading);
+                final ProgressBar pbPictureLoading = (ProgressBar) rootView.findViewById(R.id.pbMatchMemberPictureLoading);
                 Util.setProgressBarColor(pbPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
 
                 ImageView ivPicture;

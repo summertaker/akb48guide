@@ -62,7 +62,7 @@ public class MemberDetailBlogAdapter extends BaseDataAdapter {
             holder.pbLoading = (ProgressBar) convertView.findViewById(R.id.pbLoading);
             Util.setProgressBarColor(holder.pbLoading, 0, null);
 
-            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMemberPicture);
+            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMatchMemberPicture);
 
             convertView.setTag(holder);
         } else {

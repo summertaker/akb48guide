@@ -5,7 +5,7 @@
     android:background="@android:color/white">
 
     <ImageView
-        android:id="@+id/ivMemberPicture"
+        android:id="@+id/ivMatchMemberPicture"
         android:layout_width="match_parent"
         android:layout_height="@dimen/grid3_item_height"
         android:layout_alignParentTop="true"
@@ -16,7 +16,7 @@
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ivMemberPicture"
+        android:layout_below="@id/ivMatchMemberPicture"
         android:background="@color/akb48background"
         android:gravity="center_horizontal"
         android:paddingBottom="5dp"

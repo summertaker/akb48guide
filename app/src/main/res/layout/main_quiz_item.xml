@@ -7,7 +7,7 @@
     android:background="@drawable/selector_card">
 
     <ImageView
-        android:id="@+id/ivMemberPicture"
+        android:id="@+id/ivMatchMemberPicture"
         android:layout_width="wrap_content"
         android:layout_height="80dp">
     </ImageView>

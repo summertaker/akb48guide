@@ -190,7 +190,7 @@ public class QuizActivity extends BaseActivity {
         }
 
         if (isDataLoaded && isWikiLoaded) {
-            mPbPictureLoading = (ProgressBar) findViewById(R.id.pbMemberPictureLoading);
+            mPbPictureLoading = (ProgressBar) findViewById(R.id.pbMatchMemberPictureLoading);
 
             if (mShowOfficialPhoto) {
                 //--------------------------

@@ -82,7 +82,7 @@ public class SlideFragment extends BaseFragment {
             //mCallback.onImageLoaded(memberData);
             //pbLoading.setVisibility(View.GONE);
 
-            mPbPictureLoading = (ProgressBar) rootView.findViewById(R.id.pbMemberPictureLoading);
+            mPbPictureLoading = (ProgressBar) rootView.findViewById(R.id.pbMatchMemberPictureLoading);
             Util.setProgressBarColor(mPbPictureLoading, Config.PROGRESS_BAR_COLOR_NORMAL, null);
 
             renderPicture(rootView);

@@ -13,7 +13,7 @@
         android:padding="@dimen/activity_padding">
 
         <ImageView
-            android:id="@+id/ivMemberPicture"
+            android:id="@+id/ivMatchMemberPicture"
             android:layout_width="112dp"
             android:layout_height="160dp"
             android:adjustViewBounds="true"

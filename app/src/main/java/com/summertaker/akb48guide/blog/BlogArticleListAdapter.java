@@ -78,7 +78,7 @@ public class BlogArticleListAdapter extends BaseDataAdapter {
             holder = new ViewHolder();
             convertView = mLayoutInflater.inflate(R.layout.blog_article_list_item, null);
 
-            holder.loPicture = (LinearLayout) convertView.findViewById(R.id.loMemberPicture);
+            holder.loPicture = (LinearLayout) convertView.findViewById(R.id.loMatchMemberPicture);
             holder.loContent = (LinearLayout) convertView.findViewById(R.id.loContent);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             holder.tvToday = (TextView) convertView.findViewById(R.id.tvToday);

@@ -132,7 +132,7 @@ public class MemberDetailActivity extends BaseActivity {
         ProgressBar pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         Util.setProgressBarColor(pbLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
 
-        mPbPictureLoading = (ProgressBar) findViewById(R.id.pbMemberPictureLoading);
+        mPbPictureLoading = (ProgressBar) findViewById(R.id.pbMatchMemberPictureLoading);
         Util.setProgressBarColor(mPbPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
 
         //mCacheManager = new CacheManager(mSharedPreferences);

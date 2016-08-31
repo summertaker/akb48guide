@@ -75,9 +75,9 @@ public class BirthDayAdapter extends BaseDataAdapter {
             if (mShowOfficialPhoto) {
                 view = mLayoutInflater.inflate(R.layout.birth_day_item, null);
 
-                holder.pbPictureLoading = (ProgressBar) view.findViewById(R.id.pbMemberPictureLoading);
+                holder.pbPictureLoading = (ProgressBar) view.findViewById(R.id.pbMatchMemberPictureLoading);
                 Util.setProgressBarColor(holder.pbPictureLoading, 0, null);
-                holder.ivPicture = (ImageView) view.findViewById(R.id.ivMemberPicture);
+                holder.ivPicture = (ImageView) view.findViewById(R.id.ivMatchMemberPicture);
             } else {
                 view = mLayoutInflater.inflate(R.layout.birth_day_item_text, null);
             }

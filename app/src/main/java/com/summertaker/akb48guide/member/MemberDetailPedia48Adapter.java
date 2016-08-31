@@ -59,7 +59,7 @@ public class MemberDetailPedia48Adapter extends BaseDataAdapter {
             Util.setProgressBarColor(holder.pbLoading, 0, null);
 
             holder.loData = (RelativeLayout) convertView.findViewById(R.id.loData);
-            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMemberPicture);
+            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMatchMemberPicture);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
             convertView.setTag(holder);

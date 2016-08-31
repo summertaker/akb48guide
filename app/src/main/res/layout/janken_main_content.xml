@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:context="com.summertaker.akb48guide.janken.JankenMainActivity"
-                tools:showIn="@layout/janken_main_activity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.summertaker.akb48guide.janken.JankenMainActivity"
+    tools:showIn="@layout/janken_main_activity">
 
     <RelativeLayout
         android:id="@+id/loLoading"
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/progress_bar_circle"/>
+            android:background="@drawable/progress_bar_circle" />
 
     </RelativeLayout>
 
@@ -44,9 +44,8 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/cvRemainPicture"
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/cvNextMember"
                     android:layout_width="47dp"
                     android:layout_height="60dp"
                     card_view:cardCornerRadius="3dp"
@@ -58,19 +57,19 @@
                         android:background="#eee">
 
                         <ImageView
-                            android:id="@+id/ivRemainPicture"
+                            android:id="@+id/ivNextMemberPicture"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
                             android:contentDescription="@string/blank"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="centerCrop" />
 
                         <ProgressBar
-                            android:id="@+id/pbRemainPictureLoading"
+                            android:id="@+id/pbNextMemberPictureLoading"
                             style="?android:attr/progressBarStyleSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"/>
+                            android:layout_centerInParent="true" />
 
                     </RelativeLayout>
 
@@ -82,7 +81,7 @@
                     android:layout_marginTop="7dp"
                     android:text="다음 멤버"
                     android:textColor="#eee"
-                    android:textSize="13sp"/>
+                    android:textSize="13sp" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -90,23 +89,23 @@
                     android:layout_marginTop="15dp">
 
                     <TextView
-                        android:id="@+id/tvRemainCounterIcon"
+                        android:id="@+id/tvRemainMemberCounterIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@string/fa_circle"
                         android:textColor="#0288d1"
-                        android:textSize="40sp"/>
+                        android:textSize="40sp" />
 
                     <TextView
-                        android:id="@+id/tvRemainCounterText"
+                        android:id="@+id/tvRemainMemberCounterText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@string/blank"
                         android:textColor="#fff"
                         android:textSize="13sp"
-                        android:textStyle="italic"/>
+                        android:textStyle="italic" />
 
                 </RelativeLayout>
 
@@ -116,38 +115,38 @@
                     android:layout_marginTop="3dp"
                     android:text="남은 멤버"
                     android:textColor="#eee"
-                    android:textSize="13sp"/>
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
-            <android.support.v7.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/cvMemberPicture"
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cvMatchMember"
                 android:layout_width="190dp"
                 android:layout_height="230dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
+                android:visibility="invisible"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="5dp">
 
                 <RelativeLayout
-                    android:id="@+id/loMemberPicture"
+                    android:id="@+id/loMatchMemberPicture"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#ddd">
 
                     <ImageView
-                        android:id="@+id/ivMemberPicture"
+                        android:id="@+id/ivMatchMemberPicture"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/blank"
                         android:scaleType="centerCrop"
                         android:src="@drawable/transparent"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <TextView
-                        android:id="@+id/tvMemberPictureCaption"
+                        android:id="@+id/tvMatchMemberPictureCaption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -156,29 +155,29 @@
                         android:paddingBottom="7dp"
                         android:paddingTop="7dp"
                         android:singleLine="true"
-                        android:textColor="#fff"/>
+                        android:textColor="#fff" />
 
                     <RelativeLayout
-                        android:id="@+id/loMemberPictureLoading"
+                        android:id="@+id/loMatchMemberPictureLoading"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_above="@id/tvMemberPictureCaption"
+                        android:layout_above="@id/tvMatchMemberPictureCaption"
                         android:gravity="center">
 
                         <ProgressBar
-                            android:id="@+id/pbMemberPictureLoading"
+                            android:id="@+id/pbMatchMemberPictureLoading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/progress_bar_circle"/>
+                            android:background="@drawable/progress_bar_circle" />
 
                         <TextView
-                            android:id="@+id/tvMemberActionIcon"
+                            android:id="@+id/tvMatchMemberActionIcon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/fa_hand_scissors_o"
                             android:textColor="#555"
                             android:textSize="80sp"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </RelativeLayout>
 
@@ -187,15 +186,16 @@
             </android.support.v7.widget.CardView>
 
             <LinearLayout
-                android:id="@+id/loAction"
+                android:id="@+id/loUserAction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="invisible">
 
                 <LinearLayout
-                    android:id="@+id/loScissors"
+                    android:id="@+id/loUserActionScissors"
                     style="@style/SuccessButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -206,29 +206,29 @@
                     android:paddingTop="15dp">
 
                     <TextView
-                        android:id="@+id/tvScissorsIcon"
+                        android:id="@+id/tvUserActionScissorsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/fa_hand_scissors_o"
                         android:textColor="#fff"
-                        android:textSize="30sp"/>
+                        android:textSize="30sp" />
 
                     <TextView
-                        android:id="@+id/tvScissorsText"
+                        android:id="@+id/tvUserActionScissorsText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
                         android:text="@string/action_scissors"
-                        android:textColor="#fff"/>
+                        android:textColor="#fff" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="10dp"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp" />
 
                 <LinearLayout
-                    android:id="@+id/loRock"
+                    android:id="@+id/loUserActionRock"
                     style="@style/SuccessButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -239,29 +239,29 @@
                     android:paddingTop="15dp">
 
                     <TextView
-                        android:id="@+id/tvRockIcon"
+                        android:id="@+id/tvUserActionRockIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/fa_hand_rock_o"
                         android:textColor="#fff"
-                        android:textSize="30sp"/>
+                        android:textSize="30sp" />
 
                     <TextView
-                        android:id="@+id/tvRockText"
+                        android:id="@+id/tvUserActionRockText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
                         android:text="@string/action_rock"
-                        android:textColor="#fff"/>
+                        android:textColor="#fff" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="10dp"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp" />
 
                 <LinearLayout
-                    android:id="@+id/loPaper"
+                    android:id="@+id/loUserActionPaper"
                     style="@style/SuccessButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -272,20 +272,20 @@
                     android:paddingTop="15dp">
 
                     <TextView
-                        android:id="@+id/tvPaperIcon"
+                        android:id="@+id/tvUserActionPaperIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/fa_hand_paper_o"
                         android:textColor="#fff"
-                        android:textSize="30sp"/>
+                        android:textSize="30sp" />
 
                     <TextView
-                        android:id="@+id/tvPaperText"
+                        android:id="@+id/tvUserActionPaperText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
                         android:text="@string/action_paper"
-                        android:textColor="#fff"/>
+                        android:textColor="#fff" />
 
                 </LinearLayout>
 
@@ -295,7 +295,7 @@
                 android:id="@+id/hsMyMember"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/loAction"
+                android:layout_above="@id/loUserAction"
                 android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp">
 
@@ -303,7 +303,7 @@
                     android:id="@+id/loMyMemberList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal" />
 
             </HorizontalScrollView>
 
@@ -324,7 +324,7 @@
                     android:layout_centerInParent="true"
                     android:text="@string/fa_heart"
                     android:textColor="#f44336"
-                    android:textSize="30sp"/>
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/tvMyMemberCounterText"
@@ -334,77 +334,66 @@
                     android:paddingBottom="3dp"
                     android:text="@string/blank"
                     android:textColor="#fff"
-                    android:textStyle="italic|bold"/>
+                    android:textStyle="italic|bold" />
 
             </RelativeLayout>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/loCounter"
+            android:id="@+id/loReadyCounter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:visibility="gone">
 
             <TextView
-                android:id="@+id/tvCounterBorder"
+                android:id="@+id/tvReadyCounterBorder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/fa_circle"
                 android:textColor="#333"
-                android:textSize="150sp"/>
+                android:textSize="150sp" />
 
             <TextView
-                android:id="@+id/tvCounterOuter"
+                android:id="@+id/tvReadyCounterOuter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/fa_circle"
                 android:textColor="#b71c1c"
-                android:textSize="135sp"/>
+                android:textSize="135sp" />
 
             <TextView
-                android:id="@+id/tvCounterInner"
+                android:id="@+id/tvReadyCounterInner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/fa_circle"
                 android:textColor="#f44336"
-                android:textSize="100sp"/>
+                android:textSize="100sp" />
 
             <TextView
-                android:id="@+id/tvCounterText"
+                android:id="@+id/tvReadyCounterText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/blank"
                 android:textColor="#fff"
                 android:textSize="40sp"
-                android:textStyle="bold|italic"/>
+                android:textStyle="bold|italic" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/loScreen"
+            android:id="@+id/loGuide"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#66000000"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/tvHelpStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="화면을 터치해서 시작하세요."
-                android:textColor="#eee"
-                android:textStyle="italic"
-                android:visibility="gone"/>
+            android:background="#55000000"
+            android:visibility="invisible">
 
             <LinearLayout
-                android:id="@+id/loHelpGuide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -416,7 +405,7 @@
                     android:layout_height="wrap_content"
                     android:text="화면을 터치하면 3초가 표시됩니다."
                     android:textColor="#eee"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -424,9 +413,26 @@
                     android:layout_marginTop="10dp"
                     android:text="3초 후 가위 바위 보 중 하나를 터치하세요."
                     android:textColor="#eee"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
 
             </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/loReadyMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#33000000"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="화면을 터치해서 시작하세요."
+                android:textColor="#fff"
+                android:textStyle="italic" />
 
         </RelativeLayout>
 

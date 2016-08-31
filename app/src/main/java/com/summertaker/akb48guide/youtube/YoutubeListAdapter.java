@@ -58,7 +58,7 @@ public class YoutubeListAdapter extends BaseDataAdapter {
             //holder.pbLoading = (ProgressBar) convertView.findViewById(R.id.pbLoading);
             //Util.setProgressBarColor(holder.pbLoading, 0, null);
 
-            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMemberPicture);
+            holder.ivPicture = (ImageView) convertView.findViewById(R.id.ivMatchMemberPicture);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             holder.tvInfo = (TextView) convertView.findViewById(R.id.tvInfo);
 

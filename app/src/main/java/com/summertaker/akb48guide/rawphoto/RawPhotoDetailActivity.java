@@ -153,7 +153,7 @@ public class RawPhotoDetailActivity extends BaseActivity {
         } else {
             mLoLoading.setVisibility(View.GONE);
 
-            LinearLayout loPicture = (LinearLayout) findViewById(R.id.loMemberPicture);
+            LinearLayout loPicture = (LinearLayout) findViewById(R.id.loMatchMemberPicture);
             loPicture.setVisibility(View.VISIBLE);
 
             float density = mContext.getResources().getDisplayMetrics().density;

@@ -50,7 +50,7 @@ public class RawPhotoListAdapter extends BaseDataAdapter {
 
             convertView = mLayoutInflater.inflate(R.layout.raw_photo_list_item, null);
 
-            holder.ivPicture = (ProportionalImageView) convertView.findViewById(R.id.ivMemberPicture);
+            holder.ivPicture = (ProportionalImageView) convertView.findViewById(R.id.ivMatchMemberPicture);
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
             convertView.setTag(holder);
