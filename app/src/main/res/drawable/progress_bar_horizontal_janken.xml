@@ -5,8 +5,8 @@
             <corners android:radius="5dp" />
             <gradient
                 android:angle="90"
-                android:endColor="#33ffffff"
-                android:startColor="#33ffffff" />
+                android:endColor="#33000000"
+                android:startColor="#33000000" />
         </shape>
     </item>
     <item android:id="@android:id/progress">

@@ -34,9 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include
+            <!--<include
                 android:id="@+id/loTop"
-                layout="@layout/janken_main_step" />
+                layout="@layout/janken_main_header" />-->
 
             <include
                 android:id="@+id/loProgress"
@@ -148,18 +148,6 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/loReadyMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/cvMatchMember"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
-                android:text="화면을 터치해서 시작하세요."
-                android:textColor="#ffffffff"
-                android:textStyle="italic"
-                android:visibility="invisible" />
-
-            <TextView
                 android:id="@+id/loSelectMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -223,7 +211,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <include layout="@layout/janken_main_counter" />
+        <include layout="@layout/janken_main_ready" />
+
+        <include layout="@layout/janken_main_ready_counter" />
 
     </FrameLayout>
 

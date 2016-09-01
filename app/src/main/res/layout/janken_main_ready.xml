@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loReady"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tvReadyBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/fa_circle"
+        android:textColor="#333"
+        android:textSize="130sp"/>
+
+    <TextView
+        android:id="@+id/tvReadyOuter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/fa_circle"
+        android:textColor="#fdd835"
+        android:textSize="115sp"/>
+
+    <TextView
+        android:id="@+id/tvReadyInner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/fa_circle"
+        android:textColor="#fff176"
+        android:textSize="80sp"/>
+
+    <TextView
+        android:id="@+id/tvReadyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="준비~"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"/>
+
+</RelativeLayout>

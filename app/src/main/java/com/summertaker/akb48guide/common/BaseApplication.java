@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.beardedhen.androidbootstrap.TypefaceProvider;
 
 public class BaseApplication extends Application {
 
@@ -20,9 +19,6 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-
-        // https://github.com/Bearded-Hen/Android-Bootstrap/wiki
-        TypefaceProvider.registerDefaultIconSets();
     }
 
     public static synchronized BaseApplication getInstance() {
