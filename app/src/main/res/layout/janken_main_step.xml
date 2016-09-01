@@ -28,17 +28,13 @@
             android:src="@drawable/logo_ngt48"/>
 
         <TextView
-            style="@style/PrimaryLabel"
+            android:id="@+id/tvGroupNgt48"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:paddingBottom="3dp"
-            android:paddingEnd="5dp"
-            android:paddingStart="5dp"
-            android:paddingTop="2dp"
-            android:text="완료"
-            android:textColor="#fff"
-            android:textSize="13sp"/>
+            android:text="@string/fa_check_circle"
+            android:textSize="20sp"
+            android:textColor="#2196f3"/>
 
     </LinearLayout>
 
@@ -59,17 +55,13 @@
             android:src="@drawable/logo_hkt48"/>
 
         <TextView
-            style="@style/DangerLabel"
+            android:id="@+id/tvGroupHkt48"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:paddingBottom="3dp"
-            android:paddingEnd="5dp"
-            android:paddingStart="5dp"
-            android:paddingTop="2dp"
-            android:text="도전 중"
-            android:textColor="#fff"
-            android:textSize="13sp"/>
+            android:text="@string/fa_arrow_circle_up"
+            android:textSize="20sp"
+            android:textColor="#fff"/>
 
     </LinearLayout>
 
@@ -90,12 +82,12 @@
             android:src="@drawable/logo_nmb48"/>
 
         <TextView
+            android:id="@+id/tvGroupNmb48"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@null"
-            android:textColor="#fff"
-            android:textSize="13sp"/>
+            android:textColor="#fff"/>
 
     </LinearLayout>
 
@@ -116,12 +108,12 @@
             android:src="@drawable/logo_ske48"/>
 
         <TextView
+            android:id="@+id/tvGroupSke48"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@null"
-            android:textColor="#fff"
-            android:textSize="13sp"/>
+            android:textColor="#fff"/>
 
     </LinearLayout>
 
@@ -142,12 +134,12 @@
             android:src="@drawable/logo_akb48"/>
 
         <TextView
+            android:id="@+id/tvGroupAkb48"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@null"
-            android:textColor="#fff"
-            android:textSize="13sp"/>
+            android:textColor="#fff"/>
 
     </LinearLayout>
 

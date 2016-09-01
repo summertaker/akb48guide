@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loReadyCounter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tvReadyCounterBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/fa_circle"
+        android:textColor="#333"
+        android:textSize="120sp" />
+
+    <TextView
+        android:id="@+id/tvReadyCounterOuter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/fa_circle"
+        android:textColor="#b71c1c"
+        android:textSize="105sp" />
+
+    <TextView
+        android:id="@+id/tvReadyCounterInner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/fa_circle"
+        android:textColor="#f44336"
+        android:textSize="70sp" />
+
+    <TextView
+        android:id="@+id/tvReadyCounterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/blank"
+        android:textColor="#fff"
+        android:textSize="40sp"
+        android:textStyle="bold|italic" />
+
+</RelativeLayout>

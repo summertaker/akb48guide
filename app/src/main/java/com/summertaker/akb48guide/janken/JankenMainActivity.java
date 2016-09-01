@@ -50,6 +50,8 @@ public class JankenMainActivity extends BaseActivity {
 
     ProgressBar mPbLoading;
 
+    float mDensity;
+
     String mAction;
     GroupData mGroupData;
     boolean mIsMobile = false;
@@ -64,28 +66,37 @@ public class JankenMainActivity extends BaseActivity {
     boolean mIsWikiLoaded = false;
     boolean mIsWaitingUserAction = false;
     boolean mIsGameStared = false;
+    int mWinCount = 0;
+    int mDrawCount = 0;
+    int mLoseCount = 0;
 
     boolean mIsFirstLoading = true;
     int mMemberIndex = 0;
     String mPictureUrl;
 
+    LinearLayout mLoProgress;
+    TextView mTvProgressInfo;
+    TextView mTvProgressTotal;
+    ProgressBar mPbProgress;
+
+    LinearLayout mLoNextMember;
     CardView mCvNextMember;
     float mNextMemberX;
     float mNextMemberY;
     boolean mNextMemberRendered = false;
     ProgressBar mPbNextMemberPictureLoading;
     ImageView mIvNextMemberPicture;
-    TextView mTvRemainMemberCounterText;
+    //TextView mTvRemainMemberCounterText;
 
     CardView mCvMatchMember;
     float mMatchMemberX;
     float mMatchMemberY;
     boolean mMatchMemberRendered = false;
-
     RelativeLayout mLoMatchMemberPictureLoading;
     ProgressBar mPbMatchMemberPictureLoading;
     ImageView mIvMatchMemberPicture;
     TextView mTvMatchMemberPictureCaption;
+    RelativeLayout mLoMatchMemberAction;
     TextView mTvMatchMemberActionIcon;
 
     int mReadyCounterValue = 3;
@@ -107,7 +118,15 @@ public class JankenMainActivity extends BaseActivity {
 
     LinearLayout mLoGuide;
     TextView mLoReadyMessage;
+    TextView mLoSelectMessage;
+
     RelativeLayout mVwScreen;
+
+    RelativeLayout mLoJudge;
+    TextView mTvJudgeIcon;
+    TextView mTvJudgeText;
+    int mMemberSelectAction;
+    int mUserSelectAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,6 +301,9 @@ public class JankenMainActivity extends BaseActivity {
         //Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf" );
         Typeface font = Typefaces.get(mContext, "fontawesome-webfont.ttf");
 
+        //--------------------------
+        // 상단 바 배경 이미지 설정
+        //--------------------------
         int bg = R.drawable.war_sashi;
         switch (Util.getRandom(1, 4)) {
             case 1:
@@ -300,6 +322,36 @@ public class JankenMainActivity extends BaseActivity {
         LinearLayout loTop = (LinearLayout) findViewById(R.id.loTop);
         loTop.setBackground(ContextCompat.getDrawable(mContext, bg));
 
+        TextView tvGroupNgt48  = (TextView) findViewById(R.id.tvGroupNgt48);
+        tvGroupNgt48.setTypeface(font);
+        TextView tvGroupHkt48  = (TextView) findViewById(R.id.tvGroupHkt48);
+        tvGroupHkt48.setTypeface(font);
+        TextView tvGroupNmb48  = (TextView) findViewById(R.id.tvGroupNmb48);
+        tvGroupNmb48.setTypeface(font);
+        TextView tvGroupSke48  = (TextView) findViewById(R.id.tvGroupSke48);
+        tvGroupSke48.setTypeface(font);
+        TextView tvGroupAkb48  = (TextView) findViewById(R.id.tvGroupAkb48);
+        tvGroupAkb48.setTypeface(font);
+
+        //----------------------
+        // 진행 상태 설정
+        //----------------------
+        mLoProgress = (LinearLayout) findViewById(R.id.loProgress);
+        TextView tvProgressTitle = (TextView) findViewById(R.id.tvProgressTitle);
+        String progressTitle = mGroupData.getName() + "에 도전 중";
+        tvProgressTitle.setText(progressTitle);
+        mTvProgressInfo = (TextView) findViewById(R.id.tvProgressInfo);
+        mTvProgressTotal = (TextView) findViewById(R.id.tvProgressTotal);
+        String text = String.format(getString(R.string.s_people), mGroupMemberList.size());
+        mTvProgressTotal.setText(text);
+
+        mPbProgress = (ProgressBar) findViewById(R.id.pbProgress);
+        mPbProgress.setProgress(0);
+
+        //--------------------
+        // 다음 멤버 설정
+        //--------------------
+        mLoNextMember = (LinearLayout) findViewById(R.id.loNextMember);
         mCvNextMember = (CardView) findViewById(R.id.cvNextMember);
         mCvNextMember.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -316,11 +368,11 @@ public class JankenMainActivity extends BaseActivity {
         //Util.setProgressBarColor(mPbNextMemberPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
         mIvNextMemberPicture = (ImageView) findViewById(R.id.ivNextMemberPicture);
 
-        mTvRemainMemberCounterText = (TextView) findViewById(R.id.tvRemainMemberCounterText);
-        TextView tvRemainMemberCounterIcon = (TextView) findViewById(R.id.tvRemainMemberCounterIcon);
-        tvRemainMemberCounterIcon.setTypeface(font);
-        String text = (mGroupMemberList.size() - mMemberIndex) + "명";
-        mTvRemainMemberCounterText.setText(text);
+        //mTvRemainMemberCounterText = (TextView) findViewById(R.id.tvRemainMemberCounterText);
+        //TextView tvRemainMemberCounterIcon = (TextView) findViewById(R.id.tvRemainMemberCounterIcon);
+        //tvRemainMemberCounterIcon.setTypeface(font);
+        //String text = (mGroupMemberList.size() - mMemberIndex) + "명";
+        //mTvRemainMemberCounterText.setText(text);
 
         mCvMatchMember = (CardView) findViewById(R.id.cvMatchMember);
         mCvMatchMember.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -339,6 +391,7 @@ public class JankenMainActivity extends BaseActivity {
         Util.setProgressBarColor(mPbMatchMemberPictureLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
         mIvMatchMemberPicture = (ImageView) findViewById(R.id.ivMatchMemberPicture);
         mTvMatchMemberPictureCaption = (TextView) findViewById(R.id.tvMatchMemberPictureCaption);
+        mLoMatchMemberAction = (RelativeLayout) findViewById(R.id.loMatchMemberAction);
         mTvMatchMemberActionIcon = (TextView) findViewById(R.id.tvMatchMemberActionIcon);
         mTvMatchMemberActionIcon.setTypeface(font);
 
@@ -352,10 +405,10 @@ public class JankenMainActivity extends BaseActivity {
         TextView tvStartCounterInner = (TextView) findViewById(R.id.tvReadyCounterInner);
         tvStartCounterInner.setTypeface(font);
 
-        float density = mContext.getResources().getDisplayMetrics().density;
-        int width = (int) (47 * density);
-        int height = (int) (60 * density);
-        int margin = (int) (6 * density);
+        mDensity = mContext.getResources().getDisplayMetrics().density;
+        int width = (int) (47 * mDensity);
+        int height = (int) (60 * mDensity);
+        int margin = (int) (6 * mDensity);
         mParams = new LinearLayout.LayoutParams(width, height);
         mParams.setMargins(0, 0, margin, 0);
         mParamsNoMargin = new LinearLayout.LayoutParams(width, height);
@@ -383,11 +436,8 @@ public class JankenMainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //view.setBackgroundColor(ContextCompat.getColor(mContext, R.color.accent));
-                if (mIsWaitingUserAction) {
-                    mIsWaitingUserAction = false;
-                    mVwScreen.setVisibility(View.VISIBLE);
-                    doWin();
-                }
+                mUserSelectAction = Config.JANKEN_ACTION_SCESSORS;
+                onUserAction(view);
             }
         });
         TextView tvUserActionScissorsIcon = (TextView) findViewById(R.id.tvUserActionScissorsIcon);
@@ -397,11 +447,8 @@ public class JankenMainActivity extends BaseActivity {
         loUserActionRock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mIsWaitingUserAction) {
-                    mIsWaitingUserAction = false;
-                    mVwScreen.setVisibility(View.VISIBLE);
-                    doLose();
-                }
+                mUserSelectAction = Config.JANKEN_ACTION_ROCK;
+                onUserAction(view);
             }
         });
         TextView tvUserActionRockIcon = (TextView) findViewById(R.id.tvUserActionRockIcon);
@@ -411,10 +458,8 @@ public class JankenMainActivity extends BaseActivity {
         loUserActionPaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mIsWaitingUserAction) {
-                    mIsWaitingUserAction = false;
-                    //mVwScreen.setVisibility(View.VISIBLE);
-                }
+                mUserSelectAction = Config.JANKEN_ACTION_PAPER;
+                onUserAction(view);
             }
         });
         TextView tvUserActionPaperIcon = (TextView) findViewById(R.id.tvUserActionPaperIcon);
@@ -422,7 +467,14 @@ public class JankenMainActivity extends BaseActivity {
 
         mLoGuide = (LinearLayout) findViewById(R.id.loGuide);
         mLoReadyMessage = (TextView) findViewById(R.id.loReadyMessage);
+        mLoSelectMessage = (TextView) findViewById(R.id.loSelectMessage);
+
         mVwScreen = (RelativeLayout) findViewById(R.id.vwScreen);
+
+        mLoJudge = (RelativeLayout) findViewById(R.id.loJudge);
+        mTvJudgeIcon = (TextView) findViewById(R.id.tvJudgeIcon);
+        mTvJudgeIcon.setTypeface(font);
+        mTvJudgeText = (TextView) findViewById(R.id.tvJudgeText);
     }
 
     private void onRenderFinished() {
@@ -489,9 +541,6 @@ public class JankenMainActivity extends BaseActivity {
                 mPbNextMemberPictureLoading.setVisibility(View.GONE);
                 mIvNextMemberPicture.setVisibility(View.VISIBLE);
 
-                String text = (mGroupMemberList.size() - mMemberIndex) + "명";
-                mTvRemainMemberCounterText.setText(text);
-
                 if (mIsFirstLoading) {
                     initUserActionBar();
                 } else {
@@ -520,7 +569,12 @@ public class JankenMainActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(final Animator animation) {
                 mCvMatchMember.animate().setListener(null);
-                mCvMatchMember.animate().x(mMatchMemberX).y(mMatchMemberY).scaleX(1f).scaleY(1f).alpha(1f).setDuration(500).setListener(new Animator.AnimatorListener() {
+
+                float y = mMatchMemberY;
+                if (mLoProgress.getVisibility() == View.VISIBLE) {
+                    y = y + mLoProgress.getHeight();
+                }
+                mCvMatchMember.animate().x(mMatchMemberX).y(y).scaleX(1f).scaleY(1f).alpha(1f).setDuration(700).setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
 
@@ -688,6 +742,7 @@ public class JankenMainActivity extends BaseActivity {
                     mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
                     mLoReadyCounter.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0);
                     mLoReadyCounter.setVisibility(View.GONE);
+                    mLoSelectMessage.setVisibility(View.VISIBLE);
                     mIsWaitingUserAction = true;
                 } else {
                     mLoReadyCounter.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
@@ -734,40 +789,180 @@ public class JankenMainActivity extends BaseActivity {
         });
     }
 
-    private void doJudge() {
-        mIvMatchMemberPicture.setVisibility(View.GONE);
-        mTvMatchMemberActionIcon.setVisibility(View.VISIBLE);
+    View mUserActionView;
+
+    private void onUserAction(View view) {
+        if (!mIsWaitingUserAction) {
+            return;
+        }
+        mIsWaitingUserAction = false;
+
+        mLoSelectMessage.setVisibility(View.GONE);
+        mVwScreen.setVisibility(View.VISIBLE);
+
+        mUserActionView = view;
+        mUserActionView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_danger));
+
+        //---------------------------------------------
+        // 상대 멤버의 가위바위보 중 하나를 랜덤으로 설정
+        //---------------------------------------------
+        mMemberSelectAction = Util.getRandom(1, 3);
+        int stringId = 0;
+        switch (mMemberSelectAction) {
+            case 1:
+                stringId = R.string.fa_hand_scissors_o;
+                break;
+            case 2:
+                stringId = R.string.fa_hand_rock_o;
+                break;
+            case 3:
+                stringId = R.string.fa_hand_paper_o;
+                break;
+        }
+        mLoMatchMemberAction.setVisibility(View.VISIBLE);
+        mTvMatchMemberActionIcon.setText(getString(stringId));
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mIvMatchMemberPicture.setVisibility(View.VISIBLE);
-                mTvMatchMemberActionIcon.setVisibility(View.GONE);
-                doWin();
+                doJudge();
             }
-        }, 1500);
+        }, 1000);
     }
 
-    private void doWin() {
-        mCvMatchMember.animate().x(-150f).y(1350f).scaleXBy(-0.7f).scaleYBy(-0.7f).alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+    private void doJudge() {
+        boolean win = false;
+        boolean draw = false;
+        boolean lose = false;
+
+        switch (mUserSelectAction) {
+            case Config.JANKEN_ACTION_SCESSORS:
+                switch (mMemberSelectAction) {
+                    case Config.JANKEN_ACTION_SCESSORS:
+                        draw = true;
+                        break;
+                    case Config.JANKEN_ACTION_ROCK:
+                        lose = true;
+                        break;
+                    case Config.JANKEN_ACTION_PAPER:
+                        win = true;
+                        break;
+                }
+                break;
+            case Config.JANKEN_ACTION_ROCK:
+                switch (mMemberSelectAction) {
+                    case Config.JANKEN_ACTION_SCESSORS:
+                        win = true;
+                        break;
+                    case Config.JANKEN_ACTION_ROCK:
+                        draw = true;
+                        break;
+                    case Config.JANKEN_ACTION_PAPER:
+                        lose = true;
+                        break;
+                }
+                break;
+            case Config.JANKEN_ACTION_PAPER:
+                switch (mMemberSelectAction) {
+                    case Config.JANKEN_ACTION_SCESSORS:
+                        lose = true;
+                        break;
+                    case Config.JANKEN_ACTION_ROCK:
+                        win = true;
+                        break;
+                    case Config.JANKEN_ACTION_PAPER:
+                        draw = true;
+                        break;
+                }
+                break;
+        }
+
+        final boolean isWin = win;
+        final boolean isDraw = draw;
+        final boolean isLose = lose;
+
+        if (isWin) {
+            mWinCount++;
+            mTvJudgeText.setText("승");
+        } else if (isDraw) {
+            mDrawCount++;
+            mTvJudgeText.setText("비김");
+        } else if (isLose) {
+            mLoseCount++;
+            mTvJudgeText.setText("패");
+        }
+        mLoJudge.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onAnimationStart(Animator animator) {
+            public void run() {
+                mLoMatchMemberAction.setVisibility(View.GONE);
+                mUserActionView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_success));
+                mLoJudge.setVisibility(View.GONE);
+
+                if (isWin) {
+                    onWin();
+                } else if (isDraw) {
+                    onDraw();
+                } else if (isLose) {
+                    onLose();
+                }
+            }
+        }, 1000);
+    }
+
+    private void onWin() {
+        //float dest = 360;
+        //if (mLoMyMemberCounter.getRotation() == 360) {
+        //    dest = 0;
+        //}
+        mCvMatchMember.animate().rotation(360).scaleXBy(-0.5f).scaleYBy(-0.5f).alpha(0.8f).setDuration(800).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
 
             }
 
             @Override
-            public void onAnimationEnd(Animator animator) {
+            public void onAnimationEnd(Animator animation) {
                 mCvMatchMember.animate().setListener(null);
-                addMyMember();
+
+                mCvMatchMember.animate().x(-130f).y(1400f).scaleXBy(-0.3f).scaleYBy(-0.3f).alpha(0.0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        mCvMatchMember.animate().setListener(null);
+
+                        //--------------------------------------------
+                        // 승리했을 때 상단 진행 바와 다음 멤버 보여주기
+                        //--------------------------------------------
+                        mLoProgress.setVisibility(View.VISIBLE);
+
+                        addMyMember();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
             }
 
             @Override
-            public void onAnimationCancel(Animator animator) {
+            public void onAnimationCancel(Animator animation) {
 
             }
 
             @Override
-            public void onAnimationRepeat(Animator animator) {
+            public void onAnimationRepeat(Animator animation) {
 
             }
         });
@@ -793,6 +988,7 @@ public class JankenMainActivity extends BaseActivity {
                     mTvMyMemberCounterText.setText(text);
                 }
 
+                mCvMatchMember.animate().rotation(0).setDuration(0);
                 loadMatchMember();
             }
 
@@ -803,39 +999,18 @@ public class JankenMainActivity extends BaseActivity {
         });
     }
 
-    private void doLose() {
-        mCvMatchMember.animate().scaleXBy(0.1f).scaleYBy(0.1f).setDuration(300).setListener(new Animator.AnimatorListener() {
-
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                mCvMatchMember.animate().setListener(null);
-                mCvMatchMember.animate().scaleX(1f).scaleY(1f).setDuration(500);
-                removeMyMember();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
+    private void onDraw() {
+        setReady();
     }
 
-    private void removeMyMember() {
+    private void onLose() {
         final int index = mMyMemberImageViews.size() - 1;
 
         if (index >= 0) {
-            final ImageView iv = mMyMemberImageViews.get(index);
-            iv.animate().scaleX(0.5f).scaleY(0.5f).alpha(0f).setDuration(700).setListener(new Animator.AnimatorListener() {
+            //-------------------------------------
+            // 상대 멤버의 승리 애니메이션 보여주기
+            //-------------------------------------
+            mCvMatchMember.animate().scaleXBy(0.1f).scaleYBy(0.1f).setDuration(300).setListener(new Animator.AnimatorListener() {
 
                 @Override
                 public void onAnimationStart(Animator animator) {
@@ -844,51 +1019,9 @@ public class JankenMainActivity extends BaseActivity {
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
-                    iv.animate().setListener(null);
-
-                    mMyMemberImageViews.remove(index);
-
-                    String text = mMyMemberImageViews.size() + "";
-                    mTvMyMemberCounterText.setText(text);
-
-                    if (mMyMemberImageViews.size() == 0) {
-                        //float dest = 360;
-                        //if (mLoMyMemberCounter.getRotation() == 360) {
-                        //    dest = 0;
-                        //}
-                        //ObjectAnimator ani = ObjectAnimator.ofFloat(mLoMyMemberCounter, "rotation", dest);
-                        //ani.setDuration(1000);
-                        //ani.start();
-                        mLoMyMemberCounter.animate().alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
-
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                //mLoMyMemberCounter.setVisibility(View.GONE);
-                                mLoMyMemberCounter.animate().setListener(null);
-
-                                mLoMyMemberList.removeView(iv);
-                                setReady();
-                            }
-
-                            @Override
-                            public void onAnimationCancel(Animator animation) {
-
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animator animation) {
-
-                            }
-                        });
-                    } else {
-                        mLoMyMemberList.removeView(iv);
-                        setReady();
-                    }
+                    mCvMatchMember.animate().setListener(null);
+                    mCvMatchMember.animate().scaleX(1f).scaleY(1f).setDuration(500);
+                    removeMyMember();
                 }
 
                 @Override
@@ -901,7 +1034,83 @@ public class JankenMainActivity extends BaseActivity {
 
                 }
             });
+        } else {
+            finish();
         }
+    }
+
+    private void removeMyMember() {
+        final int index = mMyMemberImageViews.size() - 1;
+        final ImageView iv = mMyMemberImageViews.get(index);
+
+        //-------------------------------------
+        // 내 멤버 목록에서 한명 제거하기
+        //-------------------------------------
+        iv.animate().scaleX(0.5f).scaleY(0.5f).alpha(0f).setDuration(700).setListener(new Animator.AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                iv.animate().setListener(null);
+
+                mMyMemberImageViews.remove(index);
+
+                String text = mMyMemberImageViews.size() + "";
+                mTvMyMemberCounterText.setText(text);
+
+                if (mMyMemberImageViews.size() == 0) {
+                    //float dest = 360;
+                    //if (mLoMyMemberCounter.getRotation() == 360) {
+                    //    dest = 0;
+                    //}
+                    //ObjectAnimator ani = ObjectAnimator.ofFloat(mLoMyMemberCounter, "rotation", dest);
+                    //ani.setDuration(1000);
+                    //ani.start();
+                    mLoMyMemberCounter.animate().alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            //mLoMyMemberCounter.setVisibility(View.GONE);
+                            mLoMyMemberCounter.animate().setListener(null);
+                            mLoMyMemberList.removeView(iv);
+                            setReady();
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
+                } else {
+                    mLoMyMemberList.removeView(iv);
+                    setReady();
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
     }
 
     private void setReady() {
@@ -929,6 +1138,8 @@ public class JankenMainActivity extends BaseActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         mLoReadyMessage.animate().setListener(null);
+
+                        updateProgress();
                         mIsGameStared = false;
                     }
 
@@ -954,5 +1165,20 @@ public class JankenMainActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void updateProgress() {
+        int count = mMemberIndex - 1;
+        int total = mGroupMemberList.size();
+
+        //String info = mWinCount + "승 " + mLoseCount + "패";
+        //mTvProgressInfo.setText(info);
+
+        String text = "남은 멤버: " + (total - count) + "명";
+        mTvProgressTotal.setText(text);
+
+        float progress = (float) count / (float) total ;
+        int progressValue = (int) (progress * 100.0);
+        mPbProgress.setProgress(progressValue);
     }
 }

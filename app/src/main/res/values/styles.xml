@@ -248,6 +248,13 @@
         <item name="android:maxHeight">10dp</item>
     </style>
 
+    <style name="ProgressBarHorizontalJanken" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progress_bar_horizontal_janken</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:maxHeight">10dp</item>
+    </style>
+
     <style name="ProgressBarHorizontalGray" parent="android:Widget.ProgressBar.Horizontal">
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/progress_bar_horizontal_dark</item>
