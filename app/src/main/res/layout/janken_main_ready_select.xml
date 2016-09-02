@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/loReadyCounter"
+    android:id="@+id/loReadySelect"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:visibility="gone">
 
     <TextView
-        android:id="@+id/tvReadyCounterBorder"
+        android:id="@+id/tvReadySelectBorder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/fa_circle"
-        android:textColor="#222"
-        android:textSize="120sp" />
+        android:textColor="#444"
+        android:textSize="100sp" />
 
     <TextView
-        android:id="@+id/tvReadyCounterOuter"
+        android:id="@+id/tvReadySelectOuter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/fa_circle"
-        android:textColor="#b71c1c"
-        android:textSize="110sp" />
+        android:textColor="#64b5f6"
+        android:textSize="97sp" />
 
     <TextView
-        android:id="@+id/tvReadyCounterInner"
+        android:id="@+id/tvReadySelectInner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/fa_circle"
-        android:textColor="#f44336"
-        android:textSize="80sp" />
+        android:textColor="#bbdefb"
+        android:textSize="70sp" />
 
     <TextView
-        android:id="@+id/tvReadyCounterText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/blank"
-        android:textColor="#fff"
-        android:textSize="32sp"
-        android:textStyle="bold|italic" />
+        android:text="선택"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

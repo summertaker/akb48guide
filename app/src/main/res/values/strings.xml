@@ -201,7 +201,9 @@
     <string name="fa_hand_paper_o">&#xf256;</string>
     <string name="fa_circle">&#xf111;</string>
     <string name="fa_heart">&#xf004;</string>
+    <string name="fa_arrow_down">&#xf063;</string>
     <string name="fa_arrow_circle_up">&#xf0aa;</string>
+    <string name="fa_arrow_circle_down">&#xf0ab;</string>
     <string name="fa_check_circle">&#xf058;</string>
     <string name="janken">Janken</string>
 

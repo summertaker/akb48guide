@@ -32,7 +32,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:clipChildren="false">
 
             <!--<include
                 android:id="@+id/loTop"
@@ -42,8 +43,7 @@
                 android:id="@+id/loProgress"
                 layout="@layout/janken_main_progress" />
 
-            <include
-                layout="@layout/janken_main_next" />
+            <include layout="@layout/janken_main_next" />
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cvMatchMember"
@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:background="#99000000"
+                        android:background="#aa000000"
                         android:gravity="center"
                         android:paddingBottom="7dp"
                         android:paddingTop="7dp"
@@ -101,7 +101,6 @@
                         android:id="@+id/loMatchMemberAction"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_above="@id/tvMatchMemberPictureCaption"
                         android:background="#aa000000"
                         android:gravity="center"
                         android:visibility="gone">
@@ -133,7 +132,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="화면을 터치하면 3초가 표시됩니다."
+                    android:text="시작하면 3초가 표시됩니다."
                     android:textColor="#ffffffff"
                     android:textStyle="italic" />
 
@@ -145,22 +144,19 @@
                     android:textColor="#ffffffff"
                     android:textStyle="italic" />
 
+                <Button
+                    android:id="@+id/btnStartGame"
+                    style="@style/DangerButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="시작"
+                    android:textStyle="bold" />
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/loSelectMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/cvMatchMember"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
-                android:text="가위 바위 보를 선택하세요."
-                android:textColor="#55ffffff"
-                android:textStyle="italic"
-                android:visibility="invisible" />
-
             <include
-                layout="@layout/janken_main_bottom"
+                layout="@layout/janken_main_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true" />
@@ -205,11 +201,6 @@
             android:visibility="gone">
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/vwScreen"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
         <include layout="@layout/janken_main_ready" />
 

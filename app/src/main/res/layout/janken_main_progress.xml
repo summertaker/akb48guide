@@ -5,10 +5,10 @@
               android:layout_height="wrap_content"
               android:layout_alignParentTop="true"
               android:background="#22ffffff"
-              android:paddingBottom="15dp"
-              android:paddingEnd="10dp"
-              android:paddingStart="10dp"
-              android:paddingTop="10dp">
+              android:paddingBottom="18dp"
+              android:paddingEnd="15dp"
+              android:paddingStart="15dp"
+              android:paddingTop="12dp">
 
     <LinearLayout
         android:id="@+id/loLoadingHorizontal"
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@null"
-                android:textColor="#bbffffff"/>
+                android:textColor="#ffffffff"/>
 
             <TextView
                 android:id="@+id/tvProgressInfo"
@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="@null"
-                android:textColor="#bbffffff"/>
+                android:textColor="#aaffffff"/>
 
         </LinearLayout>
 
@@ -52,7 +52,7 @@
             style="@style/ProgressBarHorizontalJanken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="12dp"/>
 
     </LinearLayout>
 

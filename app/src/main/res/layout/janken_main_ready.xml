@@ -23,7 +23,7 @@
         android:layout_centerInParent="true"
         android:text="@string/fa_circle"
         android:textColor="#fdd835"
-        android:textSize="115sp"/>
+        android:textSize="120sp"/>
 
     <TextView
         android:id="@+id/tvReadyInner"
@@ -32,16 +32,16 @@
         android:layout_centerInParent="true"
         android:text="@string/fa_circle"
         android:textColor="#fff176"
-        android:textSize="80sp"/>
+        android:textSize="100sp"/>
 
     <TextView
         android:id="@+id/tvReadyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="준비~"
+        android:text="준비"
         android:textColor="#000"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"/>
+        android:textSize="22sp"
+        android:textStyle="bold"/>
 
 </RelativeLayout>
