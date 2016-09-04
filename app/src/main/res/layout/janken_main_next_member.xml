@@ -15,7 +15,7 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cvNextMember"
         android:layout_width="47dp"
-        android:layout_height="60dp"
+        android:layout_height="53dp"
         card_view:cardCornerRadius="3dp"
         card_view:cardElevation="5dp">
 

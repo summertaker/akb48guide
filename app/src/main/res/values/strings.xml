@@ -205,6 +205,13 @@
     <string name="fa_arrow_circle_up">&#xf0aa;</string>
     <string name="fa_arrow_circle_down">&#xf0ab;</string>
     <string name="fa_check_circle">&#xf058;</string>
+    <string name="fa_close">&#xf00d;</string>
+    <string name="fa_check">&#xf00c;</string>
+    <string name="fa_android">&#xf17b;</string>
+    <string name="fa_meh_o">&#xf11a;</string>
+    <string name="fa_coffee">&#xf0f4;</string>
+    <string name="fa_rotate_right">&#xf01e;</string>
+    <string name="fa_gavel">&#xf0e3;</string>
     <string name="janken">Janken</string>
 
 </resources>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/loReadySelect"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:visibility="gone">
+                android:id="@+id/loReadySelect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.0"
+                android:gravity="center">
 
     <TextView
         android:id="@+id/tvReadySelectBorder"
@@ -13,7 +13,7 @@
         android:layout_centerInParent="true"
         android:text="@string/fa_circle"
         android:textColor="#444"
-        android:textSize="100sp" />
+        android:textSize="100sp"/>
 
     <TextView
         android:id="@+id/tvReadySelectOuter"
@@ -22,7 +22,7 @@
         android:layout_centerInParent="true"
         android:text="@string/fa_circle"
         android:textColor="#64b5f6"
-        android:textSize="97sp" />
+        android:textSize="97sp"/>
 
     <TextView
         android:id="@+id/tvReadySelectInner"
@@ -31,7 +31,7 @@
         android:layout_centerInParent="true"
         android:text="@string/fa_circle"
         android:textColor="#bbdefb"
-        android:textSize="70sp" />
+        android:textSize="70sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,6 +40,6 @@
         android:text="선택"
         android:textColor="#000"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
 </RelativeLayout>

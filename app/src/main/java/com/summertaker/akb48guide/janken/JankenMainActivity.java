@@ -1,13 +1,8 @@
 package com.summertaker.akb48guide.janken;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,10 +17,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -95,6 +86,8 @@ public class JankenMainActivity extends BaseActivity {
     CardView mCvNextMember;
     float mNextMemberX;
     float mNextMemberY;
+    int mNextMemberW;
+    int mNextMemberH;
     boolean mNextMemberRendered = false;
     ProgressBar mPbNextMemberPictureLoading;
     ImageView mIvNextMemberPicture;
@@ -111,19 +104,10 @@ public class JankenMainActivity extends BaseActivity {
     RelativeLayout mLoMatchMemberAction;
     TextView mTvMatchMemberActionIcon;
 
-    RelativeLayout mLoReady;
-    int mReadyCounterValue = 3;
-
-    ArrayList<ImageView> mMyMemberImageViews = new ArrayList<>();
-    LinearLayout.LayoutParams mParams;
-    LinearLayout.LayoutParams mParamsNoMargin;
-
-    LinearLayout mLoMyMemberList;
-    RelativeLayout mLoMyMemberCounter;
-    TextView mTvMyMemberCounterText;
-
     LinearLayout mLoUserAction;
+    float mUserActionX;
     float mUserActionY;
+    boolean mUserActionRendered = false;
     LinearLayout mLoUserActionScissors;
     TextView mTvUserActionScissorsIcon;
     TextView mTvUserActionScissorsText;
@@ -133,19 +117,27 @@ public class JankenMainActivity extends BaseActivity {
     LinearLayout mLoUserActionPaper;
     TextView mTvUserActionPaperIcon;
     TextView mTvUserActionPaperText;
-    boolean mUserActionRendered = false;
 
+    LinearLayout mLoMyMemberList;
+    RelativeLayout mLoMyMemberCounter;
+    TextView mTvMyMemberCounterText;
+    ArrayList<ImageView> mMyMemberImageViews = new ArrayList<>();
+    LinearLayout.LayoutParams mParams;
+    LinearLayout.LayoutParams mParamsNoMargin;
+
+    RelativeLayout mLoReady;
     LinearLayout mLoGuide;
     Button mBtnStartGame;
-    //TextView mLoSelectMessage;
 
     RelativeLayout mLoReadyCounter;
     TextView mReadyCounterText;
+    int mReadyCounterValue = 3;
     RelativeLayout mLoReadySelect;
 
-    RelativeLayout mLoJudge;
-    TextView mTvJudgeIcon;
-    TextView mTvJudgeText;
+    RelativeLayout mLoJudgeWin;
+    RelativeLayout mLoJudgeDraw;
+    RelativeLayout mLoJudgeLose;
+
     int mMemberSelectAction;
     int mUserSelectAction;
 
@@ -425,25 +417,11 @@ public class JankenMainActivity extends BaseActivity {
         mTvMatchMemberActionIcon = (TextView) findViewById(R.id.tvMatchMemberActionIcon);
         mTvMatchMemberActionIcon.setTypeface(font);
 
-        int width = (int) (47 * mDensity);
-        int height = (int) (60 * mDensity);
-        int margin = (int) (6 * mDensity);
-        mParams = new LinearLayout.LayoutParams(width, height);
-        mParams.setMargins(0, 0, margin, 0);
-        mParamsNoMargin = new LinearLayout.LayoutParams(width, height);
-
-        mLoMyMemberCounter = (RelativeLayout) findViewById(R.id.loMyMemberCounter);
-        mTvMyMemberCounterText = (TextView) findViewById(R.id.tvMyMemberCounterText);
-        mLoMyMemberList = (LinearLayout) findViewById(R.id.loMyMemberList);
-        TextView tvMyMemberCounterIcon = (TextView) findViewById(R.id.tvMyMemberCounterIcon);
-        tvMyMemberCounterIcon.setTypeface(font);
-
         mLoUserAction = (LinearLayout) findViewById(R.id.loUserAction);
         mLoUserAction.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        mUserActionY = mLoUserAction.getY();
                         mLoUserAction.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                         mUserActionRendered = true;
                         onRenderFinished();
@@ -468,53 +446,70 @@ public class JankenMainActivity extends BaseActivity {
         mTvUserActionPaperIcon.setTypeface(font);
         mTvUserActionPaperText = (TextView) findViewById(R.id.tvUserActionPaperText);
 
+        mLoMyMemberList = (LinearLayout) findViewById(R.id.loMyMemberList);
+        mLoMyMemberCounter = (RelativeLayout) findViewById(R.id.loMyMemberCounter);
+        mTvMyMemberCounterText = (TextView) findViewById(R.id.tvMyMemberCounterText);
+        ((TextView) findViewById(R.id.tvMyMemberCounterIcon)).setTypeface(font);
+
+        int width = (int) (47 * mDensity);
+        int height = (int) (53 * mDensity);
+        int margin = (int) (6 * mDensity);
+        mParams = new LinearLayout.LayoutParams(width, height);
+        mParams.setMargins(0, 0, margin, 0);
+        mParamsNoMargin = new LinearLayout.LayoutParams(width, height);
+
         mLoGuide = (LinearLayout) findViewById(R.id.loGuide);
-        //mLoSelectMessage = (TextView) findViewById(R.id.loSelectMessage);
         mBtnStartGame = (Button) findViewById(R.id.btnStartGame);
 
         // 레디 카운터 - 준비
         mLoReady = (RelativeLayout) findViewById(R.id.loReady);
-        TextView tvReadyBorder = (TextView) findViewById(R.id.tvReadyBorder);
-        tvReadyBorder.setTypeface(font);
-        TextView tvReadyOuter = (TextView) findViewById(R.id.tvReadyOuter);
-        tvReadyOuter.setTypeface(font);
-        TextView tvReadyInner = (TextView) findViewById(R.id.tvReadyInner);
-        tvReadyInner.setTypeface(font);
+        ((TextView) findViewById(R.id.tvReadyBorder)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvReadyOuter)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvReadyInner)).setTypeface(font);
 
         // 레디 카운터 - 숫자
         mLoReadyCounter = (RelativeLayout) findViewById(R.id.loReadyCounter);
         mReadyCounterText = (TextView) findViewById(R.id.tvReadyCounterText);
         mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
-        TextView tvReadyCounterBorder = (TextView) findViewById(R.id.tvReadyCounterBorder);
-        tvReadyCounterBorder.setTypeface(font);
-        TextView tvReadyCounterOuter = (TextView) findViewById(R.id.tvReadyCounterOuter);
-        tvReadyCounterOuter.setTypeface(font);
-        TextView tvReadyCounterInner = (TextView) findViewById(R.id.tvReadyCounterInner);
-        tvReadyCounterInner.setTypeface(font);
+        ((TextView) findViewById(R.id.tvReadyCounterBorder)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvReadyCounterOuter)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvReadyCounterInner)).setTypeface(font);
 
         // 레디 카운터 - 선택
         mLoReadySelect = (RelativeLayout) findViewById(R.id.loReadySelect);
-        TextView tvReadySelectBorder = (TextView) findViewById(R.id.tvReadySelectBorder);
-        tvReadySelectBorder.setTypeface(font);
-        TextView tvReadySelectOuter = (TextView) findViewById(R.id.tvReadySelectOuter);
-        tvReadySelectOuter.setTypeface(font);
-        TextView tvReadySelectInner = (TextView) findViewById(R.id.tvReadySelectInner);
-        tvReadySelectInner.setTypeface(font);
+        ((TextView) findViewById(R.id.tvReadySelectBorder)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvReadySelectOuter)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvReadySelectInner)).setTypeface(font);
 
-        mLoJudge = (RelativeLayout) findViewById(R.id.loJudge);
-        mTvJudgeIcon = (TextView) findViewById(R.id.tvJudgeIcon);
-        mTvJudgeIcon.setTypeface(font);
-        mTvJudgeText = (TextView) findViewById(R.id.tvJudgeText);
+        mLoJudgeWin = (RelativeLayout) findViewById(R.id.loJudgeWin);
+        ((TextView) findViewById(R.id.tvJudgeWinIconBorder)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvJudgeWinIconBack)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvJudgeWinIcon)).setTypeface(font);
+        mLoJudgeDraw = (RelativeLayout) findViewById(R.id.loJudgeDraw);
+        ((TextView) findViewById(R.id.tvJudgeDrawIconBorder)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvJudgeDrawIconBack)).setTypeface(font);
+        mLoJudgeLose = (RelativeLayout) findViewById(R.id.loJudgeLose);
+        ((TextView) findViewById(R.id.tvJudgeLoseIconBorder)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvJudgeLoseIconBack)).setTypeface(font);
+        ((TextView) findViewById(R.id.tvJudgeLoseIcon)).setTypeface(font);
     }
 
     private void onRenderFinished() {
         if (mProgressRenderFinished && mNextMemberRendered && mMatchMemberRendered && mUserActionRendered) {
 
-            mNextMemberX = mLoNextMember.getX() - mLoNextMember.getWidth() - 90;
-            mNextMemberY = mLoNextMember.getY() - mLoNextMember.getHeight();
+            //int nextPos[] = new int[2];
+            //mLoNextMember.getLocationOnScreen(nextPos);
 
-            mMatchMemberX = mCvMatchMember.getX();
-            mMatchMemberY = mCvMatchMember.getY();
+            mNextMemberX = mLoNextMember.getLeft(); //nextPos[0];
+            mNextMemberY = mLoNextMember.getTop(); //nextPos[1];
+            mNextMemberW = mLoNextMember.getWidth();
+            mNextMemberH = mLoNextMember.getHeight();
+
+            mMatchMemberX = mCvMatchMember.getLeft(); // .getX();
+            mMatchMemberY = mCvMatchMember.getTop(); //.getY();
+
+            mUserActionX = mLoUserAction.getLeft();
+            mUserActionY = mLoUserAction.getTop();
 
             loadMatchMember();
         }
@@ -594,7 +589,68 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void animateMatchMember() {
-        mCvMatchMember.animate().x(mNextMemberX).y(mNextMemberY).scaleX(0.25f).scaleY(0.25f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
+        // Scale 시 기준 위치 설정하기
+        // http://stackoverflow.com/questions/17031931/android-setting-pivot-point-for-scale-animation
+        mCvMatchMember.setPivotX(0);
+        mCvMatchMember.setPivotY(0);
+
+        /*
+        // "다음 멤버" 위치로 이동 후 숨기기
+        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(mCvMatchMember, "scaleX", 0.25f);
+        scaleDownX.setDuration(0);
+        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(mCvMatchMember, "scaleY", 0.27f);
+        scaleDownY.setDuration(0);
+        ObjectAnimator moveFromX = ObjectAnimator.ofFloat(mCvMatchMember, "x", mNextMemberX);
+        moveFromX.setDuration(0);
+        ObjectAnimator moveFromY = ObjectAnimator.ofFloat(mCvMatchMember, "y", mNextMemberY);
+        moveFromY.setDuration(0);
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(mCvMatchMember, "alpha", 0f);
+        fadeOut.setDuration(0);
+
+        AnimatorSet aniFromSet = new AnimatorSet();
+        aniFromSet.playTogether(scaleDownX, scaleDownY, moveFromX, moveFromY, fadeOut);
+        aniFromSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                // 원래 위치로 이동 후 보이기
+                int duration = 700;
+                ObjectAnimator scaleUpX = ObjectAnimator.ofFloat(mCvMatchMember, "scaleX", 1f);
+                scaleUpX.setDuration(duration);
+                ObjectAnimator scaleUpY = ObjectAnimator.ofFloat(mCvMatchMember, "scaleY", 1f);
+                scaleUpY.setDuration(duration);
+                ObjectAnimator moveToX = ObjectAnimator.ofFloat(mCvMatchMember, "x", mMatchMemberX);
+                moveToX.setDuration(duration);
+                ObjectAnimator moveToY = ObjectAnimator.ofFloat(mCvMatchMember, "y", mMatchMemberY);
+                moveToY.setDuration(duration);
+                ObjectAnimator fadeIn = ObjectAnimator.ofFloat(mCvMatchMember, "alpha", 1f);
+                fadeIn.setDuration(duration);
+
+                AnimatorSet aniToSet = new AnimatorSet();
+                aniToSet.playTogether(scaleUpX, scaleUpY, moveToX, moveToY, fadeIn);
+                aniToSet.start();
+
+                loadNextMember();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+        aniFromSet.start();
+        */
+
+        mCvMatchMember.animate().x(mNextMemberX).y(mNextMemberY).scaleX(0.25f).scaleY(0.27f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -713,7 +769,8 @@ public class JankenMainActivity extends BaseActivity {
                         mBtnStartGame.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                setUserActionButton(false);
+                                setUserActionEnable(false);
+                                setUserActionActive(false);
                                 startGame();
                             }
                         });
@@ -749,85 +806,74 @@ public class JankenMainActivity extends BaseActivity {
         runCounter();
     }
 
-    public class MyInterpolator implements Interpolator {
-        // easeInOutQuint
-        public float getInterpolation(float t) {
-            float x = t * 2.0f;
-            if (t < 0.5f) return 0.5f * x * x * x * x * x;
-            x = (t - 0.5f) * 2 - 1;
-            return 0.5f * x * x * x * x * x + 1;
-        }
-    }
-
     private void runCounter() {
         mLoReadyCounter.setVisibility(View.VISIBLE);
 
-        MyInterpolator myInterpolator = new MyInterpolator();
-        mLoReadyCounter.animate().scaleX(1.4f).scaleY(1.4f).alpha(0.0f).setDuration(900)/*.setInterpolator(myInterpolator)*/
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animator) {
+        mLoReadyCounter.animate().scaleX(1.4f).scaleY(1.4f).alpha(0.0f).setDuration(900).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
 
-                    }
+            }
 
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        mLoReadyCounter.animate().setListener(null);
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                mLoReadyCounter.animate().setListener(null);
 
-                        if (mReadyCounterValue == 1) {
-                            mReadyCounterValue = 3;
-                            mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
-                            mLoReadyCounter.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0);
+                if (mReadyCounterValue == 1) {
+                    mReadyCounterValue = 3;
+                    mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
+                    mLoReadyCounter.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0);
 
-                            mLoReadyCounter.setVisibility(View.GONE);
-                            //mLoSelectMessage.setVisibility(View.VISIBLE);
-                            mLoReadySelect.setVisibility(View.VISIBLE);
-                            setUserActionButton(true);
-                        } else {
-                            mLoReadyCounter.animate().scaleX(1.0f).scaleY(1.0f).alpha(1.0f).setDuration(0).setListener(new Animator.AnimatorListener() {
-                                @Override
-                                public void onAnimationStart(Animator animator) {
+                    mLoReadyCounter.setVisibility(View.GONE);
+                    mLoReadySelect.animate().alpha(1f).setDuration(1000);
+                    setUserActionEnable(true);
+                } else {
+                    mLoReadyCounter.animate().scaleX(1.0f).scaleY(1.0f).alpha(1.0f).setDuration(0).setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
 
-                                }
-
-                                @Override
-                                public void onAnimationEnd(Animator animator) {
-                                    mLoReadyCounter.animate().setListener(null);
-
-                                    mReadyCounterValue--;
-                                    mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
-                                    runCounter();
-                                }
-
-                                @Override
-                                public void onAnimationCancel(Animator animator) {
-
-                                }
-
-                                @Override
-                                public void onAnimationRepeat(Animator animator) {
-
-                                }
-                            });
                         }
-                    }
 
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            mLoReadyCounter.animate().setListener(null);
 
-                    }
+                            mReadyCounterValue--;
+                            mReadyCounterText.setText(String.valueOf(mReadyCounterValue));
+                            if (mReadyCounterValue == 1) {
+                                setUserActionActive(true);
+                            }
+                            runCounter();
+                        }
 
-                    @Override
-                    public void onAnimationRepeat(Animator animator) {
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
 
-                    }
-                });
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
     }
 
     private void onUserAction(View view) {
-        mLoReadySelect.setVisibility(View.GONE);
-        setUserActionButton(false);
-        //mLoSelectMessage.setVisibility(View.GONE);
+        mLoReadySelect.animate().alpha(0f).setDuration(0);
+        setUserActionEnable(false);
 
         // 선택한 버튼 반전시키기
         view.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_danger));
@@ -913,39 +959,61 @@ public class JankenMainActivity extends BaseActivity {
                 break;
         }
 
-        win = true;
-        draw = false;
-        lose = false;
+        /*win = false;
+        draw = true;
+        lose = false;*/
 
         final boolean isWin = win;
         final boolean isDraw = draw;
         final boolean isLose = lose;
 
         if (isWin) {
+            mLoJudgeWin.setVisibility(View.VISIBLE);
             mWinCount++;
-            mTvJudgeText.setText("승");
         } else if (isDraw) {
+            mLoJudgeDraw.setVisibility(View.VISIBLE);
             mDrawCount++;
-            mTvJudgeText.setText("무승부");
         } else if (isLose) {
+            mLoJudgeLose.setVisibility(View.VISIBLE);
             mLoseCount++;
-            mTvJudgeText.setText("패");
         }
-        mLoJudge.setVisibility(View.VISIBLE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mLoJudge.animate().scaleX(1f).scaleY(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
+                mLoMatchMemberAction.setVisibility(View.GONE);
+                mTvMatchMemberPictureCaption.setVisibility(View.VISIBLE);
 
-                    }
+                setUserActionActive(false);
 
+                if (isWin) {
+                    mLoJudgeWin.setVisibility(View.GONE);
+                    onWin();
+                } else if (isDraw) {
+                    //mLoJudgeDraw.setVisibility(View.GONE);
+                    onDraw();
+                } else if (isLose) {
+                    mLoJudgeLose.setVisibility(View.GONE);
+                    onLose();
+                }
+            }
+        }, 1000);
+
+        /*mLoJudgeWin.setVisibility(View.VISIBLE);
+        mLoJudgeWin.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoJudgeWin.animate().setListener(null);
+
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mLoJudge.animate().setListener(null);
-                        mLoJudge.animate().scaleX(0f).scaleY(0f).setDuration(1000).setListener(new Animator.AnimatorListener() {
+                    public void run() {
+                        mLoJudgeWin.animate().scaleX(1.7f).scaleY(1.7f).alpha(0f).setDuration(1000).setListener(new Animator.AnimatorListener() {
 
                             @Override
                             public void onAnimationStart(Animator animation) {
@@ -954,9 +1022,9 @@ public class JankenMainActivity extends BaseActivity {
 
                             @Override
                             public void onAnimationEnd(Animator animation) {
-                                mLoJudge.animate().setListener(null);
-                                mLoJudge.setVisibility(View.GONE);
+                                mLoJudgeWin.animate().setListener(null);
 
+                                mLoJudgeWin.setVisibility(View.GONE);
                                 mLoMatchMemberAction.setVisibility(View.GONE);
                                 mTvMatchMemberPictureCaption.setVisibility(View.VISIBLE);
 
@@ -982,23 +1050,19 @@ public class JankenMainActivity extends BaseActivity {
                             }
                         });
                     }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
+                }, 1000);
             }
-        }, 1000);
-    }
 
-    private void animateJudge() {
+            @Override
+            public void onAnimationCancel(Animator animation) {
 
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });*/
     }
 
     private void onWin() {
@@ -1006,7 +1070,13 @@ public class JankenMainActivity extends BaseActivity {
         //if (mLoMyMemberCounter.getRotation() == 360) {
         //    dest = 0;
         //}
-        mCvMatchMember.animate().rotation(360).scaleXBy(-0.5f).scaleYBy(-0.5f).setDuration(800).setListener(new Animator.AnimatorListener() {
+
+        // Rotation 시 기준 위치 설정하기
+        // http://stackoverflow.com/questions/17031931/android-setting-pivot-point-for-scale-animation
+        mCvMatchMember.setPivotX(mCvMatchMember.getWidth() / 2);
+        mCvMatchMember.setPivotY(mCvMatchMember.getHeight() / 2);
+
+        mCvMatchMember.animate().rotation(360).scaleX(0.5f).scaleY(0.5f).setDuration(700).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -1016,7 +1086,12 @@ public class JankenMainActivity extends BaseActivity {
             public void onAnimationEnd(Animator animation) {
                 mCvMatchMember.animate().setListener(null);
 
-                mCvMatchMember.animate().x(-130f).y(1400f).scaleXBy(-0.3f).scaleYBy(-0.3f).alpha(0.0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+                float w = mCvMatchMember.getWidth() * mCvMatchMember.getScaleX();
+                float h = mCvMatchMember.getHeight() * mCvMatchMember.getScaleY();
+                float x = mUserActionX - (w / 2) - 60;
+                float y = mUserActionY - h - 60;
+
+                mCvMatchMember.animate().x(x).y(y).scaleX(0.25f).scaleY(0.25f).alpha(0f).setDuration(700).setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
 
@@ -1026,11 +1101,7 @@ public class JankenMainActivity extends BaseActivity {
                     public void onAnimationEnd(Animator animator) {
                         mCvMatchMember.animate().setListener(null);
 
-                        //--------------------------------------------
-                        // 승리했을 때 상단 진행 바와 다음 멤버 보여주기
-                        //--------------------------------------------
                         mLoProgress.setVisibility(View.VISIBLE);
-
                         addMyMember();
                     }
 
@@ -1090,8 +1161,53 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void onDraw() {
-        setReady();
-        //animateReady();
+        mLoJudgeDraw.animate().scaleX(0.5f).scaleY(0.5f).alpha(0f).setDuration(800).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                mLoJudgeDraw.animate().setListener(null);
+                mLoJudgeDraw.setVisibility(View.GONE);
+
+                mLoJudgeDraw.animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(0).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        mLoJudgeDraw.animate().setListener(null);
+
+                        //setReady();
+                        animateReady();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
     }
 
     private void onLose() {
@@ -1101,7 +1217,9 @@ public class JankenMainActivity extends BaseActivity {
             //-------------------------------------
             // 상대 멤버의 승리 애니메이션 보여주기
             //-------------------------------------
-            mCvMatchMember.animate().scaleXBy(0.1f).scaleYBy(0.1f).setDuration(400).setListener(new Animator.AnimatorListener() {
+            mCvMatchMember.setPivotX(mCvMatchMember.getWidth() / 2);
+            mCvMatchMember.setPivotY(mCvMatchMember.getHeight() / 2);
+            mCvMatchMember.animate().scaleXBy(0.1f).scaleYBy(0.1f).setDuration(500).setListener(new Animator.AnimatorListener() {
 
                 @Override
                 public void onAnimationStart(Animator animator) {
@@ -1153,42 +1271,8 @@ public class JankenMainActivity extends BaseActivity {
                 String text = mMyMemberImageViews.size() + "";
                 mTvMyMemberCounterText.setText(text);
 
-                if (mMyMemberImageViews.size() == 0) {
-                    //float dest = 360;
-                    //if (mLoMyMemberCounter.getRotation() == 360) {
-                    //    dest = 0;
-                    //}
-                    //ObjectAnimator ani = ObjectAnimator.ofFloat(mLoMyMemberCounter, "rotation", dest);
-                    //ani.setDuration(1000);
-                    //ani.start();
-                    mLoMyMemberCounter.animate().alpha(0f).setDuration(400).setListener(new Animator.AnimatorListener() {
-
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            mLoMyMemberCounter.animate().setListener(null);
-                            mLoMyMemberList.removeView(iv);
-                            setReady();
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
-                        }
-                    });
-                } else {
-                    mLoMyMemberList.removeView(iv);
-                    setReady();
-                }
+                mLoMyMemberList.removeView(iv);
+                setReady();
             }
 
             @Override
@@ -1201,6 +1285,38 @@ public class JankenMainActivity extends BaseActivity {
 
             }
         });
+
+        if (index == 0) {
+            float dest = 360;
+            if (mLoMyMemberCounter.getRotation() == 360) {
+                dest = 0;
+            }
+            //ObjectAnimator ani = ObjectAnimator.ofFloat(mLoMyMemberCounter, "rotation", dest);
+            //ani.setDuration(1000);
+            //ani.start();
+            mLoMyMemberCounter.animate().rotation(dest).alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
+
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mLoMyMemberCounter.animate().setListener(null);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
     }
 
     private void setReady() {
@@ -1213,7 +1329,6 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void animateReady() {
-        mLoReady.setVisibility(View.VISIBLE);
         mLoReady.animate().scaleX(1.0f).scaleY(1.0f).alpha(0.0f).setDuration(0).setListener(new Animator.AnimatorListener() {
 
             @Override
@@ -1225,6 +1340,7 @@ public class JankenMainActivity extends BaseActivity {
             public void onAnimationEnd(Animator animation) {
                 mLoReady.animate().setListener(null);
 
+                mLoReady.setVisibility(View.VISIBLE);
                 mLoReady.animate().scaleX(1.3f).scaleY(1.3f).alpha(1.0f).setDuration(1000).setListener(new Animator.AnimatorListener() {
 
                     @Override
@@ -1236,7 +1352,7 @@ public class JankenMainActivity extends BaseActivity {
                     public void onAnimationEnd(Animator animation) {
                         mLoReady.animate().setListener(null);
 
-                        mLoReady.animate().scaleX(1.0f).scaleY(1.0f).alpha(0.0f).setDuration(1400).setListener(new Animator.AnimatorListener() {
+                        mLoReady.animate().scaleX(1.0f).scaleY(1.0f).alpha(0.0f).setDuration(1200).setListener(new Animator.AnimatorListener() {
                             @Override
                             public void onAnimationStart(Animator animator) {
 
@@ -1286,13 +1402,8 @@ public class JankenMainActivity extends BaseActivity {
         });
     }
 
-    private void setUserActionButton(boolean enable) {
-        int iconColor, textColor;
+    private void setUserActionEnable(boolean enable) {
         if (enable) {
-            iconColor = Color.parseColor("#ddffffff");
-            textColor = Color.parseColor("#eeffffff");
-
-            mLoUserActionScissors.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_success));
             mLoUserActionScissors.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -1300,7 +1411,6 @@ public class JankenMainActivity extends BaseActivity {
                     onUserAction(view);
                 }
             });
-            mLoUserActionRock.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_success));
             mLoUserActionRock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -1308,7 +1418,6 @@ public class JankenMainActivity extends BaseActivity {
                     onUserAction(view);
                 }
             });
-            mLoUserActionPaper.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_success));
             mLoUserActionPaper.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -1317,17 +1426,26 @@ public class JankenMainActivity extends BaseActivity {
                 }
             });
         } else {
+            mLoUserActionScissors.setOnClickListener(null);
+            mLoUserActionRock.setOnClickListener(null);
+            mLoUserActionPaper.setOnClickListener(null);
+        }
+    }
+
+    private void setUserActionActive(boolean active) {
+        int iconColor, textColor;
+        if (active) {
+            mLoUserActionScissors.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_success));
+            mLoUserActionRock.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_success));
+            mLoUserActionPaper.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_success));
+            iconColor = Color.parseColor("#ddffffff");
+            textColor = Color.parseColor("#eeffffff");
+        } else {
+            mLoUserActionScissors.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_janken));
+            mLoUserActionRock.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_janken));
+            mLoUserActionPaper.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_janken));
             iconColor = Color.parseColor("#55000000");
             textColor = Color.parseColor("#aa000000");
-
-            mLoUserActionScissors.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_janken));
-            mLoUserActionScissors.setOnClickListener(null);
-
-            mLoUserActionRock.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_janken));
-            mLoUserActionRock.setOnClickListener(null);
-
-            mLoUserActionPaper.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_janken));
-            mLoUserActionPaper.setOnClickListener(null);
         }
 
         mTvUserActionScissorsIcon.setTextColor(iconColor);

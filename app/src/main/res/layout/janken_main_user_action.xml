@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clipChildren="false"
-    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/loUserAction"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fa_hand_scissors_o"
                 android:textColor="#ddffffff"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:id="@+id/tvUserActionScissorsText"
@@ -40,13 +40,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:text="@string/action_scissors"
-                android:textColor="#eeffffff" />
+                android:textColor="#eeffffff"/>
 
         </LinearLayout>
 
         <View
             android:layout_width="10dp"
-            android:layout_height="1dp" />
+            android:layout_height="1dp"/>
 
         <LinearLayout
             android:id="@+id/loUserActionRock"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fa_hand_rock_o"
                 android:textColor="#ddffffff"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:id="@+id/tvUserActionRockText"
@@ -73,13 +73,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:text="@string/action_rock"
-                android:textColor="#eeffffff" />
+                android:textColor="#eeffffff"/>
 
         </LinearLayout>
 
         <View
             android:layout_width="10dp"
-            android:layout_height="1dp" />
+            android:layout_height="1dp"/>
 
         <LinearLayout
             android:id="@+id/loUserActionPaper"
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fa_hand_paper_o"
                 android:textColor="#ddffffff"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:id="@+id/tvUserActionPaperText"
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:text="@string/action_paper"
-                android:textColor="#eeffffff" />
+                android:textColor="#eeffffff"/>
 
         </LinearLayout>
 
@@ -129,10 +129,10 @@
     </HorizontalScrollView>
 
     <include
+        layout="@layout/janken_main_ready_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/loUserAction"
-        layout="@layout/janken_main_ready_select" />
+        android:layout_above="@id/loUserAction"/>
 
     <RelativeLayout
         android:id="@+id/loMyMemberCounter"
@@ -140,8 +140,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/hsMyMember"
         android:layout_marginBottom="10dp"
-        android:layout_marginStart="20dp"
-        android:visibility="gone">
+        android:layout_marginStart="19dp"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/tvMyMemberCounterIcon"
@@ -150,7 +150,7 @@
             android:layout_centerInParent="true"
             android:text="@string/fa_heart"
             android:textColor="#f44336"
-            android:textSize="30sp" />
+            android:textSize="34sp"/>
 
         <TextView
             android:id="@+id/tvMyMemberCounterText"
@@ -160,7 +160,7 @@
             android:paddingBottom="3dp"
             android:text="@string/blank"
             android:textColor="#fff"
-            android:textStyle="italic|bold" />
+            android:textStyle="italic|bold"/>
 
     </RelativeLayout>
 
