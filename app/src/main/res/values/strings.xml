@@ -213,5 +213,6 @@
     <string name="fa_rotate_right">&#xf01e;</string>
     <string name="fa_gavel">&#xf0e3;</string>
     <string name="janken">Janken</string>
+    <string name="title_activity_janken_team">JankenTeamActivity</string>
 
 </resources>

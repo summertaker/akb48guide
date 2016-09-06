@@ -156,7 +156,7 @@ public class JankenMainActivity extends BaseActivity {
         }
 
         mContext = JankenMainActivity.this;
-        mDensity = mContext.getResources().getDisplayMetrics().density;
+        mDensity = mResources.getDisplayMetrics().density;
 
         Intent intent = getIntent();
         mAction = intent.getStringExtra("action");
@@ -179,7 +179,7 @@ public class JankenMainActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //Intent intent = new Intent(this, JankenHitActivity.class);
+        //Intent intent = new Intent(this, JankenGroupActivity.class);
         //startActivity(intent);
         return true;
     }
