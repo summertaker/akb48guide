@@ -212,7 +212,7 @@
     <string name="fa_coffee">&#xf0f4;</string>
     <string name="fa_rotate_right">&#xf01e;</string>
     <string name="fa_gavel">&#xf0e3;</string>
+    <string name="fa_caret_down">&#xf0d7;</string>
     <string name="janken">Janken</string>
-    <string name="title_activity_janken_team">JankenTeamActivity</string>
 
 </resources>

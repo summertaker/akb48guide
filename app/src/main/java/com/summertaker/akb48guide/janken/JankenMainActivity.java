@@ -319,7 +319,7 @@ public class JankenMainActivity extends BaseActivity {
         loContainer.setVisibility(View.VISIBLE);
 
         // http://stackoverflow.com/questions/15210548/how-to-use-a-icons-and-symbols-from-font-awesome-on-native-android-application
-        //Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf" );
+        //Typeface mFont = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf" );
         Typeface font = Typefaces.get(mContext, "fontawesome-webfont.ttf");
 
         //--------------------------
@@ -344,15 +344,15 @@ public class JankenMainActivity extends BaseActivity {
         loTop.setBackground(ContextCompat.getDrawable(mContext, bg));*/
 
         /*TextView tvGroupNgt48  = (TextView) findViewById(R.id.tvGroupNgt48);
-        tvGroupNgt48.setTypeface(font);
+        tvGroupNgt48.setTypeface(mFont);
         TextView tvGroupHkt48  = (TextView) findViewById(R.id.tvGroupHkt48);
-        tvGroupHkt48.setTypeface(font);
+        tvGroupHkt48.setTypeface(mFont);
         TextView tvGroupNmb48  = (TextView) findViewById(R.id.tvGroupNmb48);
-        tvGroupNmb48.setTypeface(font);
+        tvGroupNmb48.setTypeface(mFont);
         TextView tvGroupSke48  = (TextView) findViewById(R.id.tvGroupSke48);
-        tvGroupSke48.setTypeface(font);
+        tvGroupSke48.setTypeface(mFont);
         TextView tvGroupAkb48  = (TextView) findViewById(R.id.tvGroupAkb48);
-        tvGroupAkb48.setTypeface(font);*/
+        tvGroupAkb48.setTypeface(mFont);*/
 
         //----------------------
         // 진행 상태 설정
@@ -394,7 +394,7 @@ public class JankenMainActivity extends BaseActivity {
 
         //mTvRemainMemberCounterText = (TextView) findViewById(R.id.tvRemainMemberCounterText);
         //TextView tvRemainMemberCounterIcon = (TextView) findViewById(R.id.tvRemainMemberCounterIcon);
-        //tvRemainMemberCounterIcon.setTypeface(font);
+        //tvRemainMemberCounterIcon.setTypeface(mFont);
         //String text = (mGroupMemberList.size() - mMemberIndex) + "명";
         //mTvRemainMemberCounterText.setText(text);
 
