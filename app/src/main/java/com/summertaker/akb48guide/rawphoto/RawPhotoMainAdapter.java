@@ -52,8 +52,8 @@ public class RawPhotoMainAdapter extends BaseDataAdapter {
             view = mLayoutInflater.inflate(R.layout.raw_photo_main_item, null);
 
             holder = new ViewHolder();
-            holder.image = (ImageView) view.findViewById(R.id.groupImage);
-            holder.name = (TextView) view.findViewById(R.id.groupName);
+            holder.image = (ImageView) view.findViewById(R.id.ivPicture);
+            holder.name = (TextView) view.findViewById(R.id.tvCaption);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();

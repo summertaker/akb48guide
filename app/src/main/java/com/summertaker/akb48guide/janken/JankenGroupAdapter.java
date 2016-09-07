@@ -1,4 +1,4 @@
-package com.summertaker.akb48guide;
+package com.summertaker.akb48guide.janken;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,19 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
 import com.summertaker.akb48guide.data.GroupData;
 
 import java.util.ArrayList;
 
-public class GroupSelectGridAdapter extends BaseDataAdapter {
+public class JankenGroupAdapter extends BaseDataAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
     private ArrayList<GroupData> mDataList = new ArrayList<>();
 
-    public GroupSelectGridAdapter(Context context, ArrayList<GroupData> dataList) {
+    public JankenGroupAdapter(Context context, ArrayList<GroupData> dataList) {
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mDataList = dataList;
@@ -48,19 +49,29 @@ public class GroupSelectGridAdapter extends BaseDataAdapter {
 
         if (view == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-            view = mLayoutInflater.inflate(R.layout.group_select_grid_item, null);
+            view = mLayoutInflater.inflate(R.layout.janken_group_item, null);
 
             holder = new ViewHolder();
-            holder.image = (ImageView) view.findViewById(R.id.ivPicture);
-            holder.name = (TextView) view.findViewById(R.id.tvCaption);
+            holder.ivPicture = (ImageView) view.findViewById(R.id.ivPicture);
+            holder.ivLock = (ImageView) view.findViewById(R.id.ivLock);
+            holder.tvCaption = (TextView) view.findViewById(R.id.tvCaption);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
         GroupData item = mDataList.get(position);
-        holder.image.setImageResource(item.getImage());
-        holder.name.setText(item.getName());
+
+        String caption = item.getName();
+        if (item.isLocked()) {
+            holder.ivPicture.setImageResource(R.drawable.card_background);
+            holder.ivLock.setVisibility(View.VISIBLE);
+            caption = "잠김";
+        } else {
+            holder.ivPicture.setImageResource(item.getImage());
+            holder.ivLock.setVisibility(View.GONE);
+        }
+        holder.tvCaption.setText(caption);
 
         //Log.e(mTag, "item.getName(): " + item.getName());
 
@@ -68,7 +79,8 @@ public class GroupSelectGridAdapter extends BaseDataAdapter {
     }
 
     static class ViewHolder {
-        ImageView image;
-        TextView name;
+        ImageView ivPicture;
+        ImageView ivLock;
+        TextView tvCaption;
     }
 }

@@ -244,17 +244,17 @@
             android:name=".janken.JankenMainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/JankenTheme" />
         <activity
             android:name=".janken.JankenGroupActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/JankenTheme" />
         <activity
             android:name=".janken.JankenTeamActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/JankenTheme" />
     </application>
 
 </manifest>

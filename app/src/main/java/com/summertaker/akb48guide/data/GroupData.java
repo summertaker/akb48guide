@@ -17,6 +17,7 @@ public class GroupData implements Serializable {
     String url;
     String mobileUrl;
     String rawPhotoUrl;
+    boolean isLocked;
 
     public GroupData() {
 
@@ -30,6 +31,17 @@ public class GroupData implements Serializable {
         this.url = url;
         this.mobileUrl = mobileUrl;
         this.rawPhotoUrl = rawPhotoUrl;
+    }
+
+    public GroupData(String id, String name, int image, String url, String mobileUrl, String rawPhotoUrl, boolean isLocked) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.url = url;
+        this.mobileUrl = mobileUrl;
+        this.rawPhotoUrl = rawPhotoUrl;
+        this.isLocked = isLocked;
     }
 
     public String getId() {
@@ -78,6 +90,14 @@ public class GroupData implements Serializable {
 
     public void setRawPhotoUrl(String rawPhotoUrl) {
         this.rawPhotoUrl = rawPhotoUrl;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
     }
 
     public String getString() {

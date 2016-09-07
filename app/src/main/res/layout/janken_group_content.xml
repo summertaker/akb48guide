@@ -1,48 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/card_background"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:paddingBottom="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="20dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".janken.JankenGroupActivity"
     tools:showIn="@layout/janken_group_activity">
 
+    <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_teal"
+        android:padding="10dp"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#22ffffff"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="AKB48 그룹"
+                android:textColor="#eeffffff"
+                android:textSize="13sp" />
+
+            <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
+                android:id="@+id/gvAkb48"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true"
+                android:horizontalSpacing="0dp"
+                android:listSelector="@drawable/selector_janken"
+                android:numColumns="4"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:background="#22ffffff"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="SNH48 그룹"
+                android:textColor="#eeffffff"
+                android:textSize="13sp" />
+
+            <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
+                android:id="@+id/gvSnh48"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true"
+                android:horizontalSpacing="0dp"
+                android:listSelector="@drawable/selector_card"
+                android:numColumns="4"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:background="#22ffffff"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="JKT48 그룹"
+                android:textColor="#eeffffff"
+                android:textSize="13sp" />
+
+            <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
+                android:id="@+id/gvJkt48"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true"
+                android:horizontalSpacing="0dp"
+                android:listSelector="@drawable/selector_card"
+                android:numColumns="4"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
     <LinearLayout
-        android:id="@+id/loAkb48"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_teal"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/loAkb48"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/loSnh48"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/loJkt48"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/loSnh48"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/loJkt48"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

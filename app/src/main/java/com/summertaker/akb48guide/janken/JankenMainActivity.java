@@ -149,14 +149,14 @@ public class JankenMainActivity extends BaseActivity {
 
         setContentView(R.layout.janken_main_activity);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.parseColor("#004d40"));
-        }
+        }*/
 
         mContext = JankenMainActivity.this;
-        mDensity = mResources.getDisplayMetrics().density;
+        mDensity = mContext.getResources().getDisplayMetrics().density;
 
         Intent intent = getIntent();
         mAction = intent.getStringExtra("action");
