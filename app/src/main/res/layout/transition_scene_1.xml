@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.summertaker.akb48guide.janken.JankenMainActivity"
-    tools:showIn="@layout/janken_main_activity">
+    tools:context=".janken.JankenStageActivity"
+    tools:showIn="@layout/janken_stage_activity">
 
     <LinearLayout
         android:id="@+id/buttonContainer"

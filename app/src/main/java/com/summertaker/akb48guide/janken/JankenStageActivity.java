@@ -1,13 +1,14 @@
 package com.summertaker.akb48guide.janken;
 
 import android.animation.Animator;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
@@ -15,8 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -38,7 +37,6 @@ import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
-import com.summertaker.akb48guide.parser.Akb48Parser;
 import com.summertaker.akb48guide.parser.BaseParser;
 import com.summertaker.akb48guide.parser.NamuwikiParser;
 import com.summertaker.akb48guide.parser.WikipediaEnParser;
@@ -50,7 +48,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JankenMainActivity extends BaseActivity {
+public class JankenStageActivity extends BaseActivity {
 
     ProgressBar mPbLoading;
 
@@ -58,8 +56,11 @@ public class JankenMainActivity extends BaseActivity {
 
     String mAction;
     GroupData mGroupData;
+    TeamData mTeamData;
+    ArrayList<MemberData> mMemberList;
+
     boolean mIsMobile = false;
-    ArrayList<MemberData> mGroupMemberList = new ArrayList<>();
+    //ArrayList<MemberData> mGroupMemberList = new ArrayList<>();
     ArrayList<MemberData> mWikiMemberList = new ArrayList<>();
     ArrayList<TeamData> mTeamDataList = new ArrayList<>();
 
@@ -147,7 +148,7 @@ public class JankenMainActivity extends BaseActivity {
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.janken_main_activity);
+        setContentView(R.layout.janken_stage_activity);
 
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -155,12 +156,14 @@ public class JankenMainActivity extends BaseActivity {
             window.setStatusBarColor(Color.parseColor("#004d40"));
         }*/
 
-        mContext = JankenMainActivity.this;
+        mContext = JankenStageActivity.this;
         mDensity = mContext.getResources().getDisplayMetrics().density;
 
         Intent intent = getIntent();
         mAction = intent.getStringExtra("action");
         mGroupData = (GroupData) intent.getSerializableExtra("groupData");
+        mTeamData = (TeamData) intent.getSerializableExtra("teamData");
+        mMemberList = (ArrayList<MemberData>) intent.getSerializableExtra("memberList");
 
         //String title = getString(R.string.rock_paper_scissors) + " / " + mGroupData.getName();
         //initBaseToolbar(Config.TOOLBAR_ICON_BACK, title);
@@ -171,21 +174,8 @@ public class JankenMainActivity extends BaseActivity {
         loadData();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.janken_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //Intent intent = new Intent(this, JankenGroupActivity.class);
-        //startActivity(intent);
-        return true;
-    }
-
     private void loadData() {
-        String url = mGroupData.getUrl();
+        /*String url = mGroupData.getUrl();
         String userAgent = Config.USER_AGENT_WEB;
 
         switch (mGroupData.getId()) {
@@ -195,7 +185,8 @@ public class JankenMainActivity extends BaseActivity {
                 mIsMobile = true;
                 break;
         }
-        requestData(url, userAgent);
+        requestData(url, userAgent);*/
+        mIsDataLoaded = true;
 
         mLocale = Util.getLocaleStrng(mContext);
         switch (mLocale) {
@@ -209,6 +200,7 @@ public class JankenMainActivity extends BaseActivity {
         String mWikiUrl = mWikiParser.getUrl(mGroupData.getId());
         if (mWikiUrl == null || mWikiUrl.isEmpty()) {
             mIsWikiLoaded = true;
+            renderData();
         } else {
             requestData(mWikiUrl, Config.USER_AGENT_WEB);
         }
@@ -254,17 +246,9 @@ public class JankenMainActivity extends BaseActivity {
             mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
             mIsWikiLoaded = true;
         } else {
-            switch (mGroupData.getId()) {
-                case Config.GROUP_ID_AKB48:
-                    Akb48Parser akb48Parser = new Akb48Parser();
-                    akb48Parser.parseMobileMemberAll(response, mGroupData, mGroupMemberList);
-                    break;
-                default:
-                    BaseParser baseParser = new BaseParser();
-                    baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
-                    break;
-            }
-            mIsDataLoaded = true;
+            //BaseParser baseParser = new BaseParser();
+            //baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
+            //mIsDataLoaded = true;
         }
 
         renderData();
@@ -275,11 +259,11 @@ public class JankenMainActivity extends BaseActivity {
             return;
         }
 
-        if (mGroupMemberList.size() == 0) {
+        if (mMemberList.size() == 0) {
             alertNetworkErrorAndFinish(mErrorMessage);
         } else {
-            Collections.shuffle(mGroupMemberList);
-            for (MemberData memberData : mGroupMemberList) {
+            Collections.shuffle(mMemberList);
+            for (MemberData memberData : mMemberList) {
                 if (mWikiMemberList.size() == 0) {
                     memberData.setLocaleName(memberData.getName()); //memberData.getNameEn();
                 } else {
@@ -516,11 +500,15 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void loadMatchMember() {
-        if (mMemberIndex == mGroupMemberList.size() - 1) {
+        //if (mMemberIndex == mMemberList.size() - 1) {
+        //    return;
+        //}
+
+        if (mMemberIndex > mMemberList.size()) {
             return;
         }
 
-        MemberData memberData = mGroupMemberList.get(mMemberIndex);
+        MemberData memberData = mMemberList.get(mMemberIndex);
         mPictureUrl = memberData.getImageUrl();
         if (mPictureUrl == null || mPictureUrl.isEmpty()) {
             mPictureUrl = memberData.getThumbnailUrl();
@@ -553,39 +541,45 @@ public class JankenMainActivity extends BaseActivity {
     }
 
     private void loadNextMember() {
-        if (mMemberIndex == mGroupMemberList.size() - 1) {
-            mPbNextMemberPictureLoading.setVisibility(View.GONE);
+        if (mMemberIndex > mMemberList.size() - 1) {
+            //mPbNextMemberPictureLoading.setVisibility(View.GONE);
+            //mIvNextMemberPicture.setVisibility(View.GONE);
+            mLoNextMember.setVisibility(View.GONE);
+
+            if (mIsFirstLoading) {
+                initUserActionBar();
+            } else {
+                setReady();
+            }
+        } else {
+            MemberData memberData = mMemberList.get(mMemberIndex);
+            String imageUrl = memberData.getImageUrl();
+            if (imageUrl == null || imageUrl.isEmpty()) {
+                imageUrl = memberData.getThumbnailUrl();
+            }
+
+            mPbNextMemberPictureLoading.setVisibility(View.VISIBLE);
             mIvNextMemberPicture.setVisibility(View.GONE);
-            return;
-        }
 
-        MemberData memberData = mGroupMemberList.get(mMemberIndex);
-        String imageUrl = memberData.getImageUrl();
-        if (imageUrl == null || imageUrl.isEmpty()) {
-            imageUrl = memberData.getThumbnailUrl();
-        }
+            Picasso.with(mContext).load(imageUrl).into(mIvNextMemberPicture, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    mPbNextMemberPictureLoading.setVisibility(View.GONE);
+                    mIvNextMemberPicture.setVisibility(View.VISIBLE);
 
-        mPbNextMemberPictureLoading.setVisibility(View.VISIBLE);
-        mIvNextMemberPicture.setVisibility(View.GONE);
-
-        Picasso.with(mContext).load(imageUrl).into(mIvNextMemberPicture, new com.squareup.picasso.Callback() {
-            @Override
-            public void onSuccess() {
-                mPbNextMemberPictureLoading.setVisibility(View.GONE);
-                mIvNextMemberPicture.setVisibility(View.VISIBLE);
-
-                if (mIsFirstLoading) {
-                    initUserActionBar();
-                } else {
-                    setReady();
+                    if (mIsFirstLoading) {
+                        initUserActionBar();
+                    } else {
+                        setReady();
+                    }
                 }
-            }
 
-            @Override
-            public void onError() {
-                mPbNextMemberPictureLoading.setVisibility(View.GONE);
-            }
-        });
+                @Override
+                public void onError() {
+                    mPbNextMemberPictureLoading.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     private void animateMatchMember() {
@@ -959,9 +953,9 @@ public class JankenMainActivity extends BaseActivity {
                 break;
         }
 
-        /*win = false;
-        draw = true;
-        lose = false;*/
+        //win = true;
+        //draw = false;
+        //lose = false;
 
         final boolean isWin = win;
         final boolean isDraw = draw;
@@ -1150,7 +1144,23 @@ public class JankenMainActivity extends BaseActivity {
                 }
 
                 mCvMatchMember.animate().rotation(0).setDuration(0);
-                loadMatchMember();
+
+                if (mMemberIndex == mMemberList.size()) {
+                    Log.e(mTag, "WIN...................");
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setMessage("이겼다!").setTitle("결과");
+                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    loadMatchMember();
+                }
             }
 
             @Override
@@ -1244,7 +1254,18 @@ public class JankenMainActivity extends BaseActivity {
                 }
             });
         } else {
-            finish();
+            Log.e(mTag, "LOSE..................");
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setMessage("졌습니다.").setTitle("결과");
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    finish();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 
@@ -1460,7 +1481,7 @@ public class JankenMainActivity extends BaseActivity {
 
     private void updateProgress() {
         int count = mMemberIndex;
-        int total = mGroupMemberList.size();
+        int total = mMemberList.size();
 
         //String info = mWinCount + "승 " + mLoseCount + "패";
         //mTvProgressInfo.setText(info);

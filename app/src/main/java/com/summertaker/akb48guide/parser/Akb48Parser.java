@@ -120,7 +120,88 @@ public class Akb48Parser extends BaseParser {
         }
     }
 
-    public void parseMobileMemberAll(String response, GroupData groupData, ArrayList<MemberData> memberList) {
+    public void parseMobileTeamList(String response, ArrayList<WebData> webDatas) {
+        /*
+        <section>
+            <h2>チーム</h2>
+            <div class="unLine"></div>
+            <ul class="infoList">
+                <li><a data-ajax="false" href="./member/index.php?g_code=83100476"><p>Team A</p></a></li>
+                <li><a data-ajax="false" href="./member/index.php?g_code=83100477"><p>Team K</p></a></li>
+                <li><a data-ajax="false" href="./member/index.php?g_code=83100478"><p>Team B</p></a></li>
+                <li><a data-ajax="false" href="./member/index.php?g_code=83100606"><p>Team 4</p></a></li>
+                <li><a data-ajax="false" href="./member/index.php?g_code=83100803"><p>Team 8</p></a></li>
+            </ul>
+        </section>
+        */
+        if (response == null || response.isEmpty()) {
+            return;
+        }
+        response = clean(response);
+
+        Document doc = Jsoup.parse(response);
+        Element root = null;
+
+        for (Element section : doc.select("section")) {
+            Element h2 = section.select("h2").first();
+            if (h2.text().equals("チーム")) {
+                root = section.select("ul").first();
+            }
+        }
+
+        if (root == null) {
+            return;
+        }
+
+        for (Element li : root.select("li")) {
+            String name;
+            String url;
+
+            Element a = li.select("a").first();
+
+            name = a.text();
+
+            url = a.attr("href");
+            url = "http://sp.akb48.co.jp/profile/" + url;
+
+            Log.e(mTag, name + ", " + url);
+
+            WebData webData = new WebData();
+            webData.setName(name);
+            webData.setUrl(url);
+            webDatas.add(webData);
+        }
+    }
+
+    public void parseMobileMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
+        /*
+        <ul class="infoList">
+        <li>
+        <a href="./detail/index.php?artist_code=83100536&g_code=all" data-ajax="false">
+          <div class="textCenterBox">
+            <div class="photo"><img class="lazy borderPink" data-original="http://image.excite.co.jp/jp/akb48/image/smartphone/20160509/profile/thumb/83100536.jpg" alt="入山杏奈"></div>
+            <div class="text02">
+              <p class="textbBld pnk fL">入山杏奈</p>
+              <p class="lineRight colorPink02 r fR f12">Anna Iriyama</p>
+            </div>
+          </div>
+        </a>
+        </li>
+        */
+        if (response == null || response.isEmpty()) {
+            return;
+        }
+        response = clean(response);
+
+        Document doc = Jsoup.parse(response);
+        Element root = doc.select(".infoList").first();
+
+        if (teamDataList != null) {
+            super.findTeamMemberOne(groupMemberList, teamDataList);
+        }
+    }
+
+    public void parseMobileMemberListOfAll(String response, GroupData groupData, ArrayList<MemberData> groupMemberList) {
         /*
         <ul class="infoList">
         <li>
@@ -145,7 +226,6 @@ public class Akb48Parser extends BaseParser {
 
         if (root != null) {
             for (Element row : root.select("li")) {
-                String id;
                 String name;
                 String nameEn;
                 String noSpaceName;
@@ -198,7 +278,7 @@ public class Akb48Parser extends BaseParser {
                 memberData.setThumbnailUrl(thumbnailUrl);
                 memberData.setImageUrl(thumbnailUrl);
                 memberData.setProfileUrl(profileUrl);
-                memberList.add(memberData);
+                groupMemberList.add(memberData);
             }
         }
     }

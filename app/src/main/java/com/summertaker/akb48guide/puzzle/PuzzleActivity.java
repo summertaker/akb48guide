@@ -225,7 +225,7 @@ public class PuzzleActivity extends BaseActivity {
 
         switch (mGroupData.getId()) {
             case Config.GROUP_ID_AKB48:
-                url = mGroupData.getMobileUrl();
+                url = mGroupData.getMobileUrlOfAll();
                 userAgent = Config.USER_AGENT_MOBILE;
                 mIsMobile = true;
                 mCardBackground = R.drawable.card_akb48;
@@ -313,7 +313,7 @@ public class PuzzleActivity extends BaseActivity {
             switch (mGroupData.getId()) {
                 case Config.GROUP_ID_AKB48:
                     Akb48Parser akb48Parser = new Akb48Parser();
-                    akb48Parser.parseMobileMemberAll(response, mGroupData, mGroupMemberList);
+                    akb48Parser.parseMobileMemberListOfAll(response, mGroupData, mGroupMemberList);
                     break;
                 default:
                     BaseParser baseParser = new BaseParser();

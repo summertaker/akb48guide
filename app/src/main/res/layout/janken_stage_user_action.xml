@@ -129,7 +129,7 @@
     </HorizontalScrollView>
 
     <include
-        layout="@layout/janken_main_ready_select"
+        layout="@layout/janken_stage_ready_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/loUserAction"/>

@@ -80,9 +80,6 @@ public class RawPhotoSelectActivity extends BaseActivity {
 
         if (url.contains(Config.AKB48_GROUP_SHOP_DOMAIN)) {
             requestData(url, Config.USER_AGENT_MOBILE);
-            //mRetrofit = new Retrofit.Builder().baseUrl(RetroApi.BASE_URL_AKB48_SHOP).build();
-            //mRetroApi = mRetrofit.create(RetroApi.class);
-            //requestRetro(url, Config.USER_AGENT_MOBILE);
         } else {
             requestData(url, Config.USER_AGENT_WEB);
         }

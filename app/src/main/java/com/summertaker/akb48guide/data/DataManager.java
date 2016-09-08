@@ -64,50 +64,64 @@ public class DataManager {
                 "AKB48",
                 R.drawable.logo_akb48,
                 "http://www.akb48.co.jp/about/members/",
+                "http://sp.akb48.co.jp/profile/",
                 "http://sp.akb48.co.jp/profile/member/index.php?g_code=all",
-                "http://shopping.akb48-group.com/products/list.php?akb48&category_id=3"
+                "http://shopping.akb48-group.com/products/list.php?akb48&category_id=3",
+                false
         ));
         dataList.add(new GroupData(Config.GROUP_ID_SKE48,
                 "SKE48",
                 R.drawable.logo_ske48,
                 "http://www.ske48.co.jp/profile/list.php",
                 null,
-                "http://shopping.akb48-group.com/products/list.php?ske48&category_id=126"
+                null,
+                "http://shopping.akb48-group.com/products/list.php?ske48&category_id=126",
+                false
         ));
         dataList.add(new GroupData(Config.GROUP_ID_NMB48,
                 "NMB48",
                 R.drawable.logo_nmb48,
                 "http://www.nmb48.com/member/",
                 null,
-                "http://shopping.akb48-group.com/products/list.php?nmb48&category_id=506"
+                null,
+                "http://shopping.akb48-group.com/products/list.php?nmb48&category_id=506",
+                false
         ));
         dataList.add(new GroupData(Config.GROUP_ID_HKT48,
                 "HKT48",
                 R.drawable.logo_hkt48,
                 "http://www.hkt48.jp/profile/",
                 "http://sp.hkt48.jp/qhkt48_list",
-                "http://shopping.akb48-group.com/products/list.php?hkt48&category_id=245"
+                null,
+                "http://shopping.akb48-group.com/products/list.php?hkt48&category_id=245",
+                false
         ));
         dataList.add(new GroupData(Config.GROUP_ID_NGT48,
                 "NGT48",
                 R.drawable.logo_ngt48,
                 "http://ngt48.jp/profile",
                 "https://ngt48.com/profile",
-                null
+                null,
+                null,
+                false
         ));
         dataList.add(new GroupData(Config.GROUP_ID_JKT48,
                 "JKT48",
                 R.drawable.logo_jkt48,
                 "http://www.jkt48.com/member/list?lang=id",
                 null,
-                null
+                null,
+                null,
+                false
         ));
         dataList.add(new GroupData(Config.GROUP_ID_SNH48,
                 "SNH48",
                 R.drawable.logo_snh48,
                 "http://www.snh48.com/member_list.php",
                 null,
-                null
+                null,
+                null,
+                false
         ));
         if (!action.equals(Config.MAIN_ACTION_BIRTHDAY)) {
             dataList.add(new GroupData(Config.GROUP_ID_BEJ48,
@@ -115,14 +129,18 @@ public class DataManager {
                     R.drawable.logo_bej48,
                     "http://www.bej48.com/member.html",
                     null,
-                    null
+                    null,
+                    null,
+                    false
             ));
             dataList.add(new GroupData(Config.GROUP_ID_GNZ48,
                     "GNZ48",
                     R.drawable.logo_gnz48,
                     "http://www.gnz48.com/member/member_list.php",
                     null,
-                    null
+                    null,
+                    null,
+                    false
             ));
         }
 

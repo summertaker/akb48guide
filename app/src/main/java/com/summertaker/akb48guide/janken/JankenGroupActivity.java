@@ -35,6 +35,7 @@ public class JankenGroupActivity extends BaseActivity {
 
     private String mAction;
     ArrayList<GroupData> mGroupDataList;
+    ArrayList<GroupData> mDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class JankenGroupActivity extends BaseActivity {
         DataManager dataManager = new DataManager(mContext);
         mGroupDataList = dataManager.getGroupList(mAction);
 
+        mDataList = new ArrayList<>();
+
         initUi();
     }
 
@@ -79,18 +82,8 @@ public class JankenGroupActivity extends BaseActivity {
             }
         }
         Collections.reverse(akb48GroupList);
-
-        ExpandableHeightGridView gvAkb48 = (ExpandableHeightGridView) findViewById(R.id.gvAkb48);
-        if (gvAkb48 != null) {
-            gvAkb48.setExpanded(true);
-            gvAkb48.setAdapter(new JankenGroupAdapter(mContext, akb48GroupList));
-            gvAkb48.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    GroupData groupData = (GroupData) parent.getItemAtPosition(position);
-                    goActivity(groupData);
-                }
-            });
+        for (GroupData groupData : akb48GroupList) {
+            mDataList.add(groupData);
         }
 
         ArrayList<GroupData> snh48GroupList = new ArrayList<>();
@@ -108,18 +101,8 @@ public class JankenGroupActivity extends BaseActivity {
             }
         }
         Collections.reverse(snh48GroupList);
-
-        ExpandableHeightGridView gvSnh48 = (ExpandableHeightGridView) findViewById(R.id.gvSnh48);
-        if (gvSnh48 != null) {
-            gvSnh48.setExpanded(true);
-            gvSnh48.setAdapter(new JankenGroupAdapter(mContext, snh48GroupList));
-            gvSnh48.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    GroupData groupData = (GroupData) parent.getItemAtPosition(position);
-                    goActivity(groupData);
-                }
-            });
+        for (GroupData groupData : snh48GroupList) {
+            mDataList.add(groupData);
         }
 
         ArrayList<GroupData> jkt48GroupList = new ArrayList<>();
@@ -132,8 +115,39 @@ public class JankenGroupActivity extends BaseActivity {
             }
         }
         Collections.reverse(jkt48GroupList);
+        for (GroupData groupData : jkt48GroupList) {
+            mDataList.add(groupData);
+        }
 
-        ExpandableHeightGridView gvJkt48 = (ExpandableHeightGridView) findViewById(R.id.gvJkt48);
+        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
+        if (gridView != null) {
+            gridView.setExpanded(true);
+            gridView.setAdapter(new JankenGroupAdapter(mContext, mDataList));
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    GroupData groupData = (GroupData) parent.getItemAtPosition(position);
+                    //if (!groupData.isLocked()) {
+                        goActivity(groupData);
+                    //}
+                }
+            });
+        }
+
+        /*ExpandableHeightGridView gvSnh48 = (ExpandableHeightGridView) findViewById(R.id.gvSnh48);
+        if (gvSnh48 != null) {
+            gvSnh48.setExpanded(true);
+            gvSnh48.setAdapter(new JankenGroupAdapter(mContext, snh48GroupList));
+            gvSnh48.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    GroupData groupData = (GroupData) parent.getItemAtPosition(position);
+                    goActivity(groupData);
+                }
+            });
+        }*/
+
+        /*ExpandableHeightGridView gvJkt48 = (ExpandableHeightGridView) findViewById(R.id.gvJkt48);
         if (gvJkt48 != null) {
             gvJkt48.setExpanded(true);
             gvJkt48.setAdapter(new JankenGroupAdapter(mContext, jkt48GroupList));
@@ -144,7 +158,7 @@ public class JankenGroupActivity extends BaseActivity {
                     goActivity(groupData);
                 }
             });
-        }
+        }*/
     }
 
     private void createUi() {
@@ -301,14 +315,11 @@ public class JankenGroupActivity extends BaseActivity {
     }
 
     private void goActivity(GroupData groupData) {
-        if (!groupData.isLocked()) {
-            Intent intent = new Intent(this, JankenMainActivity.class);
-            intent.putExtra("action", mAction);
-            intent.putExtra("groupData", groupData);
-            //showToolbarProgressBar();
-            startActivityForResult(intent, 0);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        }
+        Intent intent = new Intent(this, JankenTeamActivity.class);
+        intent.putExtra("action", mAction);
+        intent.putExtra("groupData", groupData);
+        startActivityForResult(intent, 0);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

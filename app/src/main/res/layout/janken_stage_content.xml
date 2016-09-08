@@ -5,8 +5,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:context="com.summertaker.akb48guide.janken.JankenMainActivity"
-                tools:showIn="@layout/janken_main_activity">
+                tools:context=".janken.JankenStageActivity"
+                tools:showIn="@layout/janken_stage_activity">
 
     <RelativeLayout
         android:id="@+id/loLoading"
@@ -37,13 +37,13 @@
 
             <!--<include
                 android:id="@+id/loTop"
-                layout="@layout/janken_main_header" />-->
+                layout="@layout/janken_stage_header" />-->
 
             <include
                 android:id="@+id/loProgress"
-                layout="@layout/janken_main_progress"/>
+                layout="@layout/janken_stage_progress"/>
 
-            <include layout="@layout/janken_main_next_member"/>
+            <include layout="@layout/janken_stage_next_member"/>
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                                                 android:id="@+id/cvMatchMember"
@@ -156,14 +156,14 @@
             </LinearLayout>
 
             <include
-                layout="@layout/janken_main_user_action"
+                layout="@layout/janken_stage_user_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"/>
 
         </RelativeLayout>
 
-        <include layout="@layout/janken_main_judge" />
+        <include layout="@layout/janken_stage_judge" />
 
         <RelativeLayout
             android:id="@+id/loGameOver"
@@ -175,9 +175,9 @@
 
         </RelativeLayout>
 
-        <include layout="@layout/janken_main_ready"/>
+        <include layout="@layout/janken_stage_ready"/>
 
-        <include layout="@layout/janken_main_ready_counter"/>
+        <include layout="@layout/janken_stage_ready_counter"/>
 
     </FrameLayout>
 

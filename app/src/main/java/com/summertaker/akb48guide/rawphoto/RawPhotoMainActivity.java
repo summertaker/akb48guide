@@ -27,43 +27,38 @@ public class RawPhotoMainActivity extends BaseActivity {
         initBaseToolbar(Config.TOOLBAR_ICON_BACK, title);
 
         ArrayList<GroupData> dataList1 = new ArrayList<>();
-        dataList1.add(new GroupData(Config.GROUP_ID_AKB48, "AKB48", R.drawable.logo_akb48, null, null,
+        dataList1.add(new GroupData(Config.GROUP_ID_AKB48, "AKB48", R.drawable.logo_akb48, null,
                 "http://shopping.akb48-group.com/products/list.php?akb48&category_id=3"
         ));
-        dataList1.add(new GroupData(Config.GROUP_ID_SKE48, "SKE48", R.drawable.logo_ske48, null, null,
+        dataList1.add(new GroupData(Config.GROUP_ID_SKE48, "SKE48", R.drawable.logo_ske48, null,
                 "http://shopping.akb48-group.com/products/list.php?ske48&category_id=126"
         ));
-        dataList1.add(new GroupData(Config.GROUP_ID_NMB48, "NMB48", R.drawable.logo_nmb48, null, null,
+        dataList1.add(new GroupData(Config.GROUP_ID_NMB48, "NMB48", R.drawable.logo_nmb48, null,
                 "http://shopping.akb48-group.com/products/list.php?nmb48&category_id=506"
         ));
-        dataList1.add(new GroupData(Config.GROUP_ID_HKT48, "HKT48", R.drawable.logo_hkt48, null, null,
+        dataList1.add(new GroupData(Config.GROUP_ID_HKT48, "HKT48", R.drawable.logo_hkt48, null,
                 "http://shopping.akb48-group.com/products/list.php?hkt48&category_id=245"
         ));
 
         ArrayList<GroupData> dataList2 = new ArrayList<>();
         dataList2.add(new GroupData(Config.GROUP_ID_AKB48, "AKB48", R.drawable.logo_akb48,
                 "http://www.akb48.co.jp/about/members/",
-                null,
                 "http://recyclekan.ja.shopserve.jp/"
         ));
         dataList2.add(new GroupData(Config.GROUP_ID_SKE48, "SKE48", R.drawable.logo_ske48,
                 "http://www.ske48.co.jp/profile/list.php",
-                null,
                 "http://recyclekan.ja.shopserve.jp/"
         ));
         dataList2.add(new GroupData(Config.GROUP_ID_NMB48, "NMB48", R.drawable.logo_nmb48,
                 "http://www.nmb48.com/member/",
-                null,
                 "http://recyclekan.ja.shopserve.jp/"
         ));
         dataList2.add(new GroupData(Config.GROUP_ID_HKT48, "HKT48", R.drawable.logo_hkt48,
                 "http://www.hkt48.jp/profile/",
-                null,
                 "http://recyclekan.ja.shopserve.jp/"
         ));
         dataList2.add(new GroupData(Config.GROUP_ID_NGT48, "NGT48", R.drawable.logo_ngt48,
                 "http://ngt48.jp/profile",
-                null,
                 "http://recyclekan.ja.shopserve.jp/"
         ));
 

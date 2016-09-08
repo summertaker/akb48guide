@@ -15,7 +15,7 @@ import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.DataManager;
 import com.summertaker.akb48guide.data.GroupData;
-import com.summertaker.akb48guide.janken.JankenMainActivity;
+import com.summertaker.akb48guide.janken.JankenStageActivity;
 import com.summertaker.akb48guide.member.TeamListActivity;
 import com.summertaker.akb48guide.puzzle.PuzzleLevelActivity;
 import com.summertaker.akb48guide.quiz.MemoryActivity;
@@ -145,7 +145,7 @@ public class GroupSelectActivity extends BaseActivity {
                 intent = new Intent(this, PuzzleLevelActivity.class);
                 break;
             case Config.MAIN_ACTION_JANKEN:
-                intent = new Intent(this, JankenMainActivity.class);
+                intent = new Intent(this, JankenStageActivity.class);
                 break;
         }
         //intent = new Intent(this, QuizResultActivity.class);

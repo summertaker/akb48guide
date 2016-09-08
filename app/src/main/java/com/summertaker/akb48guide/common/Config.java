@@ -88,6 +88,7 @@ public class Config {
     public final static int PROGRESS_BAR_COLOR_WHITE = 0xffffffff;
     public final static int PROGRESS_BAR_COLOR_NORMAL = 0x77e91e63;
     public final static int PROGRESS_BAR_COLOR_LIGHT = 0x55e91e63;
+    public final static int PROGRESS_BAR_COLOR_TRANSPARENT = 0x66ffffff;
 
     public final static int RESULT_CODE_FINISH = 900;
     public final static int REQUEST_CODE_DATA_UPDATE = 700;

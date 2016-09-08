@@ -49,7 +49,11 @@ public class BaseParser {
         switch (groupData.getId()) {
             case Config.GROUP_ID_AKB48:
                 Akb48Parser akb48Parser = new Akb48Parser();
-                akb48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                if (isMobile) {
+                    akb48Parser.parseMobileMemberList(response, groupData, groupMemberList, teamDataList);
+                } else {
+                    akb48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                }
                 break;
             case Config.GROUP_ID_SKE48:
                 Ske48Parser ske48Parser = new Ske48Parser();
@@ -155,6 +159,9 @@ public class BaseParser {
         boolean exist;
         for (int i = 0; i < mGroupMemberList.size(); i++) {
             name = mGroupMemberList.get(i).getTeamName();
+            if (name == null) {
+                break;
+            }
             exist = false;
             for (int j = 0; j < teamNameList.size(); j++) {
                 if (name.equals(teamNameList.get(j))) {
