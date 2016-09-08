@@ -169,7 +169,7 @@ public class JankenStageActivity extends BaseActivity {
         //initBaseToolbar(Config.TOOLBAR_ICON_BACK, title);
 
         mPbLoading = (ProgressBar) findViewById(R.id.pbLoading);
-        Util.setProgressBarColor(mPbLoading, Config.PROGRESS_BAR_COLOR_LIGHT, null);
+        Util.setProgressBarColor(mPbLoading, Config.PROGRESS_BAR_COLOR_TRANSPARENT, null);
 
         loadData();
     }
@@ -296,8 +296,10 @@ public class JankenStageActivity extends BaseActivity {
     }
 
     private void initUi() {
-        RelativeLayout loLoading = (RelativeLayout) findViewById(R.id.loLoading);
-        loLoading.setVisibility(View.GONE);
+        //RelativeLayout loLoading = (RelativeLayout) findViewById(R.id.loLoading);
+        //loLoading.setVisibility(View.GONE);
+
+        mPbLoading.setVisibility(View.GONE);
 
         FrameLayout loContainer = (FrameLayout) findViewById(R.id.loContainer);
         loContainer.setVisibility(View.VISIBLE);
@@ -1465,7 +1467,7 @@ public class JankenStageActivity extends BaseActivity {
             mLoUserActionScissors.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_janken));
             mLoUserActionRock.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_janken));
             mLoUserActionPaper.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_janken));
-            iconColor = Color.parseColor("#55000000");
+            iconColor = Color.parseColor("#66000000");
             textColor = Color.parseColor("#aa000000");
         }
 

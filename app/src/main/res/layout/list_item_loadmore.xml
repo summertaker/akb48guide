@@ -11,7 +11,7 @@
         android:id="@+id/pbLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/progress_bar_circle_light" />
+        android:background="@drawable/progress_bar_circle_dark" />
 
     <TextView
         android:layout_width="wrap_content"

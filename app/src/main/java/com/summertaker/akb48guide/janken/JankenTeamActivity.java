@@ -9,12 +9,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
@@ -36,14 +38,11 @@ public class JankenTeamActivity extends BaseActivity {
     String mAction;
     GroupData mGroupData;
     ArrayList<MemberData> mGroupMemberList = new ArrayList<>();
-    ArrayList<WebData> mTeamUrlList = new ArrayList<>();
     ArrayList<TeamData> mTeamMemberList = new ArrayList<>();
 
     ProgressBar mPbLoading;
 
     boolean mIsMobile = false;
-    int mTeamLoadCount = 0;
-    boolean mLoadFinished = false;
 
     //CacheManager mCacheManager;
 
@@ -60,7 +59,7 @@ public class JankenTeamActivity extends BaseActivity {
         mAction = intent.getStringExtra("action");
         mGroupData = (GroupData) intent.getSerializableExtra("groupData");
 
-        mTitle = mGroupData.getName();
+        mTitle = getString(R.string.rock_paper_scissors) + " / " + mGroupData.getName();
         initBaseToolbar(Config.TOOLBAR_ICON_BACK, mTitle);
         mBaseToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.janken_primary));
 
@@ -70,14 +69,6 @@ public class JankenTeamActivity extends BaseActivity {
         //mCacheManager = new CacheManager(mSharedPreferences);
         String url = mGroupData.getUrl();
         String userAgent = Config.USER_AGENT_WEB;
-
-        /*switch (mGroupData.getId()) {
-            case Config.GROUP_ID_AKB48:
-                url = mGroupData.getMobileUrl();
-                userAgent = Config.USER_AGENT_MOBILE;
-                mIsMobile = true;
-                break;
-        }*/
 
         requestData(url, userAgent);
     }
@@ -124,29 +115,9 @@ public class JankenTeamActivity extends BaseActivity {
     }
 
     private void parseData(String url, String response) {
-        /*if (mGroupData.getId().equals(Config.GROUP_ID_AKB48)) {
-            Akb48Parser akb48Parser = new Akb48Parser();
-            if (mTeamUrlList.size() == 0) {
-                akb48Parser.parseMobileTeamList(response, mTeamUrlList);
-            } else {
-                //akb48Parser.parseMobileMemberList(response, mTeamUrlList);
-
-                if (mTeamLoadCount < mTeamUrlList.size()) {
-                    requestData(mTeamUrlList.get(mTeamLoadCount).getUrl(), Config.USER_AGENT_MOBILE);
-                    mTeamLoadCount++;
-                } else {
-                    mLoadFinished = true;
-                }
-            }
-        } else {
-            mLoadFinished = true;
-        }
-
-        if (mLoadFinished) {*/
-            BaseParser baseParser = new BaseParser();
-            baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamMemberList, mIsMobile);
-            renderData();
-        //}
+        BaseParser baseParser = new BaseParser();
+        baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamMemberList, mIsMobile);
+        renderData();
     }
 
     private void renderData() {
@@ -158,25 +129,17 @@ public class JankenTeamActivity extends BaseActivity {
         if (mGroupMemberList.size() == 0) {
             alertNetworkErrorAndFinish(mErrorMessage);
         } else {
-            String title = getResources().getString(R.string.s_people, mGroupMemberList.size());
-            title = " (" + title + ")";
-            mBaseToolbar.setTitle(mTitle + title);
+            //String title = getResources().getString(R.string.s_people, mGroupMemberList.size());
+            //title = " (" + title + ")";
+            //mBaseToolbar.setTitle(mTitle + title);
 
-            GridView gridView = (GridView) findViewById(R.id.gridView);
+            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            scrollView.setVisibility(View.VISIBLE);
+
+            JankenTeamAdapter adapter = new JankenTeamAdapter(this, mGroupData, mTeamMemberList);
+            ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
             if (gridView != null) {
-                gridView.setVisibility(View.VISIBLE);
-                /*if (mGroupData.getId().equals(Config.GROUP_ID_AKB48)) {
-                    float density = mContext.getResources().getDisplayMetrics().density;
-                    int spacing = (int) (10 * density);
-                    gridView.setHorizontalSpacing(spacing);
-                    gridView.setVerticalSpacing(spacing);
-
-                    //RelativeLayout content = (RelativeLayout) findViewById(R.id.content);
-                    //if (content != null && mGroupData.getId().equals(Config.GROUP_ID_AKB48)) {
-                    //    content.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
-                    //}
-                }*/
-                JankenTeamAdapter adapter = new JankenTeamAdapter(this, mGroupData, mTeamMemberList);
+                gridView.setExpanded(true);
                 gridView.setAdapter(adapter);
                 gridView.setOnItemClickListener(itemClickListener);
             }

@@ -117,7 +117,7 @@
             style="?android:attr/progressBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/progress_bar_circle_dark" />
+            android:background="@drawable/progress_bar_circle_bright" />
 
         <TextView
             android:layout_width="wrap_content"

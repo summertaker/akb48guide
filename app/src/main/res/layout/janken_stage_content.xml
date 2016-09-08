@@ -4,30 +4,22 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/bg_poker_table"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:context=".janken.JankenStageActivity"
                 tools:showIn="@layout/janken_stage_activity">
 
-    <RelativeLayout
-        android:id="@+id/loLoading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/card_background">
-
-        <ProgressBar
-            android:id="@+id/pbLoading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@drawable/progress_bar_circle"/>
-
-    </RelativeLayout>
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/progress_bar_circle_bright"/>
 
     <FrameLayout
         android:id="@+id/loContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_poker_table"
         android:visibility="gone">
 
         <RelativeLayout
@@ -163,7 +155,7 @@
 
         </RelativeLayout>
 
-        <include layout="@layout/janken_stage_judge" />
+        <include layout="@layout/janken_stage_judge"/>
 
         <RelativeLayout
             android:id="@+id/loGameOver"

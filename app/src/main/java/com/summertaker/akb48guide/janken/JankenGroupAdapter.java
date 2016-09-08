@@ -53,7 +53,6 @@ public class JankenGroupAdapter extends BaseDataAdapter {
 
             holder = new ViewHolder();
             holder.ivPicture = (ImageView) view.findViewById(R.id.ivPicture);
-            holder.ivLock = (ImageView) view.findViewById(R.id.ivLock);
             holder.tvCaption = (TextView) view.findViewById(R.id.tvCaption);
             view.setTag(holder);
         } else {
@@ -62,25 +61,20 @@ public class JankenGroupAdapter extends BaseDataAdapter {
 
         GroupData item = mDataList.get(position);
 
-        String caption = item.getName();
         if (item.isLocked()) {
             holder.ivPicture.setImageResource(R.drawable.bg_card_back_gray);
-            //holder.ivLock.setVisibility(View.VISIBLE);
-            caption = "잠김";
         } else {
             holder.ivPicture.setImageResource(item.getImage());
-            holder.ivLock.setVisibility(View.GONE);
         }
-        holder.tvCaption.setText(caption);
 
-        //Log.e(mTag, "item.getName(): " + item.getName());
+        String caption = item.getName();
+        holder.tvCaption.setText(caption);
 
         return view;
     }
 
     static class ViewHolder {
         ImageView ivPicture;
-        ImageView ivLock;
         TextView tvCaption;
     }
 }

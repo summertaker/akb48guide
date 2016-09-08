@@ -13,11 +13,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
-import com.summertaker.akb48guide.GroupSelectGridAdapter;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.Config;
@@ -26,8 +24,6 @@ import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.util.Typefaces;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 public class JankenGroupActivity extends BaseActivity {
 
@@ -35,7 +31,7 @@ public class JankenGroupActivity extends BaseActivity {
 
     private String mAction;
     ArrayList<GroupData> mGroupDataList;
-    ArrayList<GroupData> mDataList;
+    ArrayList<GroupData> mGroupList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +55,13 @@ public class JankenGroupActivity extends BaseActivity {
         DataManager dataManager = new DataManager(mContext);
         mGroupDataList = dataManager.getGroupList(mAction);
 
-        mDataList = new ArrayList<>();
+        mGroupList = new ArrayList<>();
 
         initUi();
     }
 
     private void initUi() {
-        ArrayList<GroupData> akb48GroupList = new ArrayList<>();
+        /*ArrayList<GroupData> akb48GroupList = new ArrayList<>();
         for (GroupData groupData : mGroupDataList) {
             switch (groupData.getId()) {
                 case Config.GROUP_ID_AKB48:
@@ -83,7 +79,7 @@ public class JankenGroupActivity extends BaseActivity {
         }
         Collections.reverse(akb48GroupList);
         for (GroupData groupData : akb48GroupList) {
-            mDataList.add(groupData);
+            mGroupList.add(groupData);
         }
 
         ArrayList<GroupData> snh48GroupList = new ArrayList<>();
@@ -102,7 +98,7 @@ public class JankenGroupActivity extends BaseActivity {
         }
         Collections.reverse(snh48GroupList);
         for (GroupData groupData : snh48GroupList) {
-            mDataList.add(groupData);
+            mGroupList.add(groupData);
         }
 
         ArrayList<GroupData> jkt48GroupList = new ArrayList<>();
@@ -116,13 +112,18 @@ public class JankenGroupActivity extends BaseActivity {
         }
         Collections.reverse(jkt48GroupList);
         for (GroupData groupData : jkt48GroupList) {
-            mDataList.add(groupData);
+            mGroupList.add(groupData);
+        }*/
+
+        for (GroupData groupData : mGroupDataList) {
+            groupData.setLocked(true);
+            mGroupList.add(groupData);
         }
 
         ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
         if (gridView != null) {
             gridView.setExpanded(true);
-            gridView.setAdapter(new JankenGroupAdapter(mContext, mDataList));
+            gridView.setAdapter(new JankenGroupAdapter(mContext, mGroupList));
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
