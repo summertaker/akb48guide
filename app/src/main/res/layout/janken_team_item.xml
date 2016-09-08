@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     card_view:cardCornerRadius="3dp"
-    card_view:cardElevation="@dimen/card_elevation">
+    card_view:cardElevation="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="#66000000"
+            android:background="#aa000000"
             android:gravity="center_horizontal"
             android:padding="4dp"
             android:singleLine="true"

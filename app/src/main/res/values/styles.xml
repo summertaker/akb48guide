@@ -16,8 +16,8 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="JankenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">#004d40</item>
+        <item name="colorPrimary">@color/janken_primary</item>
+        <item name="colorPrimaryDark">@color/janken_primary_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

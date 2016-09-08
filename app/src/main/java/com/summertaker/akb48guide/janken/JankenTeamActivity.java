@@ -3,6 +3,7 @@ package com.summertaker.akb48guide.janken;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -61,7 +62,7 @@ public class JankenTeamActivity extends BaseActivity {
 
         mTitle = mGroupData.getName();
         initBaseToolbar(Config.TOOLBAR_ICON_BACK, mTitle);
-        mBaseToolbar.setBackgroundColor(Color.parseColor("#00796b"));
+        mBaseToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.janken_primary));
 
         mPbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         Util.setProgressBarColor(mPbLoading, Config.PROGRESS_BAR_COLOR_TRANSPARENT, null);

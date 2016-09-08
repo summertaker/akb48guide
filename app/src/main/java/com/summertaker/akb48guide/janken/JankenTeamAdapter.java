@@ -81,7 +81,7 @@ public class JankenTeamAdapter extends BaseDataAdapter {
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
             //holder.tvCount = (TextView) convertView.findViewById(R.id.tvCount);
 
-            switch (teamData.getGroupId()) {
+            /*switch (teamData.getGroupId()) {
                 case Config.GROUP_ID_AKB48:
                     holder.tvName.setBackgroundColor(ContextCompat.getColor(mContext, R.color.akb48background));
                     holder.tvName.setTextColor(ContextCompat.getColor(mContext, R.color.akb48text));
@@ -119,7 +119,7 @@ public class JankenTeamAdapter extends BaseDataAdapter {
                     holder.tvName.setBackgroundColor(ContextCompat.getColor(mContext, R.color.gnz48background));
                     holder.tvName.setTextColor(ContextCompat.getColor(mContext, R.color.gnz48text));
                     break;
-            }
+            }*/
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

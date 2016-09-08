@@ -122,7 +122,6 @@
     <color name="salmon">#ff8273</color>
     <color name="light_salmon">#ff9e7b</color>
 
-
     <color name="pink">#FFBECE</color>
     <color name="light_pink">#FFD9E3</color>
 
@@ -169,5 +168,8 @@
     <color name="puzzle_background">#607d8b</color>
     <color name="puzzle_card_background">#00000000</color>
     <color name="puzzle_card_loading_background">#eceff1</color>
+
+    <color name="janken_primary_dark">#00443c</color>
+    <color name="janken_primary">#006b5f</color>
 
 </resources>

@@ -54,7 +54,7 @@ public class JankenGroupActivity extends BaseActivity {
         String title = getString(R.string.rock_paper_scissors);
 
         initBaseToolbar(Config.TOOLBAR_ICON_BACK, title);
-        mBaseToolbar.setBackgroundColor(Color.parseColor("#00796b"));
+        mBaseToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.janken_primary));
 
         DataManager dataManager = new DataManager(mContext);
         mGroupDataList = dataManager.getGroupList(mAction);

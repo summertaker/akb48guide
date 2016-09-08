@@ -64,8 +64,8 @@ public class JankenGroupAdapter extends BaseDataAdapter {
 
         String caption = item.getName();
         if (item.isLocked()) {
-            holder.ivPicture.setImageResource(R.drawable.card_background);
-            holder.ivLock.setVisibility(View.VISIBLE);
+            holder.ivPicture.setImageResource(R.drawable.bg_card_back_gray);
+            //holder.ivLock.setVisibility(View.VISIBLE);
             caption = "잠김";
         } else {
             holder.ivPicture.setImageResource(item.getImage());
