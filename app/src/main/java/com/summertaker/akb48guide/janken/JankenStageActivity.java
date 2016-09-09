@@ -1,6 +1,7 @@
 package com.summertaker.akb48guide.janken;
 
 import android.animation.Animator;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,11 +12,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -1148,18 +1151,7 @@ public class JankenStageActivity extends BaseActivity {
                 mCvMatchMember.animate().rotation(0).setDuration(0);
 
                 if (mMemberIndex == mMemberList.size()) {
-                    Log.e(mTag, "WIN...................");
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setMessage("이겼다!").setTitle("결과");
-                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            finish();
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    showDialog("결과", "이겼습니다.", R.layout.janken_dialog_win);
                 } else {
                     loadMatchMember();
                 }
@@ -1256,18 +1248,7 @@ public class JankenStageActivity extends BaseActivity {
                 }
             });
         } else {
-            Log.e(mTag, "LOSE..................");
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setMessage("졌습니다.").setTitle("결과");
-            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    finish();
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            showDialog("결과", "졌습니다.", R.layout.janken_dialog_lose);
         }
     }
 
@@ -1494,5 +1475,30 @@ public class JankenStageActivity extends BaseActivity {
         float progress = (float) count / (float) total;
         int progressValue = (int) (progress * 100.0);
         mPbProgress.setProgress(progressValue);
+    }
+
+    private void showDialog(String title, String message, int layout) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        LayoutInflater factory = LayoutInflater.from(mContext);
+        final View view = factory.inflate(layout, null);
+        builder.setView(view);
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+        builder.setNeutralButton(message, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dlg, int sumthin) {
+                finish();
+            }
+        });
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                finish();
+            }
+        });
+        builder.show();
     }
 }
