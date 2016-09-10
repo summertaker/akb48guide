@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -29,6 +30,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
@@ -41,6 +45,7 @@ import com.summertaker.akb48guide.data.TeamData;
 import com.summertaker.akb48guide.parser.BaseParser;
 import com.summertaker.akb48guide.parser.NamuwikiParser;
 import com.summertaker.akb48guide.parser.WikipediaEnParser;
+import com.summertaker.akb48guide.util.ImageUtil;
 import com.summertaker.akb48guide.util.Typefaces;
 import com.summertaker.akb48guide.util.Util;
 
@@ -244,12 +249,12 @@ public class JankenStageActivity extends BaseActivity {
 
     private void parseData(String url, String response) {
         //if (url.contains("wiki")) {
-            mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
-            mIsWikiLoaded = true;
+        mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
+        mIsWikiLoaded = true;
         //} else {
-            //BaseParser baseParser = new BaseParser();
-            //baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
-            //mIsDataLoaded = true;
+        //BaseParser baseParser = new BaseParser();
+        //baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
+        //mIsDataLoaded = true;
         //}
 
         renderData();
@@ -356,6 +361,7 @@ public class JankenStageActivity extends BaseActivity {
                 });
         TextView tvProgressTitle = (TextView) findViewById(R.id.tvProgressTitle);
         String progressTitle = mGroupData.getName() + " " + mTeamData.getName();
+        progressTitle += " (" + String.format(getString(R.string.s_people), mMemberList.size()) + ")";
         tvProgressTitle.setText(progressTitle);
         mTvProgressTotal = (TextView) findViewById(R.id.tvProgressTotal);
         mPbProgress = (ProgressBar) findViewById(R.id.pbProgress);
@@ -515,11 +521,41 @@ public class JankenStageActivity extends BaseActivity {
         if (mPictureUrl == null || mPictureUrl.isEmpty()) {
             mPictureUrl = memberData.getThumbnailUrl();
         }
+        final String cacheId = Util.urlToId(mPictureUrl);
+        final String cacheUri = ImageUtil.getValidCacheUri(cacheId);
+        if (cacheUri != null) {
+            mPictureUrl = cacheUri;
+        }
 
         mTvMatchMemberPictureCaption.setText(memberData.getLocaleName());
         mLoMatchMemberPictureLoading.setVisibility(View.VISIBLE);
         mIvMatchMemberPicture.setVisibility(View.GONE);
-        Picasso.with(mContext).load(mPictureUrl).into(mIvMatchMemberPicture, new com.squareup.picasso.Callback() {
+        Glide.with(mContext).load(mPictureUrl).asBitmap().dontAnimate() //.diskCacheStrategy(DiskCacheStrategy.RESULT)
+                //.override(Config.IMAGE_GRID3_WIDTH, Config.IMAGE_GRID3_HEIGHT)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                        mPbMatchMemberPictureLoading.setVisibility(View.GONE);
+                        mIvMatchMemberPicture.setVisibility(View.VISIBLE);
+                        mIvMatchMemberPicture.setImageBitmap(bitmap);
+                        //animateMatchMember();
+
+                        mMemberIndex++;
+                        updateProgress();
+
+                        if (mIsFirstLoading) {
+                            loadNextMember();
+                        } else {
+                            animateMatchMember();
+                        }
+
+                        if (cacheUri == null) {
+                            ImageUtil.saveBitmapToPng(bitmap, cacheId); // 캐쉬 저장
+                        }
+                    }
+                });
+
+        /*Picasso.with(mContext).load(mPictureUrl).into(mIvMatchMemberPicture, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
                 mPbMatchMemberPictureLoading.setVisibility(View.GONE);
@@ -540,7 +576,7 @@ public class JankenStageActivity extends BaseActivity {
                 mLoMatchMemberPictureLoading.setVisibility(View.GONE);
                 alertNetworkErrorAndFinish(null);
             }
-        });
+        });*/
     }
 
     private void loadNextMember() {
@@ -560,11 +596,35 @@ public class JankenStageActivity extends BaseActivity {
             if (imageUrl == null || imageUrl.isEmpty()) {
                 imageUrl = memberData.getThumbnailUrl();
             }
+            final String cacheId = Util.urlToId(imageUrl);
+            final String cacheUri = ImageUtil.getValidCacheUri(cacheId);
+            if (cacheUri != null) {
+                imageUrl = cacheUri;
+            }
 
             mPbNextMemberPictureLoading.setVisibility(View.VISIBLE);
             mIvNextMemberPicture.setVisibility(View.GONE);
+            Glide.with(mContext).load(imageUrl).asBitmap().dontAnimate() //.diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    //.override(Config.IMAGE_GRID3_WIDTH, Config.IMAGE_GRID3_HEIGHT)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                            mPbNextMemberPictureLoading.setVisibility(View.GONE);
+                            mIvNextMemberPicture.setVisibility(View.VISIBLE);
+                            mIvNextMemberPicture.setImageBitmap(bitmap);
 
-            Picasso.with(mContext).load(imageUrl).into(mIvNextMemberPicture, new com.squareup.picasso.Callback() {
+                            if (mIsFirstLoading) {
+                                initUserActionBar();
+                            } else {
+                                setReady();
+                            }
+
+                            if (cacheUri == null) {
+                                ImageUtil.saveBitmapToPng(bitmap, cacheId); // 캐쉬 저장
+                            }
+                        }
+                    });
+            /*Picasso.with(mContext).load(imageUrl).into(mIvNextMemberPicture, new com.squareup.picasso.Callback() {
                 @Override
                 public void onSuccess() {
                     mPbNextMemberPictureLoading.setVisibility(View.GONE);
@@ -582,7 +642,7 @@ public class JankenStageActivity extends BaseActivity {
                     mPbNextMemberPictureLoading.setVisibility(View.GONE);
                     alertNetworkErrorAndFinish(null);
                 }
-            });
+            });*/
         }
     }
 
@@ -1128,7 +1188,7 @@ public class JankenStageActivity extends BaseActivity {
     }
 
     private void addMyMember() {
-        ImageView iv = new ImageView(mContext);
+        final ImageView iv = new ImageView(mContext);
         iv.setLayoutParams(mParams);
         iv.setBackgroundColor(Color.parseColor("#ffffff"));
         //iv.setBackground(ContextCompat.getDrawable(mContext, R.drawable.bg_white_radius3));
@@ -1137,6 +1197,35 @@ public class JankenStageActivity extends BaseActivity {
         mMyMemberImageViews.add(iv);
 
         Picasso.with(mContext).load(mPictureUrl).into(iv, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                if (mMyMemberImageViews.size() == 1) {
+                    mLoMyMemberCounter.setVisibility(View.VISIBLE);
+                    mLoMyMemberCounter.animate().alpha(1f).setDuration(500);
+                }
+
+                if (mMyMemberImageViews.size() > 0) {
+                    String text = mMyMemberImageViews.size() + "";
+                    mTvMyMemberCounterText.setText(text);
+                }
+
+                mCvMatchMember.animate().rotation(0).setDuration(0);
+
+                if (mMemberIndex == mMemberList.size()) {
+                    saveGameResult();
+                    showDialog(getString(R.string.you_win), R.layout.janken_dialog_win);
+                } else {
+                    loadMatchMember();
+                }
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+
+        /*Picasso.with(mContext).load(mPictureUrl).into(iv, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
                 if (mMyMemberImageViews.size() == 1) {
@@ -1163,7 +1252,7 @@ public class JankenStageActivity extends BaseActivity {
             public void onError() {
 
             }
-        });
+        });*/
     }
 
     private void onDraw() {
@@ -1508,9 +1597,9 @@ public class JankenStageActivity extends BaseActivity {
         dialog.show();
     }
 
-    private void saveResult(String value) {
+    private void saveGameResult() {
         String key = Config.JANKEN_KEY_RESULT + mGroupData.getName() + mTeamData.getName();
         Setting setting = new Setting(mContext);
-        setting.set(key, value);
+        setting.set(key, "1");
     }
 }

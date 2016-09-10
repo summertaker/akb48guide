@@ -307,15 +307,15 @@ public class BlogArticleListActivity extends BaseActivity implements SwipeRefres
 
         if (response.isEmpty()) {
             if (!mErrorMessage.isEmpty()) {
-                alertNetworkErrorAndFinish(mErrorMessage);
+                alertParseErrorAndFinish(mErrorMessage);
             } else {
                 renderData();
             }
         } else {
             if (mItemTotal == 0) {
-                //-------------------------------
-                // 목록 파싱하기
-                //-------------------------------
+                //---------------------------------------------------------------------------------
+                // 목록 파싱하기 - 아메바 블로그의 HTML 코드가 변경됨. 파서 다시 만들어야 함. 2016-09-10
+                //---------------------------------------------------------------------------------
                 switch (mSiteData.getId()) {
                     case Config.BLOG_ID_AKB48_TEAM8:
                         Akb48Parser akb48Parser = new Akb48Parser();

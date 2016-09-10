@@ -172,7 +172,9 @@ public class NamuwikiParser extends BaseParser {
                     for (String str : array) {
                         String text = str.trim();
                         //Log.e(mTag, nameKo + " / " + text);
-                        if (text.contains("부캡틴")) {
+                        if (text.contains("전 부캡틴")) {
+                            //
+                        } else if (text.contains("부캡틴")) {
                             memberData.setViceCaptain(true);
                         } else if (text.contains("캡틴")) {
                             memberData.setCaptain(true);

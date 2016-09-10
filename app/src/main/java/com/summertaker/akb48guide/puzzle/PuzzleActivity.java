@@ -44,6 +44,7 @@ import com.summertaker.akb48guide.parser.Akb48Parser;
 import com.summertaker.akb48guide.parser.BaseParser;
 import com.summertaker.akb48guide.parser.NamuwikiParser;
 import com.summertaker.akb48guide.parser.WikipediaEnParser;
+import com.summertaker.akb48guide.util.ImageUtil;
 import com.summertaker.akb48guide.util.Util;
 
 import java.util.ArrayList;
@@ -407,12 +408,17 @@ public class PuzzleActivity extends BaseActivity {
                 }
 
                 String imageUrl = memberData.getThumbnailUrl();
+                final String cacheId = Util.urlToId(imageUrl);
+                final String cacheUri = ImageUtil.getValidCacheUri(cacheId);
+                if (cacheUri != null) {
+                    imageUrl = cacheUri;
+                }
+
                 Glide.with(mContext).load(imageUrl).asBitmap().dontAnimate() //.diskCacheStrategy(DiskCacheStrategy.RESULT)
                         //.override(Config.IMAGE_GRID3_WIDTH, Config.IMAGE_GRID3_HEIGHT)
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-
                                 //mLoadings[index].setVisibility(View.GONE);
 
                                 mTransitions[index] = new TransitionDrawable(new Drawable[]{
@@ -425,6 +431,10 @@ public class PuzzleActivity extends BaseActivity {
                                 mCardCount++;
                                 if (mCardCount == mCardTotal) {
                                     onImageLoaded();
+                                }
+
+                                if (cacheUri == null) {
+                                    ImageUtil.saveBitmapToPng(bitmap, cacheId); // 캐쉬 저장
                                 }
                             }
                         });

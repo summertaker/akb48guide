@@ -163,7 +163,7 @@ public class DataManager {
     public ArrayList<SiteData> getBlogList() {
         ArrayList<SiteData> dataList = new ArrayList<>();
 
-        /*dataList.add(new SiteData(Config.BLOG_ID_AKB48_OFFICIAL, Config.GROUP_ID_AKB48,
+        dataList.add(new SiteData(Config.BLOG_ID_AKB48_OFFICIAL, Config.GROUP_ID_AKB48,
                 mRes.getString(R.string.akb48_official_blog),
                 R.drawable.logo_akb48,
                 "http://s.ameblo.jp/akihabara48/",
@@ -176,16 +176,14 @@ public class DataManager {
                 "http://toyota-team8.jp/report/index.php",
                 "http://toyota-team8.jp/report/sp/index.php",
                 null
-        ));*/
-
-        /*dataList.add(new SiteData(Config.BLOG_ID_SKE48_STAFF, Config.GROUP_ID_SKE48,
+        ));
+        dataList.add(new SiteData(Config.BLOG_ID_SKE48_STAFF, Config.GROUP_ID_SKE48,
                 mRes.getString(R.string.ske48_secretariat_blog),
                 R.drawable.logo_ske48,
                 "http://www2.ske48.co.jp/blog/member/writer:secretariat",
                 null,
                 "http://www.ske48.co.jp/rss/blog_secretariat.xml"
-        ));*/
-
+        ));
         dataList.add(new SiteData(Config.BLOG_ID_SKE48_MEMBER, Config.GROUP_ID_SKE48,
                 mRes.getString(R.string.ske48_official_blog),
                 R.drawable.logo_ske48,
@@ -207,42 +205,28 @@ public class DataManager {
                 "http://s.ameblo.jp/nmb48/",
                 "http://feedblog.ameba.jp/rss/ameblo/nmb48/rss20.xml"
         ));
-        /*dataList.add(new SiteData(Config.BLOG_ID_HKT48_OFFICIAL, Config.GROUP_ID_HKT48,
+        dataList.add(new SiteData(Config.BLOG_ID_HKT48_OFFICIAL, Config.GROUP_ID_HKT48,
                 mRes.getString(R.string.hkt48_official_blog),
                 R.drawable.logo_hkt48,
                 "http://s.ameblo.jp/hkt48",
                 "http://s.ameblo.jp/hkt48/",
                 "http://feedblog.ameba.jp/rss/ameblo/hkt48/rss20.xml"
-        ));*/
-        /*dataList.add(new SiteData(Config.BLOG_ID_NGT48_MANAGER, Config.GROUP_ID_NGT48,
+        ));
+        dataList.add(new SiteData(Config.BLOG_ID_NGT48_MANAGER, Config.GROUP_ID_NGT48,
                 mRes.getString(R.string.ngt48_manager_blog),
                 R.drawable.logo_ngt48,
                 "http://lineblog.me/ngt48/",
                 null,
                 null
-        ));*/
-        /* // NGT48 포토로그는 사진을 외부 도메인에서 사용하지 못하게 막아놓았다. 2016-07-24
+        ));
+        // NGT48 포토로그는 사진을 외부 도메인에서 사용하지 못하게 막아놓았다. 2016-07-24
         dataList.add(new SiteData(Config.BLOG_ID_NGT48_PHOTOLOG, Config.GROUP_ID_NGT48,
                 mRes.getString(R.string.ngt48_photo_log),
                 R.drawable.logo_ngt48,
                 "https://ngt48.com/photolog",
                 "https://ngt48.com/photolog",
                 null
-        ));*/
-        /*dataList.add(new SiteData(Config.BLOG_ID_NOGIZAKA46_OFFICIAL, Config.GROUP_ID_NOGIZAKA46,
-                mRes.getString(R.string.nogizaka46_official_blog),
-                R.drawable.logo_nogizaka46,
-                "http://blog.nogizaka46.com/",
-                "http://blog.nogizaka46.com/smph/",
-                null
         ));
-        dataList.add(new SiteData(Config.BLOG_ID_KEYAKIZAKA46_OFFICIAL, Config.GROUP_ID_KEYAKIZAKA46,
-                mRes.getString(R.string.keyakizaka46_official_blog),
-                R.drawable.logo_keyakizaka46,
-                "http://www.keyakizaka46.com/mob/news/diarKiji.php?site=k46o&cd=member",
-                "http://www.keyakizaka46.com/mob/news/diarShw.php?site=k46o&ima=0042&cd=member",
-                null
-        ));*/
 
         return dataList;
     }

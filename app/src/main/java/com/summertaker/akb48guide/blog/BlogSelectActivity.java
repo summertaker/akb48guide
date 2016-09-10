@@ -3,6 +3,7 @@ package com.summertaker.akb48guide.blog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -78,10 +79,17 @@ public class BlogSelectActivity extends BaseActivity {
     }
 
     private void itemClick(SiteData siteData) {
-        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parseImage(siteData.getMobileUrl()));
-        //startActivity(intent);
+        String url = siteData.getMobileUrl();
+        if (url == null || url.isEmpty()) {
+            url = siteData.getUrl();
+        }
+        //Log.e(mTag, "url: " + url);
 
-        Intent intent;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivityForResult(intent, 0);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+        /*Intent intent;
         switch (siteData.getId()) {
             //case Config.BLOG_ID_NGT48_PHOTOLOG:
             //    intent = new Intent(Intent.ACTION_VIEW, Uri.parseImage(siteData.getMobileUrl()));
@@ -102,20 +110,12 @@ public class BlogSelectActivity extends BaseActivity {
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
-        }
+        }*/
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        //hideToolbarProgressBar();
-
-        if (resultCode == Config.RESULT_CODE_FINISH) {
-            SiteData siteData = (SiteData) data.getSerializableExtra("siteData");
-            itemClick(siteData);
-        }
-
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }
