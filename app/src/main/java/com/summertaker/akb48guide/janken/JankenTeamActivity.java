@@ -1,5 +1,6 @@
 package com.summertaker.akb48guide.janken;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
 import com.summertaker.akb48guide.common.Config;
+import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
@@ -39,10 +41,13 @@ public class JankenTeamActivity extends BaseActivity {
     GroupData mGroupData;
     ArrayList<MemberData> mGroupMemberList = new ArrayList<>();
     ArrayList<TeamData> mTeamMemberList = new ArrayList<>();
+    JankenTeamAdapter mAdapter;
 
     ProgressBar mPbLoading;
 
     boolean mIsMobile = false;
+
+    Setting mSetting;
 
     //CacheManager mCacheManager;
 
@@ -66,16 +71,44 @@ public class JankenTeamActivity extends BaseActivity {
         mPbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         Util.setProgressBarColor(mPbLoading, Config.PROGRESS_BAR_COLOR_TRANSPARENT, null);
 
+        mAdapter = new JankenTeamAdapter(this, mGroupData, mTeamMemberList);
+
         //mCacheManager = new CacheManager(mSharedPreferences);
+
+        mSetting = new Setting(mContext);
+
         String url = mGroupData.getUrl();
         String userAgent = Config.USER_AGENT_WEB;
 
         requestData(url, userAgent);
     }
 
-    /**
-     * 네트워크 데이터 - 가져오기
-     */
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mTeamMemberList.size() > 0) {
+            updateData();
+            mAdapter.notifyDataSetChanged();
+
+            int count = 0;
+            for (TeamData teamData : mTeamMemberList) {
+                //Log.e(mTag, teamData.getName());
+                String key = Config.JANKEN_KEY_RESULT + mGroupData.getName() + teamData.getName();
+                String val = mSetting.get(key);
+                if (!val.isEmpty()) {
+                    count++;
+                }
+            }
+
+            if (count == mTeamMemberList.size()) {
+                mSetting.set(Config.JANKEN_KEY_RESULT + mGroupData.getName(), "1");
+            }
+        }
+
+        //mSetting.set(Config.JANKEN_KEY_RESULT + mGroupData.getName(), "");
+    }
+
     private void requestData(final String url, final String userAgent) {
         //Log.e(mTag, "url: " + url);
         //Log.e(mTag, "userAgent: " + userAgent);
@@ -116,7 +149,19 @@ public class JankenTeamActivity extends BaseActivity {
 
     private void parseData(String url, String response) {
         BaseParser baseParser = new BaseParser();
-        baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamMemberList, mIsMobile);
+        baseParser.parseMemberList(mContext, response, mGroupData, mGroupMemberList, mTeamMemberList, mIsMobile);
+
+        updateData();
+    }
+
+    private void updateData() {
+        for (TeamData teamData : mTeamMemberList) {
+            //Log.e(mTag, teamData.getName());
+            String key = Config.JANKEN_KEY_RESULT + mGroupData.getName() + teamData.getName();
+            String val = mSetting.get(key);
+            teamData.setLocked(val.isEmpty());
+        }
+
         renderData();
     }
 
@@ -136,11 +181,10 @@ public class JankenTeamActivity extends BaseActivity {
             ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
             scrollView.setVisibility(View.VISIBLE);
 
-            JankenTeamAdapter adapter = new JankenTeamAdapter(this, mGroupData, mTeamMemberList);
             ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
             if (gridView != null) {
                 gridView.setExpanded(true);
-                gridView.setAdapter(adapter);
+                gridView.setAdapter(mAdapter);
                 gridView.setOnItemClickListener(itemClickListener);
             }
         }
@@ -150,6 +194,7 @@ public class JankenTeamActivity extends BaseActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             TeamData teamData = (TeamData) parent.getItemAtPosition(position);
+            //Log.e(mTag, teamData.getName());
 
             ArrayList<MemberData> memberList = new ArrayList<>();
             for (MemberData memberData : mGroupMemberList) {

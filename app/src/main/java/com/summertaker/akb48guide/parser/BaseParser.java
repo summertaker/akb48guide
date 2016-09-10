@@ -1,5 +1,6 @@
 package com.summertaker.akb48guide.parser;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.summertaker.akb48guide.common.Config;
@@ -26,7 +27,7 @@ public class BaseParser {
     protected String mTag;
 
     public BaseParser() {
-        mTag = "===== " + this.getClass().getSimpleName();
+        mTag = "== " + this.getClass().getSimpleName();
     }
 
     protected String clean(String response) {
@@ -41,59 +42,55 @@ public class BaseParser {
 
     }
 
-    public void parse46List(String response, GroupData groupData, ArrayList<MemberData> memberList) {
-
-    }
-
-    public void parseMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList, boolean isMobile) {
+    public void parseMemberList(Context context, String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList, boolean isMobile) {
         switch (groupData.getId()) {
             case Config.GROUP_ID_AKB48:
                 Akb48Parser akb48Parser = new Akb48Parser();
                 if (isMobile) {
-                    akb48Parser.parseMobileMemberList(response, groupData, groupMemberList, teamDataList);
+                    akb48Parser.parseMobileMemberList(context, response, groupData, groupMemberList, teamDataList);
                 } else {
-                    akb48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                    akb48Parser.parseMemberList(context, response, groupData, groupMemberList, teamDataList);
                 }
                 break;
             case Config.GROUP_ID_SKE48:
                 Ske48Parser ske48Parser = new Ske48Parser();
-                ske48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                ske48Parser.parseMemberList(context, response, groupData, groupMemberList, teamDataList);
                 break;
             case Config.GROUP_ID_NMB48:
                 Nmb48Parser nmb48Parser = new Nmb48Parser();
-                nmb48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                nmb48Parser.parseMemberList(context, response, groupData, groupMemberList, teamDataList);
                 break;
             case Config.GROUP_ID_HKT48:
                 Hkt48Parser hkt48Parser = new Hkt48Parser();
                 if (isMobile) {
-                    hkt48Parser.parseMobileMemberList(response, groupData, groupMemberList, teamDataList);
+                    hkt48Parser.parseMobileMemberList(context, response, groupData, groupMemberList, teamDataList);
                 } else {
-                    hkt48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                    hkt48Parser.parseMemberList(context, response, groupData, groupMemberList, teamDataList);
                 }
                 break;
             case Config.GROUP_ID_NGT48:
                 Ngt48Parser ngt48Parser = new Ngt48Parser();
                 if (isMobile) {
-                    ngt48Parser.parseMobileMemberList(response, groupData, groupMemberList, teamDataList);
+                    ngt48Parser.parseMobileMemberList(context, response, groupData, groupMemberList, teamDataList);
                 } else {
-                    ngt48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                    ngt48Parser.parseMemberList(context, response, groupData, groupMemberList, teamDataList);
                 }
                 break;
             case Config.GROUP_ID_JKT48:
                 Jkt48Parser jkt48Parser = new Jkt48Parser();
-                jkt48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                jkt48Parser.parseMemberList(context, response, groupData, groupMemberList, teamDataList);
                 break;
             case Config.GROUP_ID_SNH48:
                 Snh48Parser snh48Parser = new Snh48Parser();
-                snh48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                snh48Parser.parseMemberList(context, response, groupData, groupMemberList, teamDataList);
                 break;
             case Config.GROUP_ID_BEJ48:
                 Bej48Parser bej48Parser = new Bej48Parser();
-                bej48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                bej48Parser.parseMemberList(context, response, groupData, groupMemberList, teamDataList);
                 break;
             case Config.GROUP_ID_GNZ48:
                 Gnz48Parser gnz48Parser = new Gnz48Parser();
-                gnz48Parser.parseMemberList(response, groupData, groupMemberList, teamDataList);
+                gnz48Parser.parseMemberList(context, response, groupData, groupMemberList, teamDataList);
                 break;
         }
     }

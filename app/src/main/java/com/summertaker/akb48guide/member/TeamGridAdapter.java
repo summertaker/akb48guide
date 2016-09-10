@@ -212,7 +212,7 @@ public class TeamGridAdapter extends BaseDataAdapter {
         //    name = memberData.getNameEn();
         //}
         String name = teamData.getName();
-        name = mTranslator.translateTeam(teamData.getGroupId(), name);
+        //name = mTranslator.translateTeam(teamData.getGroupId(), name);
         holder.tvName.setText(name);
 
         /*int count = teamData.getMemberCount();

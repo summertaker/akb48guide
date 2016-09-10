@@ -1,9 +1,9 @@
 package com.summertaker.akb48guide.janken;
 
 import android.animation.Animator;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -13,12 +13,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -37,6 +34,7 @@ import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
 import com.summertaker.akb48guide.common.Config;
+import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
@@ -245,14 +243,14 @@ public class JankenStageActivity extends BaseActivity {
     }
 
     private void parseData(String url, String response) {
-        if (url.contains("wiki")) {
+        //if (url.contains("wiki")) {
             mWikiParser.parse48List(response, mGroupData, mWikiMemberList);
             mIsWikiLoaded = true;
-        } else {
+        //} else {
             //BaseParser baseParser = new BaseParser();
             //baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
             //mIsDataLoaded = true;
-        }
+        //}
 
         renderData();
     }
@@ -357,9 +355,8 @@ public class JankenStageActivity extends BaseActivity {
                     }
                 });
         TextView tvProgressTitle = (TextView) findViewById(R.id.tvProgressTitle);
-        String progressTitle = mGroupData.getName() + "에 도전";
+        String progressTitle = mGroupData.getName() + " " + mTeamData.getName();
         tvProgressTitle.setText(progressTitle);
-        mTvProgressInfo = (TextView) findViewById(R.id.tvProgressInfo);
         mTvProgressTotal = (TextView) findViewById(R.id.tvProgressTotal);
         mPbProgress = (ProgressBar) findViewById(R.id.pbProgress);
         mPbProgress.setProgress(0);
@@ -541,6 +538,7 @@ public class JankenStageActivity extends BaseActivity {
             @Override
             public void onError() {
                 mLoMatchMemberPictureLoading.setVisibility(View.GONE);
+                alertNetworkErrorAndFinish(null);
             }
         });
     }
@@ -582,6 +580,7 @@ public class JankenStageActivity extends BaseActivity {
                 @Override
                 public void onError() {
                     mPbNextMemberPictureLoading.setVisibility(View.GONE);
+                    alertNetworkErrorAndFinish(null);
                 }
             });
         }
@@ -696,8 +695,8 @@ public class JankenStageActivity extends BaseActivity {
     }
 
     private void initUserActionBar() {
-        float y = mUserActionY + 500;
-
+        initMessage();
+        /*float y = mUserActionY + 500;
         mLoUserAction.setVisibility(View.VISIBLE);
         mLoUserAction.animate().y(y).setDuration(0).setListener(new Animator.AnimatorListener() {
             @Override
@@ -740,7 +739,7 @@ public class JankenStageActivity extends BaseActivity {
             public void onAnimationRepeat(Animator animation) {
 
             }
-        });
+        });*/
     }
 
     private void initMessage() {
@@ -1131,6 +1130,8 @@ public class JankenStageActivity extends BaseActivity {
     private void addMyMember() {
         ImageView iv = new ImageView(mContext);
         iv.setLayoutParams(mParams);
+        iv.setBackgroundColor(Color.parseColor("#ffffff"));
+        //iv.setBackground(ContextCompat.getDrawable(mContext, R.drawable.bg_white_radius3));
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         mLoMyMemberList.addView(iv, 0);
         mMyMemberImageViews.add(iv);
@@ -1151,7 +1152,8 @@ public class JankenStageActivity extends BaseActivity {
                 mCvMatchMember.animate().rotation(0).setDuration(0);
 
                 if (mMemberIndex == mMemberList.size()) {
-                    showDialog("결과", "이겼습니다.", R.layout.janken_dialog_win);
+                    saveResult("1");
+                    showDialog(getString(R.string.you_win), R.layout.janken_dialog_win);
                 } else {
                     loadMatchMember();
                 }
@@ -1165,7 +1167,7 @@ public class JankenStageActivity extends BaseActivity {
     }
 
     private void onDraw() {
-        mLoJudgeDraw.animate().scaleX(0.5f).scaleY(0.5f).alpha(0f).setDuration(800).setListener(new Animator.AnimatorListener() {
+        mLoJudgeDraw.animate().scaleX(0.5f).scaleY(0.5f).alpha(0f).setDuration(500).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -1186,8 +1188,8 @@ public class JankenStageActivity extends BaseActivity {
                     public void onAnimationEnd(Animator animator) {
                         mLoJudgeDraw.animate().setListener(null);
 
-                        //setReady();
-                        animateReady();
+                        setReady();
+                        //animateReady();
                     }
 
                     @Override
@@ -1248,7 +1250,8 @@ public class JankenStageActivity extends BaseActivity {
                 }
             });
         } else {
-            showDialog("결과", "졌습니다.", R.layout.janken_dialog_lose);
+            //saveResult("");
+            showDialog(getString(R.string.you_lose), R.layout.janken_dialog_lose);
         }
     }
 
@@ -1333,7 +1336,9 @@ public class JankenStageActivity extends BaseActivity {
     }
 
     private void animateReady() {
-        mLoReady.animate().scaleX(1.0f).scaleY(1.0f).alpha(0.0f).setDuration(0).setListener(new Animator.AnimatorListener() {
+        runCounter();
+
+        /*mLoReady.animate().scaleX(1.0f).scaleY(1.0f).alpha(0.0f).setDuration(0).setListener(new Animator.AnimatorListener() {
 
             @Override
             public void onAnimationStart(Animator animation) {
@@ -1403,7 +1408,7 @@ public class JankenStageActivity extends BaseActivity {
             public void onAnimationRepeat(Animator animation) {
 
             }
-        });
+        });*/
     }
 
     private void setUserActionEnable(boolean enable) {
@@ -1466,10 +1471,7 @@ public class JankenStageActivity extends BaseActivity {
         int count = mMemberIndex;
         int total = mMemberList.size();
 
-        //String info = mWinCount + "승 " + mLoseCount + "패";
-        //mTvProgressInfo.setText(info);
-
-        String text = "남은 멤버: " + String.format(getString(R.string.s_people), total - count);
+        String text = getString(R.string.remaining_members) + ": " + String.format(getString(R.string.s_people), total - count);
         mTvProgressTotal.setText(text);
 
         float progress = (float) count / (float) total;
@@ -1477,12 +1479,12 @@ public class JankenStageActivity extends BaseActivity {
         mPbProgress.setProgress(progressValue);
     }
 
-    private void showDialog(String title, String message, int layout) {
+    private void showDialog(String message, int layout) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         LayoutInflater factory = LayoutInflater.from(mContext);
         final View view = factory.inflate(layout, null);
         builder.setView(view);
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 finish();
@@ -1499,6 +1501,16 @@ public class JankenStageActivity extends BaseActivity {
                 finish();
             }
         });
-        builder.show();
+        //builder.show();
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().getAttributes().windowAnimations = R.style.FadeDialogAnimation;
+        dialog.show();
+    }
+
+    private void saveResult(String value) {
+        String key = Config.JANKEN_KEY_RESULT + mGroupData.getName() + mTeamData.getName();
+        Setting setting = new Setting(mContext);
+        setting.set(key, value);
     }
 }

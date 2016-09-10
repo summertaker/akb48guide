@@ -23,6 +23,6 @@
         android:padding="20dp"
         android:scrollbarStyle="outsideOverlay"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="20dp" />
+        android:verticalSpacing="15dp" />
 
 </LinearLayout>

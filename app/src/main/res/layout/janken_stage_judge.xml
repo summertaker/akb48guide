@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="승"
+                android:text="@string/win"
                 android:textColor="#fff"
                 android:textSize="36sp"
                 android:textStyle="bold"/>
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="무승부"
+            android:text="@string/draw"
             android:textColor="#000"
             android:textSize="28sp"
             android:textStyle="bold"/>
@@ -134,7 +134,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="패"
+                android:text="@string/lose"
                 android:textColor="#000"
                 android:textSize="36sp"
                 android:textStyle="bold"/>

@@ -163,12 +163,12 @@ public class TeamListActivity extends BaseActivity {
             // HKT48 웹과 모바일 사이트 모두 사용하는 경우
             if (url.equals(mHkt48MobileUrl)) {
                 Hkt48Parser hkt48Parser = new Hkt48Parser();
-                hkt48Parser.parseMobileMemberList(response, mGroupData, mMobileMemberList, null);
+                hkt48Parser.parseMobileMemberList(mContext, response, mGroupData, mMobileMemberList, null);
                 //Log.e(mTag, "mMobileMemberList.size() = " + mMobileMemberList.size());
             } else {
                 //Log.e(mTag, "isMobile: " + isMobile + " / " + mGroupData.getId());
                 BaseParser baseParser = new BaseParser();
-                baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, isMobile);
+                baseParser.parseMemberList(mContext, response, mGroupData, mGroupMemberList, mTeamDataList, isMobile);
                 //Log.e(mTag, "mGroupMemberList.size() = " + mGroupMemberList.size());
             }
 
@@ -194,7 +194,7 @@ public class TeamListActivity extends BaseActivity {
             }
         } else {
             BaseParser baseParser = new BaseParser();
-            baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, isMobile);
+            baseParser.parseMemberList(mContext, response, mGroupData, mGroupMemberList, mTeamDataList, isMobile);
             renderData();
         }
     }

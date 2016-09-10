@@ -1,9 +1,12 @@
 package com.summertaker.akb48guide.parser;
 
+import android.content.Context;
+
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
+import com.summertaker.akb48guide.util.Translator;
 import com.summertaker.akb48guide.util.Util;
 
 import org.jsoup.Jsoup;
@@ -16,7 +19,7 @@ import java.util.HashMap;
 
 public class Snh48Parser extends BaseParser {
 
-    public void parseMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
+    public void parseMemberList(Context context, String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
         /*
         <div class="ny_team_s" id="s_team_s">
             <i class="s_i_star"></i> S队-TEAM SII
@@ -53,6 +56,8 @@ public class Snh48Parser extends BaseParser {
         response = Util.getJapaneseString(response, null);
         //Log.e(mTag, response);
 
+        Translator translator = new Translator(context);
+
         Document doc = Jsoup.parse(response);
 
         for (Element section : doc.select("div.ny_tn")) {
@@ -66,6 +71,7 @@ public class Snh48Parser extends BaseParser {
                 teamName = teamName.split("-")[0].trim();
                 //Log.e(mTag, "team: " + team);
             }
+            teamName = translator.translateTeam(groupData.getId(), teamName);
 
             for (Element element : section.children()) {
                 //Log.e(mTag, element.text());
@@ -93,10 +99,9 @@ public class Snh48Parser extends BaseParser {
                 if (el == null) {
                     continue;
                 }
+
                 thumbnailUrl = el.attr("src").trim(); // http://www.snh48.com/images/member/mp_23.jpg
-                if (thumbnailUrl.contains("../")) { // ../images/member/4qi/mp_98.jpg
-                    thumbnailUrl = "http://www.snh48.com" + thumbnailUrl.replace("../", "/");
-                }
+                thumbnailUrl = "http://www.snh48.com/" + thumbnailUrl;
                 imageUrl = thumbnailUrl.replace("/mp_", "/zp_"); // http://www.snh48.com/images/member/zp_3.jpg
 
                 el = element.select(".mh_w1").first();
@@ -170,6 +175,7 @@ public class Snh48Parser extends BaseParser {
         String imageUrl = "";
         if (img != null) {
             imageUrl = img.attr("src");
+            imageUrl = "http://www.snh48.com/" + imageUrl;
         }
         //Log.e(mTag, "imageUrl: " + imageUrl);
         hashMap.put("imageUrl", imageUrl);

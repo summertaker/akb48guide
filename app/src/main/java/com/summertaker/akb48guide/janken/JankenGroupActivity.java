@@ -19,8 +19,10 @@ import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.Config;
+import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.DataManager;
 import com.summertaker.akb48guide.data.GroupData;
+import com.summertaker.akb48guide.data.TeamData;
 import com.summertaker.akb48guide.util.Typefaces;
 
 import java.util.ArrayList;
@@ -29,9 +31,13 @@ public class JankenGroupActivity extends BaseActivity {
 
     Typeface mFont;
 
-    private String mAction;
+    String mAction;
     ArrayList<GroupData> mGroupDataList;
     ArrayList<GroupData> mGroupList;
+
+    JankenGroupAdapter mAdapter;
+
+    Setting mSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +58,34 @@ public class JankenGroupActivity extends BaseActivity {
         initBaseToolbar(Config.TOOLBAR_ICON_BACK, title);
         mBaseToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.janken_primary));
 
+        mSetting = new Setting(mContext);
+
         DataManager dataManager = new DataManager(mContext);
         mGroupDataList = dataManager.getGroupList(mAction);
 
         mGroupList = new ArrayList<>();
+        mAdapter = new JankenGroupAdapter(mContext, mGroupDataList);
 
-        initUi();
+        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
+        if (gridView != null) {
+            gridView.setExpanded(true);
+            gridView.setAdapter(mAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    GroupData groupData = (GroupData) parent.getItemAtPosition(position);
+                    //if (!groupData.isLocked()) {
+                    goActivity(groupData);
+                    //}
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateData();
     }
 
     private void initUi() {
@@ -115,26 +143,6 @@ public class JankenGroupActivity extends BaseActivity {
             mGroupList.add(groupData);
         }*/
 
-        for (GroupData groupData : mGroupDataList) {
-            groupData.setLocked(true);
-            mGroupList.add(groupData);
-        }
-
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
-        if (gridView != null) {
-            gridView.setExpanded(true);
-            gridView.setAdapter(new JankenGroupAdapter(mContext, mGroupList));
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    GroupData groupData = (GroupData) parent.getItemAtPosition(position);
-                    //if (!groupData.isLocked()) {
-                        goActivity(groupData);
-                    //}
-                }
-            });
-        }
-
         /*ExpandableHeightGridView gvSnh48 = (ExpandableHeightGridView) findViewById(R.id.gvSnh48);
         if (gvSnh48 != null) {
             gvSnh48.setExpanded(true);
@@ -160,6 +168,15 @@ public class JankenGroupActivity extends BaseActivity {
                 }
             });
         }*/
+    }
+
+    private void updateData() {
+        for (GroupData groupData : mGroupDataList) {
+            String key = Config.JANKEN_KEY_RESULT + groupData.getName();
+            String val = mSetting.get(key);
+            groupData.setLocked(val.isEmpty());
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     private void createUi() {

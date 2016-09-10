@@ -200,7 +200,7 @@ public class SlideActivity extends BaseActivity {
                 switch (mGroupData.getId()) {
                     default:
                         BaseParser baseParser = new BaseParser();
-                        baseParser.parseMemberList(response, mGroupData, mMemberList, mTeamList, isMobile);
+                        baseParser.parseMemberList(mContext, response, mGroupData, mMemberList, mTeamList, isMobile);
                         break;
                 }
             }

@@ -1,35 +1,40 @@
 package com.summertaker.akb48guide;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
+import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.MenuData;
-import com.summertaker.akb48guide.util.Translator;
+import com.summertaker.akb48guide.util.Typefaces;
+import com.summertaker.akb48guide.util.Util;
 
 import java.util.ArrayList;
 
 public class MainMenuAdapter extends BaseDataAdapter {
-    private String mTag;
-
-    private Context mContext;
-    private LayoutInflater mLayoutInflater;
+    Context mContext;
+    LayoutInflater mLayoutInflater;
     ArrayList<MenuData> mDataList;
 
-    private Translator mTranslator;
+    Typeface mFont;
+    int[] mFaIcons = new int[3];
 
     public MainMenuAdapter(Context context, ArrayList<MenuData> dataList) {
-        this.mTag = "===== " + this.getClass().getSimpleName();
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mDataList = dataList;
 
-        mTranslator = new Translator(context);
+        mFont = Typefaces.get(mContext, "fontawesome-webfont.ttf");
+        mFaIcons[0] = R.string.fa_hand_scissors_o;
+        mFaIcons[1] = R.string.fa_hand_rock_o;
+        mFaIcons[2] = R.string.fa_hand_paper_o;
     }
 
     @Override
@@ -56,6 +61,13 @@ public class MainMenuAdapter extends BaseDataAdapter {
             convertView = mLayoutInflater.inflate(R.layout.main_item, null);
 
             holder.ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
+
+            holder.loIcon = (RelativeLayout) convertView.findViewById(R.id.loIcon);
+            holder.tvBack = (TextView) convertView.findViewById(R.id.tvBack);
+            holder.tvBack.setTypeface(mFont);
+            holder.tvIcon = (TextView) convertView.findViewById(R.id.tvIcon);
+            holder.tvIcon.setTypeface(mFont);
+
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
             convertView.setTag(holder);
@@ -63,8 +75,24 @@ public class MainMenuAdapter extends BaseDataAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Picasso.with(mContext).load(menuData.getDrawable()).into(holder.ivIcon);
+        if (menuData.getFaTextIcon() != 0) {
+            holder.ivIcon.setVisibility(View.GONE);
+            holder.loIcon.setVisibility(View.VISIBLE);
 
+            holder.tvBack.setText(menuData.getFaBackIcon());
+            holder.tvBack.setTextColor(menuData.getFaBackColor());
+            holder.tvIcon.setTextColor(menuData.getFaTextColor());
+            if (menuData.getId().equals(Config.MAIN_ACTION_JANKEN)) {
+                int random = Util.getRandom(0, 2);
+                holder.tvIcon.setText(mFaIcons[random]);
+            } else {
+                holder.tvIcon.setText(menuData.getFaTextIcon());
+            }
+        } else {
+            holder.loIcon.setVisibility(View.GONE);
+            holder.ivIcon.setVisibility(View.VISIBLE);
+            Picasso.with(mContext).load(menuData.getDrawable()).into(holder.ivIcon);
+        }
         String title = menuData.getTitle();
         holder.tvTitle.setText(title);
 
@@ -73,6 +101,9 @@ public class MainMenuAdapter extends BaseDataAdapter {
 
     static class ViewHolder {
         ImageView ivIcon;
+        RelativeLayout loIcon;
+        TextView tvBack;
+        TextView tvIcon;
         TextView tvTitle;
     }
 }

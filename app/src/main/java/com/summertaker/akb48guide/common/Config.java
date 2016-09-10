@@ -84,6 +84,7 @@ public class Config {
     public final static int JANKEN_ACTION_SCESSORS = 1;
     public final static int JANKEN_ACTION_ROCK = 2;
     public final static int JANKEN_ACTION_PAPER = 3;
+    public final static String JANKEN_KEY_RESULT = "janken_result";
 
     public final static int PROGRESS_BAR_COLOR_WHITE = 0xffffffff;
     public final static int PROGRESS_BAR_COLOR_NORMAL = 0x77e91e63;

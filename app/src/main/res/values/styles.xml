@@ -11,9 +11,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="JankenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/janken_primary</item>
@@ -78,7 +78,7 @@
         <item name="android:background">@drawable/btn_primary</item>
     </style>
 
-    <style name="NormalButton" parent="BaseButton" />
+    <style name="NormalButton" parent="BaseButton"/>
 
     <style name="SmallButton" parent="BaseButton">
         <item name="android:textSize">@dimen/form_control_text_size_small</item>
@@ -266,6 +266,11 @@
         <item name="android:progressDrawable">@drawable/progress_bar_horizontal_dark</item>
         <item name="android:minHeight">10dp</item>
         <item name="android:maxHeight">10dp</item>
+    </style>
+
+    <style name="FadeDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
 </resources>

@@ -155,7 +155,7 @@ public class MemoryActivity extends BaseActivity implements MemoryFragment.Callb
         } else {
             boolean isMobile = url.equals(mGroupData.getMobileUrl());
             BaseParser baseParser = new BaseParser();
-            baseParser.parseMemberList(response, mGroupData, mMemberList, mTeamList, isMobile);
+            baseParser.parseMemberList(mContext, response, mGroupData, mMemberList, mTeamList, isMobile);
 
             isDataLoaded = true;
         }

@@ -10,6 +10,10 @@ public class MenuData implements Serializable {
     String title;
     String url;
     int drawable;
+    int faBackIcon;
+    int faBackColor;
+    int faTextIcon;
+    int faTextColor;
 
     public MenuData() {
 
@@ -51,5 +55,37 @@ public class MenuData implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getFaBackIcon() {
+        return faBackIcon;
+    }
+
+    public void setFaBackIcon(int faBackIcon) {
+        this.faBackIcon = faBackIcon;
+    }
+
+    public int getFaBackColor() {
+        return faBackColor;
+    }
+
+    public void setFaBackColor(int faBackColor) {
+        this.faBackColor = faBackColor;
+    }
+
+    public int getFaTextIcon() {
+        return faTextIcon;
+    }
+
+    public void setFaTextIcon(int faTextIcon) {
+        this.faTextIcon = faTextIcon;
+    }
+
+    public int getFaTextColor() {
+        return faTextColor;
+    }
+
+    public void setFaTextColor(int faTextColor) {
+        this.faTextColor = faTextColor;
     }
 }

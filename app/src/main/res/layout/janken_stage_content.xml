@@ -124,7 +124,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="시작하면 3초가 표시됩니다."
+                    android:text="@string/after_start_three_seconds_are_displayed"
                     android:textColor="#ffffffff"
                     android:textStyle="italic"/>
 
@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="3초 후 가위 바위 보를 선택하세요."
+                    android:text="@string/after_3_seconds_please_select_one_of_rock_paper_scissors"
                     android:textColor="#ffffffff"
                     android:textStyle="italic"/>
 
@@ -142,7 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="시작"
+                    android:text="@string/start"
                     android:textStyle="bold"/>
 
             </LinearLayout>

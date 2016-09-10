@@ -1,9 +1,12 @@
 package com.summertaker.akb48guide.parser;
 
+import android.content.Context;
+
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
+import com.summertaker.akb48guide.util.Translator;
 import com.summertaker.akb48guide.util.Util;
 
 import org.jsoup.Jsoup;
@@ -21,7 +24,7 @@ public class Jkt48Parser extends BaseParser {
     /*
     멤버 전체 목록 + 팀 대표로 표시할 멤버 찾기
      */
-    public void parseMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
+    public void parseMemberList(Context context, String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
         /*
         <div id="mainContent">
             <a name="gen1"></a>
@@ -40,6 +43,8 @@ public class Jkt48Parser extends BaseParser {
         */
         response = clean(response);
         //Log.e(mTag, response);
+
+        Translator translator = new Translator(context);
 
         Document doc = Jsoup.parse(response);
 
@@ -65,6 +70,7 @@ public class Jkt48Parser extends BaseParser {
 
                     el = section.select("h2").first();
                     teamName = el.text();
+                    teamName = translator.translateTeam(groupData.getId(), teamName);
                     //Log.e(mTag, "teamName: " + teamName);
 
                     el = row.select(".profilepic").first();

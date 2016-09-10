@@ -3,6 +3,7 @@ package com.summertaker.akb48guide;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -98,7 +99,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_BIRTHDAY, getString(R.string.birthday), R.drawable.main_heart));
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_RAW_PHOTO, getString(R.string.raw_photo), R.drawable.main_camera));
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_PUZZLE, getString(R.string.puzzle), R.drawable.main_pause));
-                mMenuDatas.add(new MenuData(Config.MAIN_ACTION_JANKEN, getString(R.string.rock_paper_scissors), R.drawable.main_pause));
+
+                MenuData menuData = new MenuData(Config.MAIN_ACTION_JANKEN, getString(R.string.rock_paper_scissors), 0);
+                menuData.setFaBackIcon(R.string.fa_circle);
+                menuData.setFaBackColor(Color.parseColor("#56a89e"));
+                menuData.setFaTextIcon(R.string.fa_hand_scissors_o);
+                menuData.setFaTextColor(Color.parseColor("#ffffff"));
+                mMenuDatas.add(menuData);
 
                 MainMenuAdapter adapter = new MainMenuAdapter(mContext, mMenuDatas);
                 GridView gridView = (GridView) findViewById(R.id.gridView);

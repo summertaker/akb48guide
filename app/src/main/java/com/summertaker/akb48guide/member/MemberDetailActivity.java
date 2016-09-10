@@ -590,7 +590,7 @@ public class MemberDetailActivity extends BaseActivity {
         if (imageUrl == null || imageUrl.isEmpty()) {
             imageUrl = mMemberData.getThumbnailUrl();
         }
-        //Log.e(mTag, "imageUrl: " + imageUrl);
+        Log.e(mTag, "imageUrl: " + imageUrl);
 
         if (imageUrl != null && !imageUrl.isEmpty()) {
             mPbPictureLoading.setVisibility(View.VISIBLE);

@@ -1,8 +1,11 @@
 package com.summertaker.akb48guide.parser;
 
+import android.content.Context;
+
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
+import com.summertaker.akb48guide.util.Translator;
 import com.summertaker.akb48guide.util.Util;
 
 import org.jsoup.Jsoup;
@@ -14,7 +17,7 @@ import java.util.HashMap;
 
 public class Bej48Parser extends BaseParser {
 
-    public void parseMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
+    public void parseMemberList(Context context, String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
         /*
         <p class="team_fenge_a" style=" margin-top:20px">TEAM B</p>
         <div class="member_team bdui">
@@ -30,6 +33,9 @@ public class Bej48Parser extends BaseParser {
             return;
         }
         response = clean(response);
+
+        Translator translator = new Translator(context);
+
         Document doc = Jsoup.parse(response);
 
         for (Element row : doc.select(".member_team")) {
@@ -37,6 +43,7 @@ public class Bej48Parser extends BaseParser {
             Element p = row.previousElementSibling();
             //Log.e(mTag, p.text());
             String teamName = p.text().trim();
+            teamName = translator.translateTeam(groupData.getId(), teamName);
 
             for (Element dl : row.select("dl")) {
                 String id;

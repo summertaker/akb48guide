@@ -18,7 +18,7 @@
         card_view:cardElevation="5dp">
 
         <RelativeLayout
-            android:layout_width="63dp"
+            android:layout_width="65dp"
             android:layout_height="80dp">
 
             <ImageView

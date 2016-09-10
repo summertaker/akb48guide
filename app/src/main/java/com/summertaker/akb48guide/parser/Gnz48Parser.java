@@ -1,10 +1,12 @@
 package com.summertaker.akb48guide.parser;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
+import com.summertaker.akb48guide.util.Translator;
 import com.summertaker.akb48guide.util.Util;
 
 import org.jsoup.Jsoup;
@@ -16,7 +18,7 @@ import java.util.HashMap;
 
 public class Gnz48Parser extends BaseParser {
 
-    public void parseMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
+    public void parseMemberList(Context context, String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
         /*
         <div class="team-bt clearfix">
           <img src="/statics/images/gz/g-team.png" height="74" width="85" alt="" />
@@ -38,6 +40,9 @@ public class Gnz48Parser extends BaseParser {
         }
         response = clean(response);
         response = Util.getChineseString(response, null);
+
+        Translator translator = new Translator(context);
+
         Document doc = Jsoup.parse(response);
 
         for (Element row : doc.select(".team-main")) {
@@ -51,8 +56,8 @@ public class Gnz48Parser extends BaseParser {
                 continue;
             }
             String teamName = span.text();
-            teamName = teamName.replace(groupData.getName(), "");
-            teamName = teamName.trim();
+            teamName = teamName.replace(groupData.getName(), "").trim();
+            teamName = translator.translateTeam(groupData.getId(), teamName);
 
             Element ul = row.select("ul").first();
             if (ul == null) {

@@ -1,4 +1,22 @@
 <resources>
+    <string name="fa_hand_scissors_o">&#xf257;</string>
+    <string name="fa_hand_rock_o">&#xf255;</string>
+    <string name="fa_hand_paper_o">&#xf256;</string>
+    <string name="fa_circle">&#xf111;</string>
+    <string name="fa_heart">&#xf004;</string>
+    <string name="fa_arrow_down">&#xf063;</string>
+    <string name="fa_arrow_circle_up">&#xf0aa;</string>
+    <string name="fa_arrow_circle_down">&#xf0ab;</string>
+    <string name="fa_check_circle">&#xf058;</string>
+    <string name="fa_close">&#xf00d;</string>
+    <string name="fa_check">&#xf00c;</string>
+    <string name="fa_android">&#xf17b;</string>
+    <string name="fa_meh_o">&#xf11a;</string>
+    <string name="fa_coffee">&#xf0f4;</string>
+    <string name="fa_rotate_right">&#xf01e;</string>
+    <string name="fa_gavel">&#xf0e3;</string>
+    <string name="fa_caret_down">&#xf0d7;</string>
+
     <string name="version_s">%1$s版</string>
     <string name="s_people">%s人</string>
     <string name="team_s">%s队</string>
@@ -196,12 +214,24 @@
     <string name="action_rock">岩</string>
     <string name="action_scissors">剪刀</string>
     <string name="action_paper">纸</string>
-    <string name="fa_hand_scissors_o">&#xf257;</string>
-    <string name="fa_hand_rock_o">&#xf255;</string>
-    <string name="fa_hand_paper_o">&#xf256;</string>
-    <string name="fa_circle">&#xf111;</string>
-    <string name="fa_heart">&#xf004;</string>
     <string name="janken">石头，剪子，布</string>
+    <string name="draft">草案</string>
+    <string name="candidate_understudy">候选研究员</string>
+    <string name="respite">暂休</string>
+    <string name="select_the_group_to_challenge">选择要挑战的组。</string>
+    <string name="select_the_team_to_challenge">选择要挑战的队伍。</string>
+    <string name="draw">画</string>
+    <string name="lose">输</string>
+    <string name="win">胜つ。</string>
+    <string name="remaining_members">其余成员</string>
+    <string name="start">开始</string>
+    <string name="after_start_three_seconds_are_displayed">开始后，则显示3秒钟。</string>
+    <string name="after_3_seconds_please_select_one_of_rock_paper_scissors">在3秒钟后，请选择剪刀，石头，布之一。</string>
+    <string name="next_member">下一个成员</string>
+    <string name="ready">准备</string>
+    <string name="action_select">选择</string>
+    <string name="you_win"> 你赢了。</string>
+    <string name="you_lose">你输了。</string>
 
 </resources>
 

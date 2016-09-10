@@ -1,4 +1,22 @@
 <resources>
+    <string name="fa_hand_scissors_o">&#xf257;</string>
+    <string name="fa_hand_rock_o">&#xf255;</string>
+    <string name="fa_hand_paper_o">&#xf256;</string>
+    <string name="fa_circle">&#xf111;</string>
+    <string name="fa_heart">&#xf004;</string>
+    <string name="fa_arrow_down">&#xf063;</string>
+    <string name="fa_arrow_circle_up">&#xf0aa;</string>
+    <string name="fa_arrow_circle_down">&#xf0ab;</string>
+    <string name="fa_check_circle">&#xf058;</string>
+    <string name="fa_close">&#xf00d;</string>
+    <string name="fa_check">&#xf00c;</string>
+    <string name="fa_android">&#xf17b;</string>
+    <string name="fa_meh_o">&#xf11a;</string>
+    <string name="fa_coffee">&#xf0f4;</string>
+    <string name="fa_rotate_right">&#xf01e;</string>
+    <string name="fa_gavel">&#xf0e3;</string>
+    <string name="fa_caret_down">&#xf0d7;</string>
+
     <string name="version_s">Version %1$s</string>
     <string name="s_second">%s seconds</string>
     <string name="s_minute">%s minutes</string>
@@ -196,23 +214,23 @@
     <string name="action_scissors">Scissors</string>
     <string name="action_rock">Rock</string>
     <string name="action_paper">Paper</string>
-    <string name="fa_hand_scissors_o">&#xf257;</string>
-    <string name="fa_hand_rock_o">&#xf255;</string>
-    <string name="fa_hand_paper_o">&#xf256;</string>
-    <string name="fa_circle">&#xf111;</string>
-    <string name="fa_heart">&#xf004;</string>
-    <string name="fa_arrow_down">&#xf063;</string>
-    <string name="fa_arrow_circle_up">&#xf0aa;</string>
-    <string name="fa_arrow_circle_down">&#xf0ab;</string>
-    <string name="fa_check_circle">&#xf058;</string>
-    <string name="fa_close">&#xf00d;</string>
-    <string name="fa_check">&#xf00c;</string>
-    <string name="fa_android">&#xf17b;</string>
-    <string name="fa_meh_o">&#xf11a;</string>
-    <string name="fa_coffee">&#xf0f4;</string>
-    <string name="fa_rotate_right">&#xf01e;</string>
-    <string name="fa_gavel">&#xf0e3;</string>
-    <string name="fa_caret_down">&#xf0d7;</string>
     <string name="janken">Janken</string>
+    <string name="draft">Draft</string>
+    <string name="candidate_understudy">Candidate Understudy</string>
+    <string name="respite">Respite</string>
+    <string name="select_the_group_to_challenge">Select the group to challenge.</string>
+    <string name="select_the_team_to_challenge">Select the team to challenge.</string>
+    <string name="win">Win</string>
+    <string name="lose">Lose</string>
+    <string name="draw">Draw</string>
+    <string name="remaining_members">Remaining members</string>
+    <string name="start">Start</string>
+    <string name="after_start_three_seconds_are_displayed">After start, 3 seconds are displayed.</string>
+    <string name="after_3_seconds_please_select_one_of_rock_paper_scissors">After 3 seconds, please select one of rock-paper-scissors.</string>
+    <string name="next_member">Next member</string>
+    <string name="ready">Ready</string>
+    <string name="action_select">Select</string>
+    <string name="you_win">You win.</string>
+    <string name="you_lose">You lose.</string>
 
 </resources>

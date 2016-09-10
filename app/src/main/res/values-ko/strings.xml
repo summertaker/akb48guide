@@ -1,4 +1,22 @@
 <resources>
+    <string name="fa_hand_scissors_o">&#xf257;</string>
+    <string name="fa_hand_rock_o">&#xf255;</string>
+    <string name="fa_hand_paper_o">&#xf256;</string>
+    <string name="fa_circle">&#xf111;</string>
+    <string name="fa_heart">&#xf004;</string>
+    <string name="fa_arrow_down">&#xf063;</string>
+    <string name="fa_arrow_circle_up">&#xf0aa;</string>
+    <string name="fa_arrow_circle_down">&#xf0ab;</string>
+    <string name="fa_check_circle">&#xf058;</string>
+    <string name="fa_close">&#xf00d;</string>
+    <string name="fa_check">&#xf00c;</string>
+    <string name="fa_android">&#xf17b;</string>
+    <string name="fa_meh_o">&#xf11a;</string>
+    <string name="fa_coffee">&#xf0f4;</string>
+    <string name="fa_rotate_right">&#xf01e;</string>
+    <string name="fa_gavel">&#xf0e3;</string>
+    <string name="fa_caret_down">&#xf0d7;</string>
+
     <string name="version_s">버전 %1$s</string>
     <string name="s_people">%s명</string>
     <string name="team_s">팀 %s</string>
@@ -196,11 +214,23 @@
     <string name="action_paper">보</string>
     <string name="action_scissors">가위</string>
     <string name="action_rock">바위</string>
-    <string name="fa_hand_scissors_o">&#xf257;</string>
-    <string name="fa_hand_rock_o">&#xf255;</string>
-    <string name="fa_hand_paper_o">&#xf256;</string>
-    <string name="fa_circle">&#xf111;</string>
-    <string name="fa_heart">&#xf004;</string>
     <string name="janken">장켄</string>
+    <string name="draft">드래프트</string>
+    <string name="candidate_understudy">후보 연구생</string>
+    <string name="respite">유예</string>
+    <string name="select_the_group_to_challenge">도전할 그룹을 선택하세요.</string>
+    <string name="select_the_team_to_challenge">도전할 팀을 선택하세요.</string>
+    <string name="draw">무승부</string>
+    <string name="lose">패</string>
+    <string name="win">승</string>
+    <string name="remaining_members"> 남은 멤버</string>
+    <string name="start">시작</string>
+    <string name="after_start_three_seconds_are_displayed">시작 후 3 초가 표시됩니다.</string>
+    <string name="after_3_seconds_please_select_one_of_rock_paper_scissors"> 3초 후 가위 바위 보를 선택하세요.</string>
+    <string name="next_member">다음 멤버</string>
+    <string name="ready">준비</string>
+    <string name="action_select">선택</string>
+    <string name="you_win">이겼습니다.</string>
+    <string name="you_lose">졌습니다.</string>
 
 </resources>

@@ -184,7 +184,7 @@ public class QuizActivity extends BaseActivity {
         } else {
             boolean isMobile = url.equals(mGroupData.getMobileUrl());
             BaseParser baseParser = new BaseParser();
-            baseParser.parseMemberList(response, mGroupData, mMemberList, mTeamList, isMobile);
+            baseParser.parseMemberList(mContext, response, mGroupData, mMemberList, mTeamList, isMobile);
 
             isDataLoaded = true;
         }

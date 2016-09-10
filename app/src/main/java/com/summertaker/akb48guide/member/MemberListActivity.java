@@ -79,8 +79,8 @@ public class MemberListActivity extends BaseActivity {
         mTitle = mGroupData.getName();
         if (mTeamData != null) {
             String teamName = mTeamData.getName();
-            Translator translator = new Translator(mContext);
-            teamName = translator.translateTeam(mGroupData.getId(), teamName);
+            //Translator translator = new Translator(mContext);
+            //teamName = translator.translateTeam(mGroupData.getId(), teamName);
             mTitle += " " + teamName;
         }
         initBaseToolbar(Config.TOOLBAR_ICON_BACK, mTitle);
@@ -180,7 +180,7 @@ public class MemberListActivity extends BaseActivity {
             isWikiLoaded = true;
         } else {
             BaseParser baseParser = new BaseParser();
-            baseParser.parseMemberList(response, mGroupData, mMemberList, mTeamList, isMobile);
+            baseParser.parseMemberList(mContext, response, mGroupData, mMemberList, mTeamList, isMobile);
             isDataLoaded = true;
         }
         renderData();

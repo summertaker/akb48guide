@@ -1,9 +1,12 @@
 package com.summertaker.akb48guide.parser;
 
+import android.content.Context;
+
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
+import com.summertaker.akb48guide.util.Translator;
 import com.summertaker.akb48guide.util.Util;
 
 import org.jsoup.Jsoup;
@@ -15,7 +18,7 @@ import java.util.HashMap;
 
 public class Hkt48Parser extends BaseParser {
 
-    public void parseMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
+    public void parseMemberList(Context context, String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
 
         /*
         <h3>Team H</h3>
@@ -38,6 +41,9 @@ public class Hkt48Parser extends BaseParser {
         </div>
         */
         response = clean(response);
+
+        Translator translator = new Translator(context);
+
         Document doc = Jsoup.parse(response);
 
         for (Element h3 : doc.select("h3")) {
@@ -49,6 +55,8 @@ public class Hkt48Parser extends BaseParser {
                 //Log.e(mTag, li.text());
 
                 String teamName = h3.text();
+                teamName = translator.translateTeam(groupData.getId(), teamName);
+
                 String id;
                 String name;
                 String nameEn;
@@ -112,7 +120,7 @@ public class Hkt48Parser extends BaseParser {
         }
     }
 
-    public void parseMobileMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
+    public void parseMobileMemberList(Context context, String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
         //Log.e(mTag, "parseMobileMemberList(): " + response);
         /*
         <article id="main">

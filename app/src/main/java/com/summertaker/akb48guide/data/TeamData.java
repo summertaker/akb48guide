@@ -14,6 +14,7 @@ public class TeamData implements Serializable {
     String url;
     int memberCount;       // 멤버 수
     MemberData memberData; // 대표 멤버
+    boolean isLocked;
 
     public TeamData() {
 
@@ -81,5 +82,13 @@ public class TeamData implements Serializable {
 
     public void setMemberData(MemberData memberData) {
         this.memberData = memberData;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
     }
 }

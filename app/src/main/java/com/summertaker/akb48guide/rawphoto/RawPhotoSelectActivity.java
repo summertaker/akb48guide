@@ -164,7 +164,7 @@ public class RawPhotoSelectActivity extends BaseActivity {
         if (url.equals(mGroupData.getUrl())) {
             // 멤버사진 정보 파싱하기
             BaseParser baseParser = new BaseParser();
-            baseParser.parseMemberList(response, mGroupData, mMemberDataList, null, false);
+            baseParser.parseMemberList(mContext, response, mGroupData, mMemberDataList, null, false);
 
             updateData();
             renderData();

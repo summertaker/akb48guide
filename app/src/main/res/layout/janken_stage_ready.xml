@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="준비"
+        android:text="@string/ready"
         android:textColor="#000"
         android:textSize="22sp"
         android:textStyle="bold"/>

@@ -1,11 +1,13 @@
 package com.summertaker.akb48guide.parser;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
 import com.summertaker.akb48guide.data.WebData;
+import com.summertaker.akb48guide.util.Translator;
 import com.summertaker.akb48guide.util.Util;
 
 import org.jsoup.Jsoup;
@@ -21,7 +23,7 @@ public class Ngt48Parser extends BaseParser {
     /*
     멤버 전체 목록 + 팀 대표로 표시할 멤버 찾기
     */
-    public void parseMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
+    public void parseMemberList(Context context, String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
         /*
         <h4 style="font-size: 1.4375rem; line-height: 1.4;" data-idx="0" >
             Team NⅢ
@@ -42,6 +44,9 @@ public class Ngt48Parser extends BaseParser {
         </div>
         */
         response = clean(response);
+
+        Translator translator = new Translator(context);
+
         Document doc = Jsoup.parse(response);
 
         for (Element tn : doc.select("h4")) {
@@ -54,6 +59,8 @@ public class Ngt48Parser extends BaseParser {
 
                 String id;
                 String teamName = tn.text();
+                teamName = translator.translateTeam(groupData.getId(), teamName);
+
                 String name;
                 String nameEn;
                 String profileUrl;
@@ -116,7 +123,7 @@ public class Ngt48Parser extends BaseParser {
         }
     }
 
-    public void parseMobileMemberList(String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
+    public void parseMobileMemberList(Context context, String response, GroupData groupData, ArrayList<MemberData> groupMemberList, ArrayList<TeamData> teamDataList) {
         //Log.e(mTag, response);
         /*
         <section class="profile">

@@ -317,7 +317,7 @@ public class PuzzleActivity extends BaseActivity {
                     break;
                 default:
                     BaseParser baseParser = new BaseParser();
-                    baseParser.parseMemberList(response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
+                    baseParser.parseMemberList(mContext, response, mGroupData, mGroupMemberList, mTeamDataList, mIsMobile);
                     break;
             }
             mIsDataLoaded = true;

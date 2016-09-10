@@ -3,6 +3,7 @@ package com.summertaker.akb48guide.janken;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
 import com.summertaker.akb48guide.common.Config;
+import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
 import com.summertaker.akb48guide.data.TeamData;
@@ -24,14 +26,11 @@ import com.summertaker.akb48guide.util.Util;
 import java.util.ArrayList;
 
 public class JankenTeamAdapter extends BaseDataAdapter {
-    private String mTag;
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private GroupData mGroupData;
     private ArrayList<TeamData> mDataList = null;
-
-    private Translator mTranslator;
 
     public JankenTeamAdapter(Context context, GroupData groupData, ArrayList<TeamData> dataList) {
         this.mTag = "===== " + this.getClass().getSimpleName();
@@ -39,8 +38,6 @@ public class JankenTeamAdapter extends BaseDataAdapter {
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mGroupData = groupData;
         this.mDataList = dataList;
-
-        mTranslator = new Translator(context);
     }
 
     @Override
@@ -81,7 +78,7 @@ public class JankenTeamAdapter extends BaseDataAdapter {
 
         MemberData memberData = teamData.getMemberData();
 
-        if (true) {
+        if (teamData.isLocked()) {
             holder.cvPicture.setVisibility(View.GONE);
             holder.ivLock.setVisibility(View.VISIBLE);
         } else {
@@ -129,7 +126,7 @@ public class JankenTeamAdapter extends BaseDataAdapter {
         }
 
         String name = teamData.getName();
-        name = mTranslator.translateTeam(teamData.getGroupId(), name);
+        //name = mTranslator.translateTeam(teamData.getGroupId(), name);
         holder.tvName.setText(name);
 
         return convertView;

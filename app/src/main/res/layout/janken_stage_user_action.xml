@@ -12,8 +12,7 @@
         android:layout_alignParentBottom="true"
         android:clipChildren="false"
         android:orientation="horizontal"
-        android:padding="10dp"
-        android:visibility="invisible">
+        android:padding="10dp">
 
         <LinearLayout
             android:id="@+id/loUserActionScissors"
