@@ -93,19 +93,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_MEMBER, getString(R.string.member), R.drawable.main_girl));
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_BLOG, getString(R.string.blog), R.drawable.main_rss));
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_ELECTION, getString(R.string.election), R.drawable.main_trophy));
+
+                mMenuDatas.add(new MenuData(Config.MAIN_ACTION_BIRTHDAY, getString(R.string.birthday), R.drawable.main_heart));
+                mMenuDatas.add(new MenuData(Config.MAIN_ACTION_RAW_PHOTO, getString(R.string.raw_photo), R.drawable.main_camera));
+
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_SLIDE, getString(R.string.slide), R.drawable.main_play));
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_MEMORY, getString(R.string.memory), R.drawable.main_check));
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_QUIZ, getString(R.string.quiz), R.drawable.main_target));
-                mMenuDatas.add(new MenuData(Config.MAIN_ACTION_BIRTHDAY, getString(R.string.birthday), R.drawable.main_heart));
-                mMenuDatas.add(new MenuData(Config.MAIN_ACTION_RAW_PHOTO, getString(R.string.raw_photo), R.drawable.main_camera));
+
                 mMenuDatas.add(new MenuData(Config.MAIN_ACTION_PUZZLE, getString(R.string.puzzle), R.drawable.main_pause));
 
-                MenuData menuData = new MenuData(Config.MAIN_ACTION_JANKEN, getString(R.string.rock_paper_scissors), 0);
-                menuData.setFaBackIcon(R.string.fa_circle);
-                menuData.setFaBackColor(Color.parseColor("#56a89e"));
-                menuData.setFaTextIcon(R.string.fa_hand_scissors_o);
-                menuData.setFaTextColor(Color.parseColor("#ffffff"));
-                mMenuDatas.add(menuData);
+                MenuData janken = new MenuData(Config.MAIN_ACTION_JANKEN, getString(R.string.rock_paper_scissors), 0);
+                janken.setFaBackIcon(R.string.fa_circle);
+                janken.setFaBackColor(Color.parseColor("#4db6ac"));
+                janken.setFaTextIcon(R.string.fa_hand_scissors_o);
+                janken.setFaTextColor(Color.parseColor("#ffffff"));
+                mMenuDatas.add(janken);
+
+                /*MenuData puzzle2 = new MenuData(Config.MAIN_ACTION_ENIGMATIC, getString(R.string.puzzle2), 0);
+                puzzle2.setFaBackIcon(R.string.fa_circle);
+                puzzle2.setFaBackColor(Color.parseColor("#ffa000"));
+                puzzle2.setFaTextIcon(R.string.fa_delicious);
+                puzzle2.setFaTextColor(Color.parseColor("#ffffff"));
+                mMenuDatas.add(puzzle2);*/
 
                 MainMenuAdapter adapter = new MainMenuAdapter(mContext, mMenuDatas);
                 GridView gridView = (GridView) findViewById(R.id.gridView);

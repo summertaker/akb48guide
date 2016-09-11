@@ -17,10 +17,6 @@ import android.widget.ProgressBar;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.util.Util;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Retrofit;
-
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected String mTag = "=== " + getClass().getSimpleName();
@@ -35,10 +31,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected String mErrorMessage;
 
     protected boolean mIsEnglishLocale = false;
-
-    protected Retrofit mRetrofit;
-    protected RetroApi mRetroApi;
-    protected Call<ResponseBody> mRetroCall;
 
     protected void initBaseToolbar(String icon, String title) {
         mContext = BaseActivity.this;

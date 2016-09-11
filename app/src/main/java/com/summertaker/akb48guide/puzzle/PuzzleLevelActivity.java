@@ -12,8 +12,8 @@ import com.summertaker.akb48guide.data.GroupData;
 
 public class PuzzleLevelActivity extends BaseActivity {
 
-    String mTitle;
     String mAction;
+    String mTitle;
     GroupData mGroupData;
 
     @Override
@@ -26,10 +26,11 @@ public class PuzzleLevelActivity extends BaseActivity {
 
         Intent intent = getIntent();
         mAction = intent.getStringExtra("action");
+        mTitle = intent.getStringExtra("title");
         mGroupData = (GroupData) intent.getSerializableExtra("groupData");
 
-        mTitle = getString(R.string.puzzle) + " / " + mGroupData.getName();
-        initBaseToolbar(Config.TOOLBAR_ICON_BACK, mTitle);
+        String title = mTitle + " / " + mGroupData.getName();
+        initBaseToolbar(Config.TOOLBAR_ICON_BACK, title);
 
         Button btnEasy = (Button) findViewById(R.id.btnEasy);
         btnEasy.setOnClickListener(btOnClick);
@@ -61,13 +62,25 @@ public class PuzzleLevelActivity extends BaseActivity {
     };
 
     public void goActivity(String level) {
-        Intent intent = new Intent(this, PuzzleActivity.class);
-        intent.putExtra("action", mAction);
-        intent.putExtra("level", level);
-        intent.putExtra("groupData", mGroupData);
+        Intent intent = null;
 
-        startActivityForResult(intent, 0);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        switch (mAction) {
+            case Config.MAIN_ACTION_PUZZLE:
+                intent = new Intent(this, PuzzleActivity.class);
+                break;
+            case Config.MAIN_ACTION_ENIGMATIC:
+                intent = new Intent(this, EnigmaticActivity.class);
+                break;
+        }
+
+        if (intent != null) {
+            intent.putExtra("action", mAction);
+            intent.putExtra("title", mTitle);
+            intent.putExtra("level", level);
+            intent.putExtra("groupData", mGroupData);
+            startActivityForResult(intent, 0);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
     @Override

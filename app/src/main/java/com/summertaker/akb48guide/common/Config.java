@@ -2,7 +2,7 @@ package com.summertaker.akb48guide.common;
 
 public class Config {
     public final static String PLATFORM = "android-phone";
-    public final static String VERSION = "3.5.2";
+    public final static String VERSION = "3.6.0";
 
     public final static String PACKAGE_NAME = "com.summertaker.akb48guide";
     public final static String USER_PREFERENCE_KEY = PACKAGE_NAME;
@@ -45,16 +45,17 @@ public class Config {
     public final static String BLOG_ID_NGT48_PHOTOLOG = "NGT48_PHOTOLOG";
 
     public final static String MAIN_ACTION_MEMBER = "MEMBER";
-    public final static String MAIN_ACTION_OSHIMEN = "OSHIMEN";
     public final static String MAIN_ACTION_BLOG = "BLOG";
     public final static String MAIN_ACTION_ELECTION = "ELECTION";
     public final static String MAIN_ACTION_BIRTHDAY = "BIRTHDAY";
+    public final static String MAIN_ACTION_RAW_PHOTO = "RAW_PHOTO";
+    public final static String MAIN_ACTION_JANKEN = "JANKEN";
     public final static String MAIN_ACTION_SLIDE = "SLIDE";
     public final static String MAIN_ACTION_MEMORY = "MEMORY";
     public final static String MAIN_ACTION_QUIZ = "QUIZ";
-    public final static String MAIN_ACTION_RAW_PHOTO = "RAW_PHOTO";
     public final static String MAIN_ACTION_PUZZLE = "PUZZLE";
-    public final static String MAIN_ACTION_JANKEN = "JANKEN";
+    public final static String MAIN_ACTION_ENIGMATIC = "ENIGMATIC";
+    public final static String MAIN_ACTION_OSHIMEN = "OSHIMEN";
 
     public final static String TOOLBAR_ICON_LOGO = "logo";
     public final static String TOOLBAR_ICON_BACK = "back";

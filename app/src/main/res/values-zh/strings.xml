@@ -16,10 +16,13 @@
     <string name="fa_rotate_right">&#xf01e;</string>
     <string name="fa_gavel">&#xf0e3;</string>
     <string name="fa_caret_down">&#xf0d7;</string>
+    <string name="fa_th_large">&#xf009;</string>
+    <string name="fa_delicious">&#xf1a5;</string>
 
     <string name="version_s">%1$s版</string>
     <string name="s_people">%s人</string>
     <string name="team_s">%s队</string>
+
     <string name="app_name">AKB48指南</string>
     <string name="blank">&#160;</string>
     <string name="member">成员</string>
@@ -232,6 +235,7 @@
     <string name="action_select">选择</string>
     <string name="you_win"> 你赢了。</string>
     <string name="you_lose">你输了。</string>
+    <string name="puzzle2">难题 II</string>
 
 </resources>
 

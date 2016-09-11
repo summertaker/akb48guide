@@ -16,12 +16,15 @@
     <string name="fa_rotate_right">&#xf01e;</string>
     <string name="fa_gavel">&#xf0e3;</string>
     <string name="fa_caret_down">&#xf0d7;</string>
+    <string name="fa_th_large">&#xf009;</string>
+    <string name="fa_delicious">&#xf1a5;</string>
 
     <string name="version_s">Version %1$s</string>
     <string name="s_second">%s seconds</string>
     <string name="s_minute">%s minutes</string>
     <string name="s_people">%s people</string>
     <string name="team_s">Team %s</string>
+
     <string name="app_name">AKB48 Guide</string>
     <string name="blank">&#160;</string>
     <string name="year">Year</string>
@@ -232,5 +235,6 @@
     <string name="action_select">Select</string>
     <string name="you_win">You win.</string>
     <string name="you_lose">You lose.</string>
+    <string name="puzzle2">Puzzle II</string>
 
 </resources>

@@ -3,8 +3,6 @@ package com.summertaker.akb48guide.janken;
 import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,9 +28,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.squareup.picasso.Picasso;
 import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
@@ -530,7 +525,21 @@ public class JankenStageActivity extends BaseActivity {
         mTvMatchMemberPictureCaption.setText(memberData.getLocaleName());
         mLoMatchMemberPictureLoading.setVisibility(View.VISIBLE);
         mIvMatchMemberPicture.setVisibility(View.GONE);
-        Glide.with(mContext).load(mPictureUrl).asBitmap().dontAnimate() //.diskCacheStrategy(DiskCacheStrategy.RESULT)
+
+        Picasso.with(mContext).load(mPictureUrl).into(mIvMatchMemberPicture, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                onMatchPictureLoad();
+            }
+
+            @Override
+            public void onError() {
+                onMatchPictureLoad();
+            }
+        });
+
+        // Glide는 에러 리스너에 버그있다.
+        /*Glide.with(mContext).load(mPictureUrl).asBitmap().dontAnimate() //.diskCacheStrategy(DiskCacheStrategy.RESULT)
                 //.override(Config.IMAGE_GRID3_WIDTH, Config.IMAGE_GRID3_HEIGHT)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
@@ -553,30 +562,41 @@ public class JankenStageActivity extends BaseActivity {
                             ImageUtil.saveBitmapToPng(bitmap, cacheId); // 캐쉬 저장
                         }
                     }
-                });
+                });*/
 
-        /*Picasso.with(mContext).load(mPictureUrl).into(mIvMatchMemberPicture, new com.squareup.picasso.Callback() {
+        /*Picasso.with(mContext).load(mPictureUrl).into(new com.squareup.picasso.Target() {
             @Override
-            public void onSuccess() {
-                mPbMatchMemberPictureLoading.setVisibility(View.GONE);
-                mIvMatchMemberPicture.setVisibility(View.VISIBLE);
-                //animateMatchMember();
-                mMemberIndex++;
-                updateProgress();
-
-                if (mIsFirstLoading) {
-                    loadNextMember();
-                } else {
-                    animateMatchMember();
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                mIvMatchMemberPicture.setImageBitmap(bitmap);
+                if (cacheUri == null) {
+                    ImageUtil.saveBitmapToPng(bitmap, cacheId); // 캐쉬 저장
                 }
+                onMatchPictureLoad();
             }
 
             @Override
-            public void onError() {
-                mLoMatchMemberPictureLoading.setVisibility(View.GONE);
-                alertNetworkErrorAndFinish(null);
+            public void onBitmapFailed(Drawable errorDrawable) {
+                onMatchPictureLoad();
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
             }
         });*/
+    }
+
+    private void onMatchPictureLoad() {
+        mPbMatchMemberPictureLoading.setVisibility(View.GONE);
+        mIvMatchMemberPicture.setVisibility(View.VISIBLE);
+        //animateMatchMember();
+        mMemberIndex++;
+        updateProgress();
+
+        if (mIsFirstLoading) {
+            loadNextMember();
+        } else {
+            animateMatchMember();
+        }
     }
 
     private void loadNextMember() {
@@ -604,7 +624,7 @@ public class JankenStageActivity extends BaseActivity {
 
             mPbNextMemberPictureLoading.setVisibility(View.VISIBLE);
             mIvNextMemberPicture.setVisibility(View.GONE);
-            Glide.with(mContext).load(imageUrl).asBitmap().dontAnimate() //.diskCacheStrategy(DiskCacheStrategy.RESULT)
+            /*Glide.with(mContext).load(imageUrl).asBitmap().dontAnimate() //.diskCacheStrategy(DiskCacheStrategy.RESULT)
                     //.override(Config.IMAGE_GRID3_WIDTH, Config.IMAGE_GRID3_HEIGHT)
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
@@ -623,26 +643,50 @@ public class JankenStageActivity extends BaseActivity {
                                 ImageUtil.saveBitmapToPng(bitmap, cacheId); // 캐쉬 저장
                             }
                         }
-                    });
-            /*Picasso.with(mContext).load(imageUrl).into(mIvNextMemberPicture, new com.squareup.picasso.Callback() {
+                    });*/
+
+            /*Picasso.with(mContext).load(imageUrl).into(new com.squareup.picasso.Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    mIvNextMemberPicture.setImageBitmap(bitmap);
+                    if (cacheUri == null) {
+                        ImageUtil.saveBitmapToPng(bitmap, cacheId); // 캐쉬 저장
+                    }
+                    onNextPictureLoad();
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+                    onMatchPictureLoad();
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                }
+            });*/
+
+            Picasso.with(mContext).load(imageUrl).into(mIvNextMemberPicture, new com.squareup.picasso.Callback() {
                 @Override
                 public void onSuccess() {
-                    mPbNextMemberPictureLoading.setVisibility(View.GONE);
-                    mIvNextMemberPicture.setVisibility(View.VISIBLE);
-
-                    if (mIsFirstLoading) {
-                        initUserActionBar();
-                    } else {
-                        setReady();
-                    }
+                    onNextPictureLoad();
                 }
 
                 @Override
                 public void onError() {
-                    mPbNextMemberPictureLoading.setVisibility(View.GONE);
-                    alertNetworkErrorAndFinish(null);
+                    onNextPictureLoad();
                 }
-            });*/
+            });
+        }
+    }
+
+    private void onNextPictureLoad() {
+        mPbNextMemberPictureLoading.setVisibility(View.GONE);
+        mIvNextMemberPicture.setVisibility(View.VISIBLE);
+
+        if (mIsFirstLoading) {
+            initUserActionBar();
+        } else {
+            setReady();
         }
     }
 
@@ -1199,29 +1243,12 @@ public class JankenStageActivity extends BaseActivity {
         Picasso.with(mContext).load(mPictureUrl).into(iv, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
-                if (mMyMemberImageViews.size() == 1) {
-                    mLoMyMemberCounter.setVisibility(View.VISIBLE);
-                    mLoMyMemberCounter.animate().alpha(1f).setDuration(500);
-                }
-
-                if (mMyMemberImageViews.size() > 0) {
-                    String text = mMyMemberImageViews.size() + "";
-                    mTvMyMemberCounterText.setText(text);
-                }
-
-                mCvMatchMember.animate().rotation(0).setDuration(0);
-
-                if (mMemberIndex == mMemberList.size()) {
-                    saveGameResult();
-                    showDialog(getString(R.string.you_win), R.layout.janken_dialog_win);
-                } else {
-                    loadMatchMember();
-                }
+                onAddMyMember();
             }
 
             @Override
             public void onError() {
-
+                onAddMyMember();
             }
         });
 
@@ -1253,6 +1280,27 @@ public class JankenStageActivity extends BaseActivity {
 
             }
         });*/
+    }
+
+    private void onAddMyMember() {
+        if (mMyMemberImageViews.size() == 1) {
+            mLoMyMemberCounter.setVisibility(View.VISIBLE);
+            mLoMyMemberCounter.animate().alpha(1f).setDuration(500);
+        }
+
+        if (mMyMemberImageViews.size() > 0) {
+            String text = mMyMemberImageViews.size() + "";
+            mTvMyMemberCounterText.setText(text);
+        }
+
+        mCvMatchMember.animate().rotation(0).setDuration(0);
+
+        if (mMemberIndex == mMemberList.size()) {
+            saveGameResult();
+            showDialog(getString(R.string.you_win), R.layout.janken_dialog_win);
+        } else {
+            loadMatchMember();
+        }
     }
 
     private void onDraw() {

@@ -17,6 +17,7 @@ import com.summertaker.akb48guide.data.DataManager;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.janken.JankenStageActivity;
 import com.summertaker.akb48guide.member.TeamListActivity;
+import com.summertaker.akb48guide.puzzle.EnigmaticActivity;
 import com.summertaker.akb48guide.puzzle.PuzzleLevelActivity;
 import com.summertaker.akb48guide.quiz.MemoryActivity;
 import com.summertaker.akb48guide.quiz.QuizActivity;
@@ -28,7 +29,9 @@ import java.util.ArrayList;
 
 public class GroupSelectActivity extends BaseActivity {
 
-    private String mAction;
+    String mAction;
+    String mTitle;
+
     ArrayList<GroupData> mGroupDataList;
 
     @Override
@@ -40,30 +43,24 @@ public class GroupSelectActivity extends BaseActivity {
 
         Intent intent = getIntent();
         mAction = intent.getStringExtra("action");
-        String title = intent.getStringExtra("title");
+        mTitle = intent.getStringExtra("title");
 
         switch (mAction) {
             case Config.MAIN_ACTION_SLIDE:
-                title = getString(R.string.slide);
+                mTitle = getString(R.string.slide);
                 break;
             case Config.MAIN_ACTION_MEMORY:
-                title = getString(R.string.memory);
+                mTitle = getString(R.string.memory);
                 break;
             case Config.MAIN_ACTION_QUIZ:
-                title = getString(R.string.quiz);
+                mTitle = getString(R.string.quiz);
                 break;
         }
-        if (title == null) {
-            title = getString(R.string.app_name);
+        if (mTitle == null) {
+            mTitle = getString(R.string.app_name);
         }
-        //title = title + " / " + getString(R.string.select_a_group);
 
-        initBaseToolbar(Config.TOOLBAR_ICON_BACK, title);
-
-        //TextView tvHeaderTitle = (TextView) findViewById(R.id.tvHeaderTitle);
-        //if (tvHeaderTitle != null) {
-        //    tvHeaderTitle.setText(title);
-        //}
+        initBaseToolbar(Config.TOOLBAR_ICON_BACK, mTitle);
 
         DataManager dataManager = new DataManager(mContext);
         mGroupDataList = dataManager.getGroupList(mAction);
@@ -115,25 +112,12 @@ public class GroupSelectActivity extends BaseActivity {
 
         Intent intent = null;
 
-        Setting setting = new Setting(mContext);
-        String displayProfilePhoto = setting.get(Config.SETTING_DISPLAY_OFFICIAL_PHOTO);
+        //Setting setting = new Setting(mContext);
+        //String displayProfilePhoto = setting.get(Config.SETTING_DISPLAY_OFFICIAL_PHOTO);
 
         switch (mAction) {
             case Config.MAIN_ACTION_MEMBER:
                 intent = new Intent(this, TeamListActivity.class);
-                break;
-            case Config.MAIN_ACTION_SLIDE:
-                if (displayProfilePhoto.equals(Config.SETTING_DISPLAY_OFFICIAL_PHOTO_YES)) {
-                    intent = new Intent(this, SlideActivity.class);
-                } else {
-                    intent = new Intent(this, SlideTextActivity.class);
-                }
-                break;
-            case Config.MAIN_ACTION_MEMORY:
-                intent = new Intent(this, MemoryActivity.class);
-                break;
-            case Config.MAIN_ACTION_QUIZ:
-                intent = new Intent(this, QuizActivity.class);
                 break;
             case Config.MAIN_ACTION_BIRTHDAY:
                 intent = new Intent(this, BirthMonthActivity.class);
@@ -141,17 +125,32 @@ public class GroupSelectActivity extends BaseActivity {
             case Config.MAIN_ACTION_RAW_PHOTO:
                 intent = new Intent(this, RawPhotoSelectActivity.class);
                 break;
-            case Config.MAIN_ACTION_PUZZLE:
-                intent = new Intent(this, PuzzleLevelActivity.class);
-                break;
             case Config.MAIN_ACTION_JANKEN:
                 intent = new Intent(this, JankenStageActivity.class);
+                break;
+            case Config.MAIN_ACTION_SLIDE:
+                //if (displayProfilePhoto.equals(Config.SETTING_DISPLAY_OFFICIAL_PHOTO_YES)) {
+                    intent = new Intent(this, SlideActivity.class);
+                //} else {
+                //    intent = new Intent(this, SlideTextActivity.class);
+                //}
+                break;
+            case Config.MAIN_ACTION_MEMORY:
+                intent = new Intent(this, MemoryActivity.class);
+                break;
+            case Config.MAIN_ACTION_QUIZ:
+                intent = new Intent(this, QuizActivity.class);
+                break;
+            case Config.MAIN_ACTION_PUZZLE:
+            case Config.MAIN_ACTION_ENIGMATIC:
+                intent = new Intent(this, PuzzleLevelActivity.class);
                 break;
         }
         //intent = new Intent(this, QuizResultActivity.class);
 
         if (intent != null) {
             intent.putExtra("action", mAction);
+            intent.putExtra("title", mTitle);
             intent.putExtra("groupData", groupData);
             //showToolbarProgressBar();
             startActivityForResult(intent, 0);

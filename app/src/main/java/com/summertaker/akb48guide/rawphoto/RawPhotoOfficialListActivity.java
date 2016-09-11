@@ -26,14 +26,9 @@ import com.summertaker.akb48guide.data.WebData;
 import com.summertaker.akb48guide.parser.Akb48ShopParser;
 import com.summertaker.akb48guide.util.Util;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class RawPhotoOfficialListActivity extends BaseActivity {
 
@@ -75,10 +70,6 @@ public class RawPhotoOfficialListActivity extends BaseActivity {
         mUserAgent = Config.USER_AGENT_MOBILE;
 
         requestData(url, mUserAgent);
-
-        //mRetrofit = new Retrofit.Builder().baseUrl(RetroApi.BASE_URL_AKB48_SHOP).build();
-        //mRetroApi = mRetrofit.create(RetroApi.class);
-        //requestRetro(url, mUserAgent);
     }
 
     @Override
@@ -133,62 +124,6 @@ public class RawPhotoOfficialListActivity extends BaseActivity {
         //} else {
         //    parseData(url, cacheData);
         //}
-    }
-
-    private void requestRetro(final String url, final String userAgent) {
-
-        // http://shopping.akb48-group.com/products/list.php?akb48&category_id=1841
-        // http://shopping.akb48-group.com/products/list.php?akb48&category_id=1841&pageno=2
-        String categoryId = "";
-        String pageNo = "";
-        String[] array = url.split("category_id=");
-        if (url.contains("pageno=")) {
-            array = array[1].split("&pageno=");
-            categoryId = array[0];
-            pageNo = array[1];
-        } else {
-            categoryId = array[1];
-        }
-
-        switch (mGroupData.getId()) {
-            case Config.GROUP_ID_AKB48:
-                mRetroCall = mRetroApi.getRawPhotoAkb48(userAgent, categoryId, pageNo);
-                break;
-            case Config.GROUP_ID_SKE48:
-                mRetroCall = mRetroApi.getRawPhotoSke48(userAgent, categoryId, pageNo);
-                break;
-            case Config.GROUP_ID_NMB48:
-                mRetroCall = mRetroApi.getRawPhotoNmb48(userAgent, categoryId, pageNo);
-                break;
-            case Config.GROUP_ID_HKT48:
-                mRetroCall = mRetroApi.getRawPhotoHkt48(userAgent, categoryId, pageNo);
-                break;
-        }
-        mRetroCall.enqueue(new Callback<ResponseBody>() {
-
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                try {
-                    if (response == null || response.body() == null) {
-                        Log.e(mTag, call.request().url().toString());
-                        alertNetworkErrorAndFinish(null);
-                    } else {
-                        String html = response.body().string();
-                        parseData(url, html);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e(mTag, "onResponse: " + e.getMessage());
-                    alertNetworkErrorAndFinish(e.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e(mTag, "onFailure: " + t.getMessage());
-                alertNetworkErrorAndFinish(t.getMessage());
-            }
-        });
     }
 
     private void parseData(String url, String response) {

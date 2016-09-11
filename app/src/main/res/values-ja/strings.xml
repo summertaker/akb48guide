@@ -16,6 +16,8 @@
     <string name="fa_rotate_right">&#xf01e;</string>
     <string name="fa_gavel">&#xf0e3;</string>
     <string name="fa_caret_down">&#xf0d7;</string>
+    <string name="fa_th_large">&#xf009;</string>
+    <string name="fa_delicious">&#xf1a5;</string>
 
     <string name="version_s">バージョン %1$s</string>
     <string name="s_people">%s人</string>
@@ -233,5 +235,6 @@
     <string name="action_select">選択</string>
     <string name="you_win">勝ちました。</string>
     <string name="you_lose">負けました。</string>
+    <string name="puzzle2">パズル II</string>
 </resources>
 

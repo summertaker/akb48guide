@@ -19,9 +19,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.summertaker.akb48guide.R;
-import com.summertaker.akb48guide.common.CacheManager;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.BaseApplication;
+import com.summertaker.akb48guide.common.CacheManager;
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.data.MemberData;
@@ -31,14 +31,9 @@ import com.summertaker.akb48guide.parser.BaseParser;
 import com.summertaker.akb48guide.parser.ChibakanParser;
 import com.summertaker.akb48guide.util.Util;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class RawPhotoSelectActivity extends BaseActivity {
 
@@ -182,50 +177,6 @@ public class RawPhotoSelectActivity extends BaseActivity {
                 }
             }
         }
-    }
-
-    private void requestRetro(final String url, final String userAgent) {
-
-        // http://shopping.akb48-group.com/products/list.php?akb48&category_id=1841
-        String[] array = url.split("category_id=");
-        String categoryId = array[1];
-
-        switch (mGroupData.getId()) {
-            case Config.GROUP_ID_AKB48:
-                mRetroCall = mRetroApi.getRawPhotoAkb48(userAgent, categoryId, "");
-                break;
-            case Config.GROUP_ID_SKE48:
-                mRetroCall = mRetroApi.getRawPhotoSke48(userAgent, categoryId, "");
-                break;
-            case Config.GROUP_ID_NMB48:
-                mRetroCall = mRetroApi.getRawPhotoNmb48(userAgent, categoryId, "");
-                break;
-            case Config.GROUP_ID_HKT48:
-                mRetroCall = mRetroApi.getRawPhotoHkt48(userAgent, categoryId, "");
-                break;
-        }
-        mRetroCall.enqueue(new Callback<ResponseBody>() {
-
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                //Log.e(mTag, "onResponse: " + call.request().url().toString());
-                try {
-                    String html = response.body().string();
-                    parseRetro(url, html);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e(mTag, "onResponse: " + e.getMessage());
-                    alertNetworkErrorAndFinish(e.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e(mTag, "onFailure: " + call.request().url().toString());
-                Log.e(mTag, "onFailure: " + t.getMessage());
-                alertNetworkErrorAndFinish(t.getMessage());
-            }
-        });
     }
 
     private void parseRetro(String url, String response) {
