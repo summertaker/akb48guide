@@ -34,7 +34,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
 
-        // Set the background frame color
+        // Set the enigma_background frame color
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         mTriangle = new Triangle();
@@ -45,7 +45,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 unused) {
         float[] scratch = new float[16];
 
-        // Draw background color
+        // Draw enigma_background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
         // Set the camera position (View matrix)

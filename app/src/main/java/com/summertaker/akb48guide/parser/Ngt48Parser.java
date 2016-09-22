@@ -524,7 +524,7 @@ public class Ngt48Parser extends BaseParser {
                 <div class="contents_box ico_new">
                     <a href="https://ngt48.com/photolog/detail/100024469">
                         <figure>
-                            <span class="image_bg" style="background-image:url(https://ngt48.com/ngt48/artist_photo_stream/100024469/ngt_1464523137925.jpeg);"></span>
+                            <span class="image_bg" style="enigma_background-image:url(https://ngt48.com/ngt48/artist_photo_stream/100024469/ngt_1464523137925.jpeg);"></span>
                             <figcaption>
                                 <time>2016.05.29</time>
                                 <span class="talent">荻野 由佳</span>
@@ -569,7 +569,7 @@ public class Ngt48Parser extends BaseParser {
 
                 el = base.select("span.image_bg").first();
                 thumbnailUrl = el.attr("style");
-                thumbnailUrl = thumbnailUrl.replace("background-image:url(", "");
+                thumbnailUrl = thumbnailUrl.replace("enigma_background-image:url(", "");
                 thumbnailUrl = thumbnailUrl.replace(");", "");
 
                 base = base.select("figcaption").first();

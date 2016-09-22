@@ -58,7 +58,7 @@
             android:id="@+id/profilePictureBottomline"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#f6f6f6"
+            android:enigma_background="#f6f6f6"
             android:visibility="gone" />-->
 
         <!-- 일본어 이름 -->

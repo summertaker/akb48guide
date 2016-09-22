@@ -19,6 +19,8 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+
+        //FontLoader.loadFonts(this);
     }
 
     public static synchronized BaseApplication getInstance() {

@@ -218,13 +218,13 @@ public class WikipediaEnParser extends BaseParser {
                     </span>
                 </td>
                 <td style="text-align:left;"><span style="display:none">(<span class="bday">1995-12-03</span>)</span> December 3, 1995 <span class="noprint ForceAgeToShow">(age&#160;20)</span></td>
-                <td style="background:#bbb;"><span style="display:none" class="sortkey">7002999000000000000♠</span>&#160;</td>
-                <td style="background:#ececec; color:gray;"><span style="display:none" class="sortkey">7002888000000000000♠</span><small style="font-size:85%;">N/A</small></td>
-                <td style="background:#ececec; color:gray;"><span style="display:none" class="sortkey">7002888000000000000♠</span><small style="font-size:85%;">N/A</small></td>
-                <td style="background:#ececec; color:gray;"><span style="display:none" class="sortkey">7002888000000000000♠</span><small style="font-size:85%;">N/A</small></td>
+                <td style="enigma_background:#bbb;"><span style="display:none" class="sortkey">7002999000000000000♠</span>&#160;</td>
+                <td style="enigma_background:#ececec; color:gray;"><span style="display:none" class="sortkey">7002888000000000000♠</span><small style="font-size:85%;">N/A</small></td>
+                <td style="enigma_background:#ececec; color:gray;"><span style="display:none" class="sortkey">7002888000000000000♠</span><small style="font-size:85%;">N/A</small></td>
+                <td style="enigma_background:#ececec; color:gray;"><span style="display:none" class="sortkey">7002888000000000000♠</span><small style="font-size:85%;">N/A</small></td>
                 <td>30</td>
                 <td>20</td>
-                <td style="background:#bbb;"><span style="display:none" class="sortkey">7002999000000000000♠</span>&#160;</td>
+                <td style="enigma_background:#bbb;"><span style="display:none" class="sortkey">7002999000000000000♠</span>&#160;</td>
             </tr>
             ...
             */

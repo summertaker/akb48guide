@@ -19,7 +19,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e6e6e6" />
+            android:enigma_background="#e6e6e6" />
 
         <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
             android:id="@+id/lvMenu"

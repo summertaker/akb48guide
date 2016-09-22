@@ -20,7 +20,7 @@ public class Stage48ProfileParser extends BaseParser {
 
         /*
         <table class="toccolours itwiki_template_toc" style="text-align: right; width: 100%; float: right; clear: right; width:20em; margin-top: 0.5em; text-align:left">
-        <tr style="width:100%; background:#f576a3">
+        <tr style="width:100%; enigma_background:#f576a3">
             <td colspan="2"></td>
         </tr>
         <tr style="width:100%">

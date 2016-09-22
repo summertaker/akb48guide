@@ -68,7 +68,7 @@ public class PuzzleLevelActivity extends BaseActivity {
             case Config.MAIN_ACTION_PUZZLE:
                 intent = new Intent(this, PuzzleActivity.class);
                 break;
-            case Config.MAIN_ACTION_ENIGMATIC:
+            case Config.MAIN_ACTION_ENIGMA:
                 intent = new Intent(this, EnigmaticActivity.class);
                 break;
         }

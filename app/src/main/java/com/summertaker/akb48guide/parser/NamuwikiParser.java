@@ -323,7 +323,7 @@ public class NamuwikiParser extends BaseParser {
             <table class='wiki-table'>
                 ...
                 <tr>
-                    <td colspan='2' style='text-align:center;background-color:#F6F6F6'>
+                    <td colspan='2' style='text-align:center;enigma_background-color:#F6F6F6'>
                         <span class='wiki-color' style='color:#000000'><strong>이리야마 안나</strong> (入山 杏奈) </span>
                     </td>
                 </tr>

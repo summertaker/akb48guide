@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="80dp"
-        android:background="@drawable/progress_bar_circle" />-->
+        android:enigma_background="@drawable/progress_bar_circle" />-->
 
     <LinearLayout
         android:id="@+id/loFooter"

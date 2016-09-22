@@ -54,7 +54,7 @@ public class Config {
     public final static String MAIN_ACTION_MEMORY = "MEMORY";
     public final static String MAIN_ACTION_QUIZ = "QUIZ";
     public final static String MAIN_ACTION_PUZZLE = "PUZZLE";
-    public final static String MAIN_ACTION_ENIGMATIC = "ENIGMATIC";
+    public final static String MAIN_ACTION_ENIGMA = "ENIGMA";
     public final static String MAIN_ACTION_OSHIMEN = "OSHIMEN";
 
     public final static String TOOLBAR_ICON_LOGO = "logo";

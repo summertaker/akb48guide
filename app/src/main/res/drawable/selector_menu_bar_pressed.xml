@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
        android:shape="rectangle" >
 
-    <!-- background color -->
+    <!-- enigma_background color -->
     <solid android:color="@color/menu_pressed" >
     </solid>
 

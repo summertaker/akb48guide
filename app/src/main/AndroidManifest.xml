@@ -261,9 +261,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".game.GameMainActivity"
+            android:name=".enigma.EnigmaMainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.Fullscreen"/>
     </application>
 
 </manifest>

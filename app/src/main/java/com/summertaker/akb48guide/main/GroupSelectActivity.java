@@ -140,7 +140,7 @@ public class GroupSelectActivity extends BaseActivity {
                 intent = new Intent(this, QuizActivity.class);
                 break;
             case Config.MAIN_ACTION_PUZZLE:
-            case Config.MAIN_ACTION_ENIGMATIC:
+            case Config.MAIN_ACTION_ENIGMA:
                 intent = new Intent(this, PuzzleLevelActivity.class);
                 break;
         }

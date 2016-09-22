@@ -26,6 +26,7 @@ import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.MenuData;
 import com.summertaker.akb48guide.election.ElectionListActivity;
+import com.summertaker.akb48guide.enigma.EnigmaMainActivity;
 import com.summertaker.akb48guide.janken.JankenGroupActivity;
 import com.summertaker.akb48guide.main.AboutActivity;
 import com.summertaker.akb48guide.main.GroupSelectActivity;
@@ -114,12 +115,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 janken.setFaTextColor(Color.parseColor("#ffffff"));
                 mMenuDatas.add(janken);
 
-                /*MenuData puzzle2 = new MenuData(Config.MAIN_ACTION_ENIGMATIC, getString(R.string.puzzle2), 0);
+                MenuData puzzle2 = new MenuData(Config.MAIN_ACTION_ENIGMA, getString(R.string.puzzle2), 0);
                 puzzle2.setFaBackIcon(R.string.fa_circle);
                 puzzle2.setFaBackColor(Color.parseColor("#ffa000"));
                 puzzle2.setFaTextIcon(R.string.fa_delicious);
                 puzzle2.setFaTextColor(Color.parseColor("#ffffff"));
-                mMenuDatas.add(puzzle2);*/
+                mMenuDatas.add(puzzle2);
 
                 MainMenuAdapter adapter = new MainMenuAdapter(mContext, mMenuDatas);
                 GridView gridView = (GridView) findViewById(R.id.gridView);
@@ -144,6 +145,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                                     break;
                                 case Config.MAIN_ACTION_JANKEN:
                                     intent = new Intent(mContext, JankenGroupActivity.class);
+                                    break;
+                                case Config.MAIN_ACTION_ENIGMA:
+                                    intent = new Intent(mContext, EnigmaMainActivity.class);
                                     break;
                                 default:
                                     intent = new Intent(mContext, GroupSelectActivity.class);

@@ -91,7 +91,7 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="15dp"
-                android:background="#ccc" />-->
+                android:enigma_background="#ccc" />-->
 
             <!-- 언어별 이름 -->
             <TextView
