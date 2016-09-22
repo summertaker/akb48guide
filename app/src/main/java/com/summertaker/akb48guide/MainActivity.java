@@ -27,6 +27,10 @@ import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.MenuData;
 import com.summertaker.akb48guide.election.ElectionListActivity;
 import com.summertaker.akb48guide.janken.JankenGroupActivity;
+import com.summertaker.akb48guide.main.AboutActivity;
+import com.summertaker.akb48guide.main.GroupSelectActivity;
+import com.summertaker.akb48guide.main.MainMenuAdapter;
+import com.summertaker.akb48guide.main.SettingActivity;
 import com.summertaker.akb48guide.rawphoto.RawPhotoMainActivity;
 
 import java.util.ArrayList;

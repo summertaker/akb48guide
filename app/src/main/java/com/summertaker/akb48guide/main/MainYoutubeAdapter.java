@@ -1,25 +1,27 @@
-package com.summertaker.akb48guide;
+package com.summertaker.akb48guide.main;
 
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
-import com.summertaker.akb48guide.data.GroupData;
+import com.summertaker.akb48guide.data.SiteData;
 
 import java.util.ArrayList;
 
-public class GroupSelectTextAdapter extends BaseDataAdapter {
+public class MainYoutubeAdapter extends BaseDataAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
-    private ArrayList<GroupData> mDataList = new ArrayList<>();
+    ArrayList<SiteData> mDataList = new ArrayList<>();
 
-    public GroupSelectTextAdapter(Context context, ArrayList<GroupData> dataList) {
+    public MainYoutubeAdapter(Context context, ArrayList<SiteData> dataList) {
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mDataList = dataList;
@@ -47,22 +49,27 @@ public class GroupSelectTextAdapter extends BaseDataAdapter {
 
         if (view == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-            view = mLayoutInflater.inflate(R.layout.group_select_text_item, null);
+            view = mLayoutInflater.inflate(R.layout.main_youtube_item, null);
 
             holder = new ViewHolder();
-            holder.tvName = (TextView) view.findViewById(R.id.tvName);
+            holder.logo = (ImageView) view.findViewById(R.id.ivLogo);
+            holder.title = (TextView) view.findViewById(R.id.tvTitle);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
-        GroupData item = mDataList.get(position);
-        holder.tvName.setText(item.getName());
+        SiteData item = mDataList.get(position);
+        holder.logo.setImageResource(item.getImage());
+        holder.title.setText(item.getName());
+
+        //Log.e(mTag, "item.getName(): " + item.getName());
 
         return view;
     }
 
     static class ViewHolder {
-        TextView tvName;
+        ImageView logo;
+        TextView title;
     }
 }

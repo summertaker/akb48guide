@@ -1,4 +1,4 @@
-package com.summertaker.akb48guide;
+package com.summertaker.akb48guide.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,20 +9,18 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
+import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.birthday.BirthMonthActivity;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.Config;
-import com.summertaker.akb48guide.common.Setting;
 import com.summertaker.akb48guide.data.DataManager;
 import com.summertaker.akb48guide.data.GroupData;
 import com.summertaker.akb48guide.janken.JankenStageActivity;
 import com.summertaker.akb48guide.member.TeamListActivity;
-import com.summertaker.akb48guide.puzzle.EnigmaticActivity;
 import com.summertaker.akb48guide.puzzle.PuzzleLevelActivity;
 import com.summertaker.akb48guide.quiz.MemoryActivity;
 import com.summertaker.akb48guide.quiz.QuizActivity;
 import com.summertaker.akb48guide.quiz.SlideActivity;
-import com.summertaker.akb48guide.quiz.SlideTextActivity;
 import com.summertaker.akb48guide.rawphoto.RawPhotoSelectActivity;
 
 import java.util.ArrayList;

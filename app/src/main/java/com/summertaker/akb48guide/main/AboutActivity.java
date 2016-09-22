@@ -1,7 +1,8 @@
-package com.summertaker.akb48guide;
+package com.summertaker.akb48guide.main;
 
 import android.os.Bundle;
 
+import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseActivity;
 import com.summertaker.akb48guide.common.Config;
 

@@ -1,15 +1,15 @@
-package com.summertaker.akb48guide;
+package com.summertaker.akb48guide.main;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseFragment;
 import com.summertaker.akb48guide.common.BaseFragmentInterface;
 import com.summertaker.akb48guide.common.Config;

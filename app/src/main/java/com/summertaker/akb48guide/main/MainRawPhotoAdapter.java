@@ -1,4 +1,4 @@
-package com.summertaker.akb48guide;
+package com.summertaker.akb48guide.main;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,19 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
 import com.summertaker.akb48guide.data.SiteData;
 
 import java.util.ArrayList;
 
-public class MainYoutubeAdapter extends BaseDataAdapter {
+public class MainRawPhotoAdapter extends BaseDataAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
     ArrayList<SiteData> mDataList = new ArrayList<>();
 
-    public MainYoutubeAdapter(Context context, ArrayList<SiteData> dataList) {
+    public MainRawPhotoAdapter(Context context, ArrayList<SiteData> dataList) {
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mDataList = dataList;
@@ -48,7 +49,7 @@ public class MainYoutubeAdapter extends BaseDataAdapter {
 
         if (view == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-            view = mLayoutInflater.inflate(R.layout.main_youtube_item, null);
+            view = mLayoutInflater.inflate(R.layout.main_raw_photo_item, null);
 
             holder = new ViewHolder();
             holder.logo = (ImageView) view.findViewById(R.id.ivLogo);

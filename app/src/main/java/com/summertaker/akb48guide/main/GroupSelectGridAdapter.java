@@ -1,4 +1,4 @@
-package com.summertaker.akb48guide;
+package com.summertaker.akb48guide.main;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
 import com.summertaker.akb48guide.data.GroupData;
 

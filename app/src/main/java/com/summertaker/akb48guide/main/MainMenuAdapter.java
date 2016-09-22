@@ -1,4 +1,4 @@
-package com.summertaker.akb48guide;
+package com.summertaker.akb48guide.main;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.summertaker.akb48guide.R;
 import com.summertaker.akb48guide.common.BaseDataAdapter;
 import com.summertaker.akb48guide.common.Config;
 import com.summertaker.akb48guide.data.MenuData;
