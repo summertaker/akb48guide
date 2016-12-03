@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
-            android:src="@drawable/enigma_animals_theme_star_0" />
+            android:src="@null" />
 
     </RelativeLayout>
 
@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
-            android:src="@drawable/enigma_monsters_theme_star_0" />
+            android:src="@null" />
     </RelativeLayout>
 
 </LinearLayout>
